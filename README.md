@@ -10,3 +10,5 @@ There are also some example in Code folder, pleae enjoy this, thanks.
   * [Move File](https://github.com/bearfly1990/PowerScript/wiki/PowerShell(V5.1.X)#move-file)
   * [Copy File](https://github.com/bearfly1990/PowerScript/wiki/PowerShell(V5.1.X)#copy-file)
   * [Simple SqlServer Connection](https://github.com/bearfly1990/PowerScript/wiki/PowerShell(V5.1.X)#simple-sqlserver-connection)
+* [Java](https://github.com/bearfly1990/PowerScript/wiki/Java)
+  * [Http Request Get/Post](https://github.com/bearfly1990/PowerScript/wiki/Java#http-request-getpost)
