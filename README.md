@@ -12,3 +12,4 @@ There are also some example in Code folder, pleae enjoy this, thanks.
   * [Simple SqlServer Connection](https://github.com/bearfly1990/PowerScript/wiki/PowerShell(V5.1.X)#simple-sqlserver-connection)
 * [Java](https://github.com/bearfly1990/PowerScript/wiki/Java)
   * [Http Request Get/Post](https://github.com/bearfly1990/PowerScript/wiki/Java#http-request-getpost)
+  * [Search string in Files/Directory](https://github.com/bearfly1990/PowerScript/wiki/Java#search-string-in-filesdirectory)
