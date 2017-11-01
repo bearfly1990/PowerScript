@@ -13,3 +13,4 @@ There are also some example in Code folder, pleae enjoy this, thanks.
 * [Java](https://github.com/bearfly1990/PowerScript/wiki/Java)
   * [Http Request Get/Post](https://github.com/bearfly1990/PowerScript/wiki/Java#http-request-getpost)
   * [Search string in Files/Directory](https://github.com/bearfly1990/PowerScript/wiki/Java#search-string-in-filesdirectory)
+  * [Encode/Decode File](https://github.com/bearfly1990/PowerScript/wiki/Java#encodedecode-file)
