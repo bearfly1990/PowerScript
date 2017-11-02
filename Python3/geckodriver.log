@@ -1,0 +1,14 @@
+1509634120097	geckodriver	INFO	Listening on 127.0.0.1:57473
+1509634120612	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.rc9yhYpRra7V
+1509634120626	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509634120965	geckodriver::marionette	INFO	Connecting to Marionette on localhost:57478
+1509634133288	Marionette	INFO	Listening on port 57478
+[GPU 9972] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509634133846	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/plugins/every_cookie_4644b13.js, line 4: ReferenceError: c is not defined
+JavaScript warning: http://csdnimg.cn/rabbit/exposure-click/main.js?20170802001, line 500: unreachable code after return statement
+JavaScript warning: http://csdnimg.cn/rabbit/exposure-click/main.js?20170802001, line 500: unreachable code after return statement
+[GPU 9972] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+

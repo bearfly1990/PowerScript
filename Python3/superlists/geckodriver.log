@@ -1,0 +1,7 @@
+1509634938321	geckodriver	INFO	Listening on 127.0.0.1:57896
+1509634938836	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.lFurM8dKBGbP
+1509634938848	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509634939285	geckodriver::marionette	INFO	Connecting to Marionette on localhost:57900
+1509634952826	Marionette	INFO	Listening on port 57900
+[GPU 10988] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509634953279	Marionette	WARN	TLS certificate errors will be ignored for this session
