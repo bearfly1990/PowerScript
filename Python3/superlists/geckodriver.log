@@ -8,3 +8,127 @@
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+1509847297522	geckodriver	INFO	Listening on 127.0.0.1:49650
+1509847297944	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.ZRCEZXCz9mSI
+1509847297960	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509847298350	geckodriver::marionette	INFO	Connecting to Marionette on localhost:49654
+1509847310038	Marionette	INFO	Listening on port 49654
+1509847310521	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509847311855	Marionette	INFO	New connections will no longer be accepted
+1509847584647	geckodriver	INFO	Listening on 127.0.0.1:49696
+1509847585179	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.eBj7jioW9YtW
+1509847585194	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509847585616	geckodriver::marionette	INFO	Connecting to Marionette on localhost:49700
+1509847599490	Marionette	INFO	Listening on port 49700
+[GPU 11412] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509847600135	Marionette	WARN	TLS certificate errors will be ignored for this session
+[GPU 11412] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 11412] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1509847625601	geckodriver	INFO	Listening on 127.0.0.1:49745
+1509847626085	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.facgg9URuEhn
+1509847626085	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509847626367	geckodriver::marionette	INFO	Connecting to Marionette on localhost:49749
+1509847637767	Marionette	INFO	Listening on port 49749
+[GPU 564] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509847638059	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Child 4068] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4068] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509847697534	addons.productaddons	WARN	Failed downloading via XHR, status: 0, reason: error
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1509847712307	geckodriver	INFO	Listening on 127.0.0.1:49797
+1509847712823	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.z2whjkTDUb0V
+1509847712838	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509847713120	geckodriver::marionette	INFO	Connecting to Marionette on localhost:49801
+1509847724637	Marionette	INFO	Listening on port 49801
+[GPU 17188] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509847725518	Marionette	WARN	TLS certificate errors will be ignored for this session
+[GPU 17188] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 17188] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: NetworkError when attempting to fetch resource.
+Full stack: 
+*************************
+[Child 3708] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: NetworkError when attempting to fetch resource.
+Full stack: 
+*************************
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: NetworkError when attempting to fetch resource.
+Full stack: [10]</request/<@resource://gre/modules/services-common/kinto-http-client.js:1869:7
+request@resource://gre/modules/services-common/kinto-http-client.js:1862:12
+fetchServerInfo@resource://gre/modules/services-common/kinto-http-client.js:559:12
+fetchServerSettings@resource://gre/modules/services-common/kinto-http-client.js:573:12
+wrappedMethod@resource://gre/modules/services-common/kinto-http-client.js:2313:18
+execute@resource://gre/modules/services-common/kinto-http-client.js:706:21
+paginatedList@resource://gre/modules/services-common/kinto-http-client.js:774:12
+listRecords@resource://gre/modules/services-common/kinto-http-client.js:1673:12
+[6]</pullChanges/<@resource://services-common/kinto-offline-client.js:1729:45
+step@resource://services-common/kinto-offline-client.js:868:183
+[6]</_asyncToGenerator/</</step/<@resource://services-common/kinto-offline-client.js:868:361
+
+*************************
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: NetworkError when attempting to fetch resource.
+Full stack: [10]</request/<@resource://gre/modules/services-common/kinto-http-client.js:1869:7
+request@resource://gre/modules/services-common/kinto-http-client.js:1862:12
+fetchServerInfo@resource://gre/modules/services-common/kinto-http-client.js:559:12
+fetchServerSettings@resource://gre/modules/services-common/kinto-http-client.js:573:12
+wrappedMethod@resource://gre/modules/services-common/kinto-http-client.js:2313:18
+execute@resource://gre/modules/services-common/kinto-http-client.js:706:21
+paginatedList@resource://gre/modules/services-common/kinto-http-client.js:774:12
+listRecords@resource://gre/modules/services-common/kinto-http-client.js:1673:12
+[6]</pullChanges/<@resource://services-common/kinto-offline-client.js:1729:45
+step@resource://services-common/kinto-offline-client.js:868:183
+[6]</_asyncToGenerator/</</step/<@resource://services-common/kinto-offline-client.js:868:361
+observe@resource://gre/modules/AsyncShutdown.jsm:550:9
+
+*************************
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: connection is undefined
+Full stack: syncCollection@resource://gre/modules/services-common/blocklist-clients.js:221:9
+TaskImpl_run@resource://gre/modules/Task.jsm:320:42
+observe@resource://gre/modules/AsyncShutdown.jsm:550:9
+
+*************************
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: connection is undefined
+Full stack: syncCollection@resource://gre/modules/services-common/blocklist-clients.js:221:9
+TaskImpl_run@resource://gre/modules/Task.jsm:320:42
+observe@resource://gre/modules/AsyncShutdown.jsm:550:9
+
+*************************
+*************************
+A coding exception was thrown and uncaught in a Task.
+
+Full message: TypeError: NetworkError when attempting to fetch resource.
+Full stack: 
+*************************
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1509848407816	geckodriver	INFO	Listening on 127.0.0.1:49880
+1509848408332	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.FGIxBtojXWuB
+1509848408332	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509848408644	geckodriver::marionette	INFO	Connecting to Marionette on localhost:49884
+1509848420823	Marionette	INFO	Listening on port 49884
+[GPU 14180] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509848421639	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509848423117	Marionette	INFO	New connections will no longer be accepted
