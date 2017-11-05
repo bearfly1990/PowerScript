@@ -132,3 +132,183 @@ Full stack:
 [GPU 14180] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
 1509848421639	Marionette	WARN	TLS certificate errors will be ignored for this session
 1509848423117	Marionette	INFO	New connections will no longer be accepted
+1509867528675	geckodriver	INFO	Listening on 127.0.0.1:53526
+1509867529179	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.iyMqNrlfGyv3
+1509867529192	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509867529482	geckodriver::marionette	INFO	Connecting to Marionette on localhost:53530
+1509867542328	Marionette	INFO	Listening on port 53530
+1509867542718	Marionette	WARN	TLS certificate errors will be ignored for this session
+[GPU 9612] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1509867596101	geckodriver	INFO	Listening on 127.0.0.1:53568
+1509867596582	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.Vj8rhWGzhT3m
+1509867596594	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509867596872	geckodriver::marionette	INFO	Connecting to Marionette on localhost:53572
+1509867612798	Marionette	INFO	Listening on port 53572
+1509867613301	Marionette	WARN	TLS certificate errors will be ignored for this session
+[GPU 17976] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1509867720243	geckodriver	INFO	Listening on 127.0.0.1:53610
+1509867720739	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.prKAKGtuPfTz
+1509867720752	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509867721035	geckodriver::marionette	INFO	Connecting to Marionette on localhost:53614
+1509867733131	Marionette	INFO	Listening on port 53614
+[GPU 14228] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509867734146	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509867736325	Marionette	INFO	New connections will no longer be accepted
+1509867865253	geckodriver	INFO	Listening on 127.0.0.1:53731
+1509867865716	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.weAIVaz8OTNl
+1509867865728	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509867866008	geckodriver::marionette	INFO	Connecting to Marionette on localhost:53735
+1509867879484	Marionette	INFO	Listening on port 53735
+[GPU 17600] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509867879597	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509867880940	Marionette	INFO	New connections will no longer be accepted
+1509868072206	geckodriver	INFO	Listening on 127.0.0.1:53943
+1509868072689	mozprofile::profile	INFO	Using profile path C:\Users\chenx\AppData\Local\Temp\rust_mozprofile.El8JZTwmMWoh
+1509868072703	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe
+1509868072986	geckodriver::marionette	INFO	Connecting to Marionette on localhost:53947
+1509868086855	Marionette	INFO	Listening on port 53947
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509868088142	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://pos.baidu.com/bcym?mpdi=227509&rtbid=1972219&rdid=9223372032564532863&dc=2&di=968278&dri=0&dis=0&dai=0&ps=646x1226&enu=encoding&dcb=___adblockplus&dtm=HTML_POST&dvi=0.0&dci=-1&dpt=none&tsr=0&tpr=1509868250443&cop=zdclassid%3D1069%26zhidaoqid%3D712595343160940685%26zdquery%3D.implicitly_wait%2520Message%253A%2520Missing%2520%27type%27%2520param&ti=python%2Bselenium%E5%90%AF%E5%8A%A8chrome%E6%88%90%E5%8A%9F%EF%BC%8C%E4%BD%86%E6%98%AF%E7%AD%89%E5%BE%85driver.implicitly_wait%E6%8A%A5%E9%94%99Attrib&ari=2&dbv=0&drs=3&pcs=1903x947&pss=1903x2053&cfv=0&cpl=0&chi=1&cce=true&cec=gbk&tlm=1509868255&prot=2&rw=947&ltu=https%3A%2F%2Fzhidao.baidu.com%2Fquestion%2F712595343160940685.html&ltr=https%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3D432lwC-ptllaKHvJsnhWDxazAf4JYj9x14qdAOt7dVLRBKuIIl0H7tZ1uZ57lwxlgQJ1BaMDO3m-S4do5S63Cki_l8cTNOgGOnFKqQKo-ty%26wd%3D%26eqid%3Da351c2bd00003dda0000000459fec2a9&ecd=1&uc=1920x1040&pis=-1x-1&sr=1920x1080&tcn=1509868255&qn=46c372290c041107&dpv=46c372290c041107&tt=1509868249740.5577.5618.5626, line 83: unreachable code after return statement
+JavaScript warning: https://pos.baidu.com/bcym?mpdi=227509&rtbid=1972219&rdid=9223372032564532863&dc=2&di=968278&dri=0&dis=0&dai=0&ps=646x1226&enu=encoding&dcb=___adblockplus&dtm=HTML_POST&dvi=0.0&dci=-1&dpt=none&tsr=0&tpr=1509868250443&cop=zdclassid%3D1069%26zhidaoqid%3D712595343160940685%26zdquery%3D.implicitly_wait%2520Message%253A%2520Missing%2520%27type%27%2520param&ti=python%2Bselenium%E5%90%AF%E5%8A%A8chrome%E6%88%90%E5%8A%9F%EF%BC%8C%E4%BD%86%E6%98%AF%E7%AD%89%E5%BE%85driver.implicitly_wait%E6%8A%A5%E9%94%99Attrib&ari=2&dbv=0&drs=3&pcs=1903x947&pss=1903x2053&cfv=0&cpl=0&chi=1&cce=true&cec=gbk&tlm=1509868255&prot=2&rw=947&ltu=https%3A%2F%2Fzhidao.baidu.com%2Fquestion%2F712595343160940685.html&ltr=https%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3D432lwC-ptllaKHvJsnhWDxazAf4JYj9x14qdAOt7dVLRBKuIIl0H7tZ1uZ57lwxlgQJ1BaMDO3m-S4do5S63Cki_l8cTNOgGOnFKqQKo-ty%26wd%3D%26eqid%3Da351c2bd00003dda0000000459fec2a9&ecd=1&uc=1920x1040&pis=-1x-1&sr=1920x1080&tcn=1509868255&qn=46c372290c041107&dpv=46c372290c041107&tt=1509868249740.5577.5618.5626, line 83: unreachable code after return statement
+JavaScript error: https://cdn.sstatic.net/Js/stub.en.js?v=6b11ca64614e, line 1: ReferenceError: $ is not defined
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 44: TypeError: StackExchange.ready is not a function
+JavaScript error: https://cdn.sstatic.net/Js/stub.en.js?v=6b11ca64614e, line 1: ReferenceError: $ is not defined
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 76: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 277: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 364: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 373: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 763: TypeError: StackExchange.ifUsing is not a function
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 774: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 842: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 883: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/44254222/webdriverexception-missing-type-parameter, line 1149: TypeError: StackExchange.ready is not a function
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+JavaScript error: http://tb1.bdstatic.com/??tb/static-pcommon/lib/tb_lib_9326144.js,tb/static-pcommon/ui/common_logic_v2_fe1876b.js,tb/static-pcommon/js/tb_ui_4ec68ad.js,/tb/_/ban_7debaca.js, line 22: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://zhidao.baidu.com/question/712595343160940685.html, line 111: TypeError: location is null
+JavaScript error: https://dup.baidustatic.com/js/ds.js, line 1: NS_ERROR_NOT_INITIALIZED: 
+JavaScript warning: http://c.csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: http://csdnimg.cn/rabbit/exposure-click/main.js?v1.15.23, line 500: unreachable code after return statement
+JavaScript warning: http://csdnimg.cn/rabbit/exposure-click/main.js?v1.15.23, line 500: unreachable code after return statement
+JavaScript warning: http://static.blog.csdn.net/Skin/skin3-template/js/skin2017.js?v=2017.042, line 2494: unreachable code after return statement
+JavaScript error: http://c.csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js, line 4: Error: Syntax error, unrecognized expression: #custom{customtype}
+JavaScript warning: http://static.blog.csdn.net/Skin/skin3-template/js/skin2017.js?v=2017.042, line 2494: unreachable code after return statement
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+JavaScript error: http://bdimg.share.baidu.com/static/api/js/trans/logger.js?v=d16ec0e3.js, line 1: TypeError: n.ajax.request is not a function
+JavaScript error: https://cdn.sstatic.net/Js/stub.en.js?v=6b11ca64614e, line 1: ReferenceError: $ is not defined
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 41: TypeError: StackExchange.ready is not a function
+JavaScript error: https://cdn.sstatic.net/Js/stub.en.js?v=6b11ca64614e, line 1: ReferenceError: $ is not defined
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 73: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 274: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 361: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 370: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 888: TypeError: StackExchange.ifUsing is not a function
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 899: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 967: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 1008: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/41190989/how-do-i-install-geckodriver, line 1274: TypeError: StackExchange.ready is not a function
+JavaScript error: https://cdn.sstatic.net/Js/stub.en.js?v=6b11ca64614e, line 1: ReferenceError: $ is not defined
+JavaScript error: https://stackoverflow.com/questions/40388503/how-to-put-geckodriver-into-path, line 43: TypeError: StackExchange.ready is not a function
+JavaScript error: https://cdn.sstatic.net/Js/stub.en.js?v=6b11ca64614e, line 1: ReferenceError: $ is not defined
+JavaScript error: https://stackoverflow.com/questions/40388503/how-to-put-geckodriver-into-path, line 75: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/40388503/how-to-put-geckodriver-into-path, line 276: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/40388503/how-to-put-geckodriver-into-path, line 363: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/40388503/how-to-put-geckodriver-into-path, line 372: TypeError: StackExchange.ready is not a function
+JavaScript error: https://stackoverflow.com/questions/40388503/how-to-put-geckodriver-into-path, line 1321: TypeError: StackExchange.ready is not a function
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+JavaScript error: http://bdimg.share.baidu.com/static/api/js/trans/logger.js?v=d16ec0e3.js, line 1: TypeError: n.ajax.request is not a function
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 14176] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 18404] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 18404] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x4400FA,name=PContent::Msg_AsyncMessage) Channel closing: too late to send/recv, messages will be lost
+
+JavaScript error: resource://gre/modules/PerformanceWatcher-content.js, line 49: NS_ERROR_UNEXPECTED: Component returned failure code: 0x8000ffff (NS_ERROR_UNEXPECTED) [nsIMessageSender.sendAsyncMessage]
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1509870118404	geckodriver	INFO	geckodriver 0.19.1
+1509870118509	geckodriver	INFO	Listening on 127.0.0.1:55131
+1509870118885	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\chenx\\AppData\\Local\\Temp\\rust_mozprofile.2UmN9OQeFxyy"
+1509870136668	Marionette	INFO	Listening on port 2828
+[GPU 11632] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 11632] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1509870264971	geckodriver	INFO	geckodriver 0.19.1
+1509870265028	geckodriver	INFO	Listening on 127.0.0.1:55272
+1509870265857	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\chenx\\AppData\\Local\\Temp\\rust_mozprofile.yp2zZRnEe8xb"
+1509870281071	Marionette	INFO	Listening on port 2828
+[GPU 18248] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 4512] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1509889242109	geckodriver	INFO	geckodriver 0.19.1
+1509889242256	geckodriver	INFO	Listening on 127.0.0.1:59788
+1509889242808	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\chenx\\AppData\\Local\\Temp\\rust_mozprofile.a3mVffHbqvbu"
+1509889249072	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///C:/Program%20Files/Mozilla%20Firefox/omni.ja!/components/addonManager.js:65
+1509889254539	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\chenx\AppData\Local\openvr\openvrpaths.vrpath
+[Child 5348] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 5348] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509889274649	Marionette	INFO	Listening on port 59794
+1509889275275	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509889275476	Marionette	DEBUG	Register listener.js for window 4294967297
+1509889275825	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509889276046	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1509889276047	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1509889276068	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost:8000/"
+1509889276077	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost:8000/"
+1509889276350	Marionette	INFO	New connections will no longer be accepted
+[GFX1-]: Receive [IGFX1-]: ReceivPC cloese w iItPhC  reacsolno=sAeb nwoirtmha lrSehaustodno=wAnb
+normalShutdown
+1509890629846	geckodriver	INFO	geckodriver 0.19.1
+1509890629904	geckodriver	INFO	Listening on 127.0.0.1:60029
+1509890630613	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\chenx\\AppData\\Local\\Temp\\rust_mozprofile.2kgz5jEO2CmD"
+1509890632222	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///C:/Program%20Files/Mozilla%20Firefox/omni.ja!/components/addonManager.js:65
+1509890634912	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\chenx\AppData\Local\openvr\openvrpaths.vrpath
+[Parent 5892] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1509890647224	Marionette	INFO	Listening on port 60033
+1509890648611	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509890648750	Marionette	DEBUG	Register listener.js for window 4294967297
+1509890648946	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509890649058	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1509890649060	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1509890649080	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost:8000/"
+1509890649088	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost:8000/"
+1509890649292	Marionette	INFO	New connections will no longer be accepted
+1509891429713	geckodriver	INFO	geckodriver 0.19.1
+1509891429775	geckodriver	INFO	Listening on 127.0.0.1:60115
+1509891430486	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-profile" "C:\\Users\\chenx\\AppData\\Local\\Temp\\rust_mozprofile.XYWjfAHc9MyO"
+1509891432174	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///C:/Program%20Files/Mozilla%20Firefox/omni.ja!/components/addonManager.js:65
+1509891434368	Marionette	INFO	Enabled via --marionette
+1509891447421	Marionette	INFO	Listening on port 60120
+1509891448058	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509891448287	Marionette	DEBUG	Register listener.js for window 4294967297
+1509891448680	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509891448962	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1509891448964	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1509891448987	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost:8000/"
+1509891448999	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost:8000/"
+1509891452273	Marionette	INFO	New connections will no longer be accepted
+Unable to read VR Path Registry from C:\Users\chenx\AppData\Local\openvr\openvrpaths.vrpath
+[Parent 8772] WARNING: pipe error: 109: file z:/build/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
