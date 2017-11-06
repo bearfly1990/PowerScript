@@ -1,5 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+from time import sleep
 import unittest
 class NewVisitorTest(unittest.TestCase):
 
@@ -23,19 +28,25 @@ class NewVisitorTest(unittest.TestCase):
         )
         # Input "Buy peacock feathers"
         # Her hobby is to fish
-        inputbox.send_keys('Buy peacock feathers');
+        inputbox.send_keys('1: Buy peacock feathers');
         
         # After input enter, page refreshed
         # To-do list show "1:Buy peacock feathers"
         inputbox.send_keys(Keys.ENTER)
+        # locator = (By.LINK_TEXT, 'CSDN')
+        # locator = (By.ID,'id_list_table')
+        # WebDriverWait(self.browser, 20).until(EC.presence_of_element_located(locator))
+        sleep(2)
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacock feathers' for row in rows)
-        )
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        # self.assertTrue(
+            # any(row.text == '1: Buy peacock feathers' for row in rows),
+            # "New to-do item did not appear in table"
+        # )
         # page show another input filed could be type
         # She input "Use peacock feathers to make a fly"
-        self.fail('Finish the test!')
+        # self.fail('Finish the test!')
         # Page refresh again and to-do list show both two items
           
         # She want to know if this websit will remember this list
