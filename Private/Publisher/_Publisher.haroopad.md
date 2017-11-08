@@ -14,7 +14,7 @@ for example:
 User could define functions to retrieve data from different Data Sources
 #### 1.1.2 Report Module
 Report Module is the base element for creating report in Publisher
-- DataTable 
+- DataTable
 - LayoutTable
 - Paragraph
 - TOC(Table of Content)
