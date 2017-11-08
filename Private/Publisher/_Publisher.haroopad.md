@@ -5,30 +5,30 @@
 
 Publisher support several Data Sources
 for example:
-- Sql Server
-- Oracle
-- ODBC
-- OLEDB
-- ESP (StateSteet Inner DS)
+    - Sql Server
+    - Oracle
+    - ODBC
+    - OLEDB
+    - ESP (StateSteet Inner DS)
 
 User could define functions to retrieve data from different Data Sources
 #### 1.1.2 Report Module
 Report Module is the base element for creating report in Publisher
-- DataTable
-- LayoutTable
-- Paragraph
-- TOC(Table of Content)
-- Chart
-- NoteHeader/NoteFooter
-- ...
+    - DataTable
+    - LayoutTable
+    - Paragraph
+    - TOC(Table of Content)
+    - Chart
+    - NoteHeader/NoteFooter
+    - ...
 
 #### 1.1.3 Designer Report
 User could create report by using the already created Modules or define own new elements.
 When report is finished, could release it to different areas
 
-- Public
-- System
-- Private
+    - Public
+    - System
+    - Private
 
 #### 1.1.4 Run Report 
 User could run released reports here
