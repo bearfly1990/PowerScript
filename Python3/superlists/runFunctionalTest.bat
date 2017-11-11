@@ -1,2 +1,2 @@
 python functional_tests.py
-timeout 100
+pause

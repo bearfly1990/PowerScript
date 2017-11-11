@@ -1,2 +1,3 @@
 python manage.py test
-timeout 100
+pause
+::timeout 100
