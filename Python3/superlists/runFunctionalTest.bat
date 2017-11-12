@@ -1,2 +1,0 @@
-python functional_tests.py
-pause
