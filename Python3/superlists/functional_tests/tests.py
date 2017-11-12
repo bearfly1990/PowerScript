@@ -83,6 +83,7 @@ class NewVisitorTest(LiveServerTestCase):
         ## a new user called Apple visit the website
         ## use a new session, make sure old information is not stayed.
         self.browser.quit()
+        sleep(2)
         self.browser = webdriver.Firefox()
         
         #Apple visit the website
@@ -96,13 +97,14 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
         
+        sleep(2)
         apple_list_url = self.browser.current_url
         self.assertRegex(elis_list_url, '/lists/.+')
         self.assertNotEqual(apple_list_url, edith_list_url)
         
         # this page have no edith's list
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNoIn('Buy peacock feather', page_text)
+        self.assertNotIn('Buy peacock feather', page_text)
         self.assertNotIn('make a fly', page_text)
         
         
