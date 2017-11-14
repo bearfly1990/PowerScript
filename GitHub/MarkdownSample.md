@@ -9,6 +9,8 @@ _Italic_ *Italic2*
 print("Hello World!")
 ```
 * Item1
+    * Item1.1
+    * Item1.2
 * Item2
 * Item3
 1. List1
@@ -36,5 +38,6 @@ Horizotal Rules
 - [ ] Task3
 
 emoji1: :+1:, emoji2: :o:
-
+:smile:
+[https://www.webpagefx.com/tools/emoji-cheat-sheet/](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
 \*\* Cancel Markdown Key Word
