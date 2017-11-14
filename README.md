@@ -2,6 +2,7 @@
 Useful scripts be used in daily works, Shell/SQL/Mavan/Git/...  
 You could see the script code in **[Wike](https://github.com/bearfly1990/PowerScript/wiki)** directly.  
 There are also some example in Code folder, pleae enjoy this, thanks.  
+* [GitHub Makedown Sample](https://github.com/bearfly1990/PowerScript/blob/master/GitHub/MakedownSample.md)
 * [PowerShell(V5.1.X)](https://github.com/bearfly1990/PowerScript/wiki/PowerShell(V5.1.X)) 
   * [Get Current Version](https://github.com/bearfly1990/PowerScript/wiki/PowerShell(V5.1.X)#get-current-version)
   * [Set Execution Policy](https://github.com/bearfly1990/PowerScript/wiki/PowerShell(V5.1.X)#setexecutionpolicy)
@@ -17,3 +18,5 @@ There are also some example in Code folder, pleae enjoy this, thanks.
 * [Dos](https://github.com/bearfly1990/PowerScript/wiki/Dos)
   * [Get Current Dir](https://github.com/bearfly1990/PowerScript/wiki/Dos#get-current-dir)
   * [Get DateTime](https://github.com/bearfly1990/PowerScript/wiki/Dos#get-date-time)
+  * [Copy ShortCut To Desktop](https://github.com/bearfly1990/PowerScript/wiki/Dos#copy-shortcut-to-desktop)
+  * [Handle Dir](https://github.com/bearfly1990/PowerScript/wiki/Dos#handle-dir)
