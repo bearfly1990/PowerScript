@@ -1,2 +1,4 @@
+cd %~dp0
 python manage.py makemigrations
-timeout 60
+pause
+REM timeout 60
