@@ -1,1 +1,2 @@
-python %~dp0/manage.py runserver
+cd %~dp0
+python manage.py runserver

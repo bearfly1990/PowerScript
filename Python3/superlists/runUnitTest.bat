@@ -1,3 +1,4 @@
-python %~dp0/manage.py test lists
+cd %~dp0
+python manage.py test lists
 pause
 ::timeout 100
