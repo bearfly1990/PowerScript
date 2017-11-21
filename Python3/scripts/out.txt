@@ -1,0 +1,7 @@
+content = [x.strip().lower() for x in content]
+content = f.readlines()
+content.sort()
+for item in content:
+outfile = open('out.txt', 'w')
+outfile.write("%s\n" % item)
+with open("in.txt") as f:
