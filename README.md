@@ -25,4 +25,4 @@ There are also some example in Code folder, pleae enjoy this, thanks.
     * [Create Login User](https://github.com/bearfly1990/PowerScript/wiki/SQLServer#create-login-user)
     * [Grant Control On Schema](https://github.com/bearfly1990/PowerScript/wiki/SQLServer#grant-control-on-schema)    
 * [Python3](https://github.com/bearfly1990/PowerScript/wiki/Python3)
-    * [Sort Lines in File](https://github.com/bearfly1990/PowerScript/wiki/SQLServer#sort-lines-in-file)
+    * [Sort Lines in File](https://github.com/bearfly1990/PowerScript/wiki/Python3#sort-lines-in-file)
