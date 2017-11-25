@@ -89,7 +89,7 @@ class NewVisitorTest(LiveServerTestCase):
         #Apple visit the website
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNoIn('Buy peacock feather', page_text)
+        self.assertNotIn('Buy peacock feather', page_text)
         self.assertNotIn('make a fly', page_text)
         
         #Apple input a new to-do item, new a list
@@ -99,7 +99,7 @@ class NewVisitorTest(LiveServerTestCase):
         
         sleep(2)
         apple_list_url = self.browser.current_url
-        self.assertRegex(elis_list_url, '/lists/.+')
+        self.assertRegex(apple_list_url, '/lists/.+')
         self.assertNotEqual(apple_list_url, edith_list_url)
         
         # this page have no edith's list
