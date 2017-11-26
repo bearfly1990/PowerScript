@@ -1,0 +1,3 @@
+https://selenium-python.readthedocs.io/
+https://seleniumhq.github.io/selenium/docs/api/java/
+https://huilansame.github.io/huilansame.github.io/archivers/how-to-learn-selenium
