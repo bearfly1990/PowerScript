@@ -20,7 +20,27 @@ class NewVisitorTest(LiveServerTestCase):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(row_text, [row.text for row in rows])
+    
+    def test_layout_and_stling(self):
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
         
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta = 10
+        )
+        
+        inputbox.send_keys('testing\n')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta = 10
+        )
+        
+    @unittest.skip('ignore')
     def test_can_start_a_list_and_retrieve_it_later(self):
         self.browser.get(self.live_server_url)
         # self.browser.get('http://localhost:8000')
