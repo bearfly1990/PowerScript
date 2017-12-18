@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8" />
+        <title>CPU Memory Monitor</title>
+        <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/Chart.bundle.js"></script>
+        <script src="js/utils.js"></script>
+        <script src="js/moment.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                function loadChart(fileName){
+                    var records;
+                    var dataRecords = [];
+                    var dataLabels = [];
+                    var cpuData = [];
+                    var memData = [];
+                    var timeFormat = 'yyyy-MM-dd HH:mm:ss';
+                 
+                    $.ajax({
+                        url : fileName,
+                        dataType : "text",
+                        success :function(data){
+                            records = data.split("\r\n");
+                            records.forEach(function(rec){
+                                if (rec.trim()){
+                                    dataRecord = {
+                                        time:moment(rec.split(";")[0].split("=")[1], timeFormat).toDate(),
+                                        cpuRate:rec.split(";")[1].split("=")[1],
+                                        memRate:rec.split(";")[2].split("=")[1]
+                                    };
+                                    
+                                    dataRecords.push(dataRecord);
+                                    dataLabels.push(dataRecord.time);
+                                    cpuData.push(parseFloat(dataRecord.cpuRate));
+                                    memData.push(parseFloat(dataRecord.memRate));
+                                }
+                            });
+                            var ctx = document.getElementById("canvas").getContext("2d");
+                         
+                            var color = Chart.helpers.color;
+                            var config = {
+                                type: 'line',
+                                data: {
+                                        labels: dataLabels,
+                                        datasets:[{
+                                            label: "CPU",
+                                            backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                                            borderColor: window.chartColors.red,
+                                            fill: false,
+                                            data: cpuData,
+                                        },{
+                                            label: "Memory",
+                                            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                                            borderColor: window.chartColors.blue,
+                                            fill: false,
+                                            data: memData,
+                                        }]
+                                },
+                                options:{
+                                    title:{
+                                        text: "CPU Memory Monitor"
+                                    },
+                                    scales:{
+                                        xAxes: [{
+                                            type: "time",
+                                            time:{
+                                                parser: timeFormat,
+                                                tooltipFormat: 'HH:mm:ss'
+                                            },
+                                            scaleLabel:{
+                                                display: true,
+                                                labelString: 'Date'
+                                            }
+                                        },],
+                                        yAxes: [{
+                                            scaleLabel:{
+                                                display: true,
+                                                labelString: 'value'
+                                            }
+                                        }]
+                                    },
+                                }
+                            };
+                            var chart = new Chart(ctx, config);
+                        }
+                    });
+                }
+                loadChart("Monitor.txt");
+            });
+        </script>
+        <style type="text/css">
+            canvas{
+                -moz-user-select:none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="width:75%;" id="canvasDiv">
+            <canvas id="canvas"></canvas>
+        </div>
+    </body>
+</html>
