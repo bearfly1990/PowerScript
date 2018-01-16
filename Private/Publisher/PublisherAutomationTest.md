@@ -20,30 +20,30 @@ Due to the DB related, so the time to trigger the Test Suite is very important.
 
 BTW, The **1st** step to run the test is to restore the DB
 
-#### 1.2.1 VM-1
+* VM-1
 DB: TestAuto
-##### 1.2.1.1 Publisher Portal (≈25mins)
+  * Publisher Portal (≈25mins)
 Actually, Portal only need Web Broswer(IE/FireFox), no mather which VM is both ok.
 Due to the web operation, it's very quick to finish, easier to find elemments than desktop App.
-##### 1.2.1.2 Publisher Delivery (≈30mins)
+  * Publisher Delivery (≈30mins)
 This functionality is in Publihser Manager.
 We should start [Papercut](http://papercut.codeplex.com/) service before the test. It's the main tools to catch the emails.
 Then Test will compare the emails with baseline.
 
-#### 1.2.2 VM-2
+* VM-2
 DB: TestE2E
-##### 1.2.2.1 Publisher Designer (≈2h)
+  * Publisher Designer (≈2h)
 That's the main Test for the Publisher Client, it include almost the base operations for users.
 Specially, it's trigger by the [TeamCity](http://www.jetbrains.com/teamcity/).
 So we have to start the TeamCity Agent Server first.
 
-#### 1.2.3 VM-3
+* VM-3
 DB: TestAuto
-##### 1.2.3.1 Publisher Manager (≈1h)
+  * Publisher Manager (≈1h)
 Publisher Manager it's smaller thant Designer, the main functionality is to trigger the task and run reports.
 To check reports are generated successfully or not.
 from 5.4, we also add an **SFTP** Delivery Type, so before run this test case, we should start the tiny SFTP Server.
-##### 1.2.3.2  Publisher TAM(Saas Mode)(≈10mins)
+  * Publisher TAM(Saas Mode)(≈10mins)
 TAM = Tenant Management
 It's a new features from 5.3, we only concern about the TAM Administrator, so only tiny test cases.
 
