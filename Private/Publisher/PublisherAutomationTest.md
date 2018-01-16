@@ -33,7 +33,7 @@ Then Test will compare the emails with baseline.
 * VM-2
 DB: TestE2E
   * Publisher Designer (≈2h)
-That's the main Test for the Publisher Client, it include almost the base operations for users.
+  That's the main Test for the Publisher Client, it include almost the base operations for users.
 Specially, it's trigger by the [TeamCity](http://www.jetbrains.com/teamcity/).
 So we have to start the TeamCity Agent Server first.
 
@@ -48,3 +48,12 @@ TAM = Tenant Management
 It's a new features from 5.3, we only concern about the TAM Administrator, so only tiny test cases.
 
 ## 2. QA Deployment
+Demploy the latest Publisher in the enviroment and restore the DB.
+### 2.1 DataBase
+In Publisher, there are two type: Sql Server / Oracle Database, and before any new integration, the DB sould be restored to the Base Line(Base DB). Restore scripts(Powershell) in the DB Server, and be called by TeamCity Agent.
+* Sql Server
+  * There is a Base DB called \*\*\*BaseTrunk, this DB is important and could not be changed unbending. Only the test case will be added or changed, otherwise, we could not change anything in the baseline.
+* Oracle
+  * Actually, Oracle data is based on the SqlServer, there is also a Oracle base DB, but the data is queried from the SqlServer Base DB by script. Only when the DB strucutre is changed, we could apply the updates. and other Oracle DB are based on the base DB.
+### 2.2 Install latest version
+After the build on TeamCity, the artifacts(msi installer) are stored in the shared folder. Each enviroment have the scheduler task to copy and install the latest version. they are triggered by the TeamCity step.
