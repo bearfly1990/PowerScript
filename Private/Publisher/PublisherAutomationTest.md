@@ -1,5 +1,5 @@
 # Publisher Automation Test Summary
-## 1. Automation UI TestSuites
+## Automation UI TestSuites
 ### Test Suites
 All of these UI test are designed by [Ranorex](https://www.ranorex.com/).
 They are stored in the public shared folder, so each VM could visit this.
