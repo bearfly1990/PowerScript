@@ -1,7 +1,7 @@
 # Publisher Summary
-## 1. Publisher Designer
-### 1.1 Report Elements
-#### 1.1.1 Data Source
+## Publisher Designer
+### Report Elements
+#### Data Source
 Publisher support several Data Sources
 for example:
 - Sql Server
@@ -12,7 +12,7 @@ for example:
 
 User could define functions to retrieve data from different Data Sources
 
-#### 1.1.2 Report Module
+#### Report Module
 Report Module is the base element for creating report in Publisher
 - DataTable
 - LayoutTable
@@ -22,24 +22,24 @@ Report Module is the base element for creating report in Publisher
 - NoteHeader/NoteFooter
 - ...
 
-#### 1.1.3 Designer Report
+#### Designer Report
 User could create report by using the already created Modules or define own new elements.
 When report is finished, could release it to different areas, you could create any folder as you like.There is a 'default' folder to use.
 - Public
 - System
 - Private
 
-#### 1.1.4 Run Report
+#### Run Report
 User could run released reports here, user could test the report could run successfully or not. so that could comfirm the service could run it too.
 
-#### 1.1.5 User Defined Function
+#### User Defined Function
 User could define own functions to handle the data
 
-#### 1.1.6 Stylesheet
+#### Stylesheet
 Report could be run with different defined stylesheet. **e.g. font/color/height/width...**
 
-### 1.2 Functional Buttons
-#### 1.2.1 Permission
+### Functional Buttons
+#### Permission
 There are diffrent roles and permissions in publisher
 - Administrator
 - Release Manager
@@ -47,68 +47,68 @@ There are diffrent roles and permissions in publisher
 - Publisher User
 - User Defined Rolles
 
-#### 1.2.2 Parameters
+#### Parameters
 User could define different parameters give them default values, report could import them and override.
 
-#### 1.2.3 Data Source Permission
+#### Data Source Permission
 User should give the data source permission to the report, then the report could run.
 
-#### 1.2.4 ...
+#### ...
 
-## 2. Publisher Manager
-### 2.1 Task
+## Publisher Manager
+### Task
 User could define Task to run the report, there are 3 types:
 - TimeTrigger
 - DBTrigger
 - FileTrigger
 
-### 2.2 External Document
+### External Document
 User could run external document as report, e.g. txt file
 
-### 2.3 Repository
+### Repository
 The reports are stored into repository after running from task.
 There are also **3** areas(system/public/private) and distinguash report and package
 
-### 2.4 Delivery
+### Delivery
 User could define Subscriber and Subscriber Group to receive report by 3 ways:
 - Email
 - File System(Folder)
 - SFTP
 
-### 2.5 Overview
-#### 2.5.1 Monitor
+### Overview
+#### Monitor
 User could see the running report status
 
-#### 2.5.2 Task Overview
+#### Task Overview
 User could see the task status - running/finished/error
 
-#### 2.5.3 Logs
+#### Logs
 - Application Service
 - Publishing Service
 - Delivery Service
 - Web API
 
-## 3. Publisher Portal
+## Publisher Portal
 Portal is web interactive platform, should be set up in IIS.
 
-### 3.1 Templates
+### Templates
 Templates are the reports released to Public/Private
 
-### 3.2 Reports
+### Reports
 Template could be create to report, then schedule/run this report
 
-### 3.3 Scheduler
+### Scheduler
 User could see  the schedulers here. there are several scheduler types:
 - Once
 - Hourly
 - Daily
 - Monthy
 
-### 3.4 Repository
+### Repository
 Similar as in Publisher Manager, reports runned will be stored here.
 
-### 3.5 Monitor
+### Monitor
 We could see succeed/failed reports.
 
-## 4. Web API
+## Web API
 Publisher support api to control the service.
