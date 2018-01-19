@@ -7,5 +7,6 @@ There are also some example in Code folder, pleae enjoy this, thanks.
 * [PowerShell(V5.1.X)](https://github.com/bearfly1990/PowerScript/wiki/PowerShell(V5.1.X)) 
 * [Java](https://github.com/bearfly1990/PowerScript/wiki/Java)
 * [Dos](https://github.com/bearfly1990/PowerScript/wiki/Dos)
+* [SoapUI](https://github.com/bearfly1990/PowerScript/wiki/SoapUI)
 * [SqlServer](https://github.com/bearfly1990/PowerScript/wiki/SQLServer)
 * [Python3](https://github.com/bearfly1990/PowerScript/wiki/Python3)
