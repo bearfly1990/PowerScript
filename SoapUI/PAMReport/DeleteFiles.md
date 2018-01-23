@@ -23,9 +23,9 @@ for (String item : reportsConfig.reportNames) {
 	 		TS_Properties.setPropertyValue( "API_FileProperties", URL_FileProperties_final )
 	 		//testRunner.runTestStep(TS_GetFileID);
 	 		TS_GetFileID.run(testRunner, context);
-	// 		log.info(TS_GetFileID.getPropertyValue("rawRequest"));
-	//		def responseData = TS_GetFileID.testRequest.request.endPoint();
-	//		log.info(responseData["#status#"]);
+			//log.info(TS_GetFileID.getPropertyValue("rawRequest"));
+			//def responseData = TS_GetFileID.testRequest.request.endPoint();
+			//log.info(responseData["#status#"]);
 	
 			def endPoint = TS_GetFileID.testRequest.messageExchange.getEndpoint();
 			//endPoint = TS_DeleteFile.testRequest.messageExchange.getEndpoint();
@@ -61,7 +61,7 @@ for (String item : reportsConfig.reportNames) {
 				throw new Exception("File not Found:" + URL_FileProperties_final);
 			}
 			Thread.sleep(3000);
-	//		def responseHolder = GroovyUtils.getXmlHolder( );
+			//def responseHolder = GroovyUtils.getXmlHolder( );
 	 		//log.info(URL_FileProperties_final);
 	 		
 	 	}
