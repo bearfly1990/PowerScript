@@ -19,6 +19,8 @@ print("Hello World!")
 > This is Blockquotes
 Horizotal Rules
 ***
+![Chartjs](http://www.chartjs.org/img/chartjs-logo.svg)
+
 [Baidu](www.baidu.com)
 
 [Link to Baidu][1]
