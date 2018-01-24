@@ -41,5 +41,7 @@ Horizotal Rules
 
 emoji1: :+1:, emoji2: :o:
 :smile:
+
 [https://www.webpagefx.com/tools/emoji-cheat-sheet/](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
+
 \*\* Cancel Markdown Key Word
