@@ -1,4 +1,5 @@
 ### XML Utils
+> 2:46 PM 2/22/2018 currently, there is only the method to read object from xml ty XPath
 ```Java
 package com.ssgx.pamreport.test.dbcompare.utils;
 
