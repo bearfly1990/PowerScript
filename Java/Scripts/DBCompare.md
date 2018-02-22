@@ -81,35 +81,13 @@ public final class ComparisonTest {
                         // remove from the last conflict first, assume 11 at most.
                         // if the table are totally the same, the code below should work any time
                         if (targetIdHash.containsKey(sourceHash)) {
-                            for (int i = 10; i >= 0; i--) {
-                                if (targetIdHash.containsKey(sourceHash + i)) {
-                                    targetIdHash.remove(sourceHash + i);
-                                    break;
-                                }
-                            }
-
-                            for (int i = 10; i >= 0; i--) {
-                                if (sourceIdHash.containsKey(sourceHash + i)) {
-                                    sourceIdHash.remove(sourceHash + i);
-                                    break;
-                                }
-                            }
+                            removeMatchedItem(targetIdHash, sourceHash);
+                            removeMatchedItem(sourceIdHash, sourceHash);
                         }
 
                         if (sourceIdHash.containsKey(targetHash)) {
-                            for (int i = 10; i >= 0; i--) {
-                                if (targetIdHash.containsKey(targetHash + i)) {
-                                    targetIdHash.remove(targetHash + i);
-                                    break;
-                                }
-                            }
-
-                            for (int i = 10; i >= 0; i--) {
-                                if (sourceIdHash.containsKey(targetHash + i)) {
-                                    sourceIdHash.remove(targetHash + i);
-                                    break;
-                                }
-                            }
+                            removeMatchedItem(targetIdHash, targetHash);
+                            removeMatchedItem(sourceIdHash, targetHash);
                         }
 
                     } else {
@@ -179,6 +157,14 @@ public final class ComparisonTest {
         System.out.println("In target and not source : " + targetIdHash.size());
     }
 
+    private void removeMatchedItem( Map<Long, String> hashMap, long hashValue){
+        for (int i = 10; i >= 0; i--) {
+            if (hashMap.containsKey(hashValue + i)) {
+                hashMap.remove(hashValue + i);
+                break;
+            }
+        }
+    }
     private ResultSet getResultSet(final Connection connection, final String tableName, final String... columns) {
         String columnStr = "";
         if (columns.length == 0) {
