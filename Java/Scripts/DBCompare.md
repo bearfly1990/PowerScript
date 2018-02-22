@@ -4,8 +4,6 @@ There is a requirment that my partner want to compare values between two tables 
 So I find an example code in web and enhance it to fit my situation, and there is a precondition that the table should have the id.
 And the result is the unmatched id.
 
-I will update it better if I'm free.
-
 ```Java
 package com.ssgx.pamreport.test.dbcompare.dao;
 
