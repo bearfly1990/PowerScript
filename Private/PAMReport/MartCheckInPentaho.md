@@ -7,9 +7,9 @@ And we plan to create automated test cases for regression test.
 * Using SoapUI to request API Service by Pentaho BA Server.
 ### Sample Steps
 1. Create Reports which include all of the columns for each mart
-2. Prepare properteis files include the report information
-3. Create config file for initing the SoapUI project, include property file information, related test steps...
+2. Prepare properties files include the report information
+3. Create configuration file for init the SoapUI project, include property file information, related test steps...
 4. Get Authorization.
-5. Delete genereated reports last time.
+5. Delete the generated reports last time.
 6. Scheduler all the report.
 7. Check the expected reports are generated successfully or not

@@ -23,14 +23,14 @@ Report Module is the base element for creating report in Publisher
 - ...
 
 #### Designer Report
-User could create report by using the already created Modules or define own new elements.
+User could create report by using the already created Modules or define new elements.
 When report is finished, could release it to different areas, you could create any folder as you like.There is a 'default' folder to use.
 - Public
 - System
 - Private
 
 #### Run Report
-User could run released reports here, user could test the report could run successfully or not. so that could comfirm the service could run it too.
+User could run released reports here, user could test the report could run successfully or not. so that could confirm the service could run it too.
 
 #### User Defined Function
 User could define own functions to handle the data
@@ -112,3 +112,4 @@ We could see succeed/failed reports.
 
 ## Web API
 Publisher support api to control the service.
+e.g. trigger report / download report / delete reprots...
