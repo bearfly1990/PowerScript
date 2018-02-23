@@ -4,8 +4,6 @@ file_expectedColumns = "getExpectedColumns.txt"
 file_input = "getExpectedColumns_in.csv";
 file_output= "getExpectedColumns_out.csv";
 
-
-
 def del_cvs_col(fname, newfname, idxs, delimiter=','):
     with open(fname, 'r') as csvin, open(newfname, 'w', newline='') as csvout:
         reader = csv.reader(csvin, delimiter=delimiter)
