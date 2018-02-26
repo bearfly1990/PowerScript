@@ -7,6 +7,12 @@ git config --global credential.helper store
 ```vim
 $ ssh-keygen -t rsa -C "youremail@example.com"
 ```
+如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面
+
+然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容
+
 ##### Config editor:
 ```vim
 $ export GIT_EDITOR=vim
@@ -218,3 +224,26 @@ $ git push /tmp/repo master # 将本地master分支中的改动提交到/tmp/rep
 $ git pull /tmp/repo master # 将/tmp/repo中的改动同步到本地的master分支中
 ```
 该命令相当于git fetch 加 git merge
+#### 其他(Others)
+##### 拷贝别人的Repository给自己用(Clone other's repository as own)
+1. Create a new repository at github.com. (this is your repository)
+```
+    Give it the same name as as the other repository.
+    Don't initialize it with a README, .gitignore, or license.
+```
+2. Clone the other repository to your local machine. (if you haven't done so already)
+```
+    git clone https://github.com/other-account/other-repository.git
+```
+3. Rename the local repository's current 'origin' to 'upstream'.
+```
+    git remote rename origin upstream
+```
+4. Give the local repository an 'origin' that points to your repository.
+```
+    git remote add origin https://github.com/your-account/your-repository.git
+```
+5. Push the local repository to your repository on github.
+```
+    git push origin master
+```
