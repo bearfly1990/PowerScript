@@ -1,5 +1,5 @@
 # AMS
-**AMS**(AssetManagement System)是道富一家位于瑞士子公司的主要产品，为用户提供资产管理的功能。
+**AMS**(Asset Management Software)是道富位于瑞士的前子公司[**Allocare**](http://www.allocare.com/)的主要产品，为用户提供资产管理的功能。
 做为重要的报表模块，系统中已经存在历史比较悠久和丰富的商业报表。
 最初介入该项目时，一项重要工作即是将其中的一部分报表汉化，为新加坡客户提供支持。
 AMS中的报表主要由两种设计方案，一种为基本active report使用VBScript开发，另一种则使用Crystal Report开发，存在相同报表同时存在两种版本的情况。
