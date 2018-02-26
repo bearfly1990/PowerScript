@@ -12,3 +12,4 @@ List the Books I read and learn, it helps to create such scripts in this project
 * [https://developer.mozilla.org/zh-CN/](https://developer.mozilla.org/zh-CN/)
 * [https://www.w3schools.com/](https://www.w3schools.com/)
 * [http://www.runoob.com/](http://www.runoob.com/)
+* [https://gywbd.github.io/posts/2014/8/50-linux-commands.html](https://gywbd.github.io/posts/2014/8/50-linux-commands.html)
