@@ -1,10 +1,11 @@
-# PAM Data Compare
+## PAM Data Compare
 
 PAM Data in BA Server is stored in the SqlServer DB, it has his own logic to store the data.
-The Original PAM Data is Stored in Impala.
-
+The Original PAM Data is Stored in Impala table and it's easy to get the column name and type.
+### 需求分析
+不知道为什么？
 BA Server 将mart的信息分布在不同的几张表中，首先需要用sql把表连接起来得到数据。
-sample as below：
+sample as below：为b了解耦，我将sql语句写在了独立的文件中，通过XMLUtil来读取，进而在DAO中使用。
 ```sql
 --query_sqlserver.xml
 select 
@@ -22,347 +23,36 @@ select
     and ME.business_view_id = BV.id
     and M.id = %s
 ```
-
-而PAM这边就比较简单：
+而PAM这边就比较简单，直接取得Column的名字(Name)和类型(Type)就行：
 ```sql
 --query_impala.xml
     describe  %s
 ```
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-<title>Test Result</title>
-<link rel="Stylesheet" type="text/css"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-</link>
-<style>
-table {
-	border-collapse: collapse;
-	width: 100%;
-}
-
-th, td {
-	padding: 8px;
-	text-align: left;
-	border-bottom: 1px solid #ddd;
-}
-
-td.elementType {
-	color: #00F;
-}
-
-td.columnType {
-	color: #F01B2D
-}
-
-tr:hover {
-	background-color: #f5f5f5;
-}
-</style>
-</head>
-<body class="container">
-	<h1>Test Result</h1>
-	<!-- <span>${ResultTxt}</span> -->
-	<div id="testResult">
-		<!-- Table markup-->
-		<table id="...">
-			<thead>
-				<tr>
-					<th scope="col" id="">Mart Name</th>
-					<th scope="col" id="">Mart Element</th>
-					<th scope="col" id="">Mart Element Type</th>
-					<th scope="col" id="">Impala Table </th>
-					<th scope="col" id="">Impala Column</th>
-					<th scope="col" id="">Impala Column Type</th>
-				</tr>
-			</thead>
-			<tfoot>
-				<!-- <tr>
-					<td>End...</td>
-					<td>End...</td>
-					<td>End...</td>
-					<td>End...</td>
-					<td>End...</td>
-					<td>End...</td>
-				</tr> -->
-			</tfoot>
-			<!-- Table body -->
-			<tbody>
-				{resultItem}
-				<!--  <tr>
-                        <td>MartNameF</td>
-                        <td>ASOF</td>
-                        <td>int</td>
-                         <td>TableName</td>
-                        <td>ASOF</td>
-                        <td>String</td>
-                    </tr> -->
-			</tbody>
-
-		</table>
-	</div>
-</body>
-</html>
-
-```
-
-```
-#compare mode :
-#1 : compare two database's table data
-#2:  compare two database's table key columns (and need to set another database for comparison )  note: 3 database must in same impala
-compareMode=1
-
-# Replace with your connection string
-#impala.datasource1.url=jdbc:impala://hadoop01.xcts.pr1:21050/psdb1300v20502
+### 数据源配置文件
+DBInfo.properties存储的是数据库的信息，由FileConfig.java读取这部分信息，并在代码中使用
+```ini
 impala.datasource1.url=jdbc:impala://hadoop07.dev.pr1.eexchange.com:21050/metldw595d;SSL=1;CAIssuedCertNamesMismatch=1;SSLTrustStore=C:/ProgramDev/jdk1.7.0_51_64bit/jre/lib/security/cacerts;SSLTrustStorePwd=changeit;AuthMech=1;KrbServiceName=impala;KrbAuthType=1;KrbRealm=CURNX.COM;KrbHostFQDN=hadoop07.dev.pr1.eexchange.com;
 
-# Replace with your credentials
 impala.datasource1.username=
 impala.datasource1.password=
 impala.datasource1.driverClassName=com.cloudera.impala.jdbc41.Driver
 
 
-# Replace with your connection string
 #sqlserver.datasource1.url=jdbc:sqlserver://fr1xpubdb01:1433;DatabaseName=pamreporting2042
 sqlserver.datasource1.url=jdbc:sqlserver://fr1xpubdb01:1433;DatabaseName=PAMReporting301104
-# Replace with your credentials
 sqlserver.datasource1.username=pamreporting
 sqlserver.datasource1.password=password
 sqlserver.datasource1.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 
-# Replace with your connection string
-#sqlserver.datasource1.url=jdbc:sqlserver://fr1xpubdb01:1433;DatabaseName=pamreporting2042
 sqlserver.datasource2.url=jdbc:sqlserver://fr1xpubdb01:1433;DatabaseName=PAMReporting3101
-# Replace with your credentials
 sqlserver.datasource2.username=pamreporting
 sqlserver.datasource2.password=password
 sqlserver.datasource2.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 
-
 java.security.auth.login.config=C:/ProgramDev/jdk1.7.0_51_64bit/jre/lib/security/jaas.conf
 java.security.krb5.conf=C:/ProgramDev/jdk1.7.0_51_64bit/jre/lib/security/krb5.conf
-
-
-
-
-
 ```
-```maven
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.ssgx.amreport.test</groupId>
-	<artifactId>PAMReportTest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	<name>PAMReportTest</name>
-	<url>http://maven.apache.org</url>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.slf4j-version>1.7.5</org.slf4j-version>
-		<org.springframework-version>4.2.7.RELEASE</org.springframework-version>
-	</properties>
-
-	<build>
-		<finalName>PAMReportTest</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-
-			<!-- Maven Assembly Plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4.1</version>
-				<configuration>
-					<!-- get all project dependencies -->
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<!-- MainClass in manifest make a executable jar -->
-					<archive>
-						<manifest>
-							<mainClass>com.ssgx.pamreport.test.dbcompare.ElementCompareMain</mainClass>
-						</manifest>
-					</archive>
-
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<!-- bind to the packaging phase -->
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}</outputDirectory>
-							<resources>
-								<resource>
-									<directory>./</directory>
-									<includes>
-										<include>DBInfo.properties</include>
-										<include>query_impala.xml</include>
-										<include>query_sqlserver.xml</include>
-										<include>Template.html</include>
-										<include>ignoredElements.txt</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
-	<dependencies>
-		<dependency>
-			<groupId>com.opencsv</groupId>
-			<artifactId>opencsv</artifactId>
-			<version>3.9</version>
-		</dependency>
-		<!-- Spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${org.springframework-version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-
-		</dependency>
-
-		<dependency>
-			<groupId>com.cloudera.impala.jdbc</groupId>
-			<artifactId>ImpalaJDBC41</artifactId>
-			<version>2.5.30</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.thrift</groupId>
-			<artifactId>libthrift</artifactId>
-			<version>0.9.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>6.1.0.jre7</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cloudera.impala</groupId>
-			<artifactId>ql</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cloudera.impala</groupId>
-			<artifactId>hive-service</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.thrift</groupId>
-			<artifactId>libfb303</artifactId>
-			<version>0.9.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cloudera.impala</groupId>
-			<artifactId>hive-metastore</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cloudera.impala</groupId>
-			<artifactId>tici-service-client</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>3.4.6</version>
-		</dependency>
-		<!-- Logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-			<!-- <exclusions> <exclusion> <groupId>javax.mail</groupId> <artifactId>mail</artifactId> 
-				</exclusion> <exclusion> <groupId>javax.jms</groupId> <artifactId>jms</artifactId> 
-				</exclusion> <exclusion> <groupId>com.sun.jdmk</groupId> <artifactId>jmxtools</artifactId> 
-				</exclusion> <exclusion> <groupId>com.sun.jmx</groupId> <artifactId>jmxri</artifactId> 
-				</exclusion> </exclusions> -->
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jdom</groupId>
-			<artifactId>jdom2</artifactId>
-			<version>2.0.6</version>
-		</dependency>
-		<dependency>
-			<groupId>jaxen</groupId>
-			<artifactId>jaxen</artifactId>
-			<version>1.1.6</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.fmcarvalho</groupId>
-			<artifactId>htmlflow</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
-	</dependencies>
-</project>
-```
 ```java
 package com.ssgx.pamreport.test.dbcompare.service;
 
@@ -758,3 +448,6 @@ public class ElementsCompareService {
 
 }
 ```
+###输出报表样例
+最后将结果填充到HTML文件中，并根据Mart名字来生成 
+![TestResult](TestReport.gif)
