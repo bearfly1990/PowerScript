@@ -12,7 +12,8 @@ $MEM_Counter.CounterName = "Available MBytes"
 While ($true)
 {
     $CPURate = $CPU_Counter.NextValue().ToString("0.00")
-    $MemAvailable = $MEM_Counter.NextValue()    $MemUsed = $totalMemory - $MemAvailable
+    $MemAvailable = $MEM_Counter.NextValue()
+    $MemUsed = $totalMemory - $MemAvailable
     $MemUsedRate =  ($MemUsed / $totalMemory * 100).ToString("0.00")
     
     $Time = Get-Date -format "yyyy-MM-ddTHH:mm:ss"
@@ -21,7 +22,5 @@ While ($true)
     
     Start-Sleep -Seconds 2
 }
-
-
 
 
