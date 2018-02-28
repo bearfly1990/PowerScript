@@ -5,6 +5,8 @@ All of these UI test are designed by [Ranorex](https://www.ranorex.com/).
 They are stored in the public shared folder, so each VM could visit this.
 It's easy to start the test by running the build .exe file.
 The codes used in the test is C#, of course you could use Java or other language which Ranorex supported.
+
+[PubTestAutoUtility.cs](https://github.com/bearfly1990/PowerScript/blob/master/Private/Publisher/PubTestAutoUtility.cs)
 - Publisher Designer
 - Publisher Manager
 - Publisher Portal
