@@ -107,7 +107,7 @@ java.security.krb5.conf=C:/ProgramDev/jdk1.7.0_51_64bit/jre/lib/security/krb5.co
 
 ### 主要对比过程
 #### 只比较名字
-因为基本上两边的类型都是Expected的，但是在数值上确实不一致的（e.g. Month(int in BAServer, string in impala），为了方便，就只比较名字，这样就相对更简单了。
+因为基本上两边的类型都是Expected的，但是在数值上确实不一致的(e.g. Month(int in BAServer, string in impala))，为了方便，就只比较名字，这样就相对更简单了。
 当然我当时也设计了另外一个思路，即把一些特殊情况单独罗列配置，这样更灵活.
 
 为了区分两边数据，我将BAServer这边的字段信息称为Element,Impala这边取名为Column。
