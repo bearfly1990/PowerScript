@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue Sample 3 Data and Method</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+      <p>{{ obj.foo }}</p>
+      <!-- this will no longer update obj.foo! -->
+      <button @click="obj.foo = 'baz'">Change it</button>
+    </div>
+     <div id="example">
+
+    </div>
+    <script>
+        // Our data object
+        var data = { a: 1 }
+
+        // The object is added to a Vue instance
+        var vm = new Vue({
+          data: data
+        })
+
+        // These reference the same object!
+        console.log('vm.a === data.a:' + vm.a === data.a) // => true
+
+        // Setting the property on the instance
+        // also affects the original data
+        vm.a = 2
+        console.log('data.a:' + data.a) // => 2
+
+        // ... and vice-versa
+        data.a = 3
+        vm.a // => 3
+        console.log('vm.a:' + vm.a) // => 2
+        
+        
+        var obj = {
+          foo: 'bar'
+        }
+
+        Object.freeze(obj)
+
+        new Vue({
+          el: '#app',
+          data () {
+            return {
+              obj
+            }
+          }
+        })
+        
+        var data = { a: 1 }
+        var vm = new Vue({
+          el: '#example',
+          data: data
+        })
+
+        vm.$data === data // => true
+        vm.$el === document.getElementById('example') // => true
+
+        // $watch is an instance method
+        vm.$watch('a', function (newValue, oldValue) {
+          // This callback will be called when `vm.a` changes
+        })
+    </script>
+</body>
+</html>
