@@ -42,3 +42,12 @@ sudo netstat -tap | grep mysql
 mysql -u root -p
 
 #-u 表示选择登陆的用户名， -p 表示登陆的用户密码，上面命令输入之后会提示输入密码，此时输入密码就可以登录到mysql。
+
+#解压
+tar -zxvf apache-maven-3.3.9-bin.tar.gz  -C /usr/local
+
+#删除目录
+rm -rf /home/bearfly/temp
+
+#复制
+cp
