@@ -36,22 +36,22 @@ namespace Publisher.Test.Automation
         public static string    ComparePDFPath      = "";
         public static string    BackUpActFilePath   = "";
         
-        public static string    EmailListPath       = @"\\PFS-REGRESS001\Docs\PAMR\PublisherAutomation\EmailList.txt";
+        public static string    EmailListPath       = @"***\EmailList.txt";
         public static string[]  EmailList;
         
-        public static string    SendMailAddress     = "PublisherUIAutomation@pfs.com";
-        public static string    HostIP              = "172.16.10.34";
+        public static string    SendMailAddress     = "***@***.com";
+        public static string    HostIP              = "";
         public static string    ReportTitle         = "[QAAuto]Test Result of Test Suite (V{0})";
         public static string    ReportContent       = "<div><font face='Calibri'>Hi ALL,</font></div><div><table><tr><th>Total Cases</th><th>Passed Cases</th><th>Failed Cases</th><th>Pass Rate</th></tr><tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr></table></div><div>{4}</div><div>PAMReport Team</div>";
 
-        public static string    DllPath             = @"C:\Program Files\State Street Global Exchange\Publisher Suite\Publisher Clients\bin\Reporting.Common.dll";
+        public static string    DllPath             = @"***\Reporting.Common.dll";
         public static string    BuildVersion        = "";
         public static string    ZipFileName         = "";
 		
         public static string    RestartServicePath  = @"RestoreService_Testauto2.bat";
 		
-        public static string    CloseAppPath        = @"\\pfs-regress001\Docs\PAMR\PublisherAutomation\Tools\Taskkill_App.bat";
-        public static string    CloseIEPath         = @"\\pfs-regress001\Docs\PAMR\PublisherAutomation\Tools\Taskkill_IE.bat";
+        public static string    CloseAppPath        = @"***\Tools\Taskkill_App.bat";
+        public static string    CloseIEPath         = @"***\Tools\Taskkill_IE.bat";
         
         public static Dictionary<string, string> config;
         
@@ -70,12 +70,12 @@ namespace Publisher.Test.Automation
             EmailList			= System.IO.File.ReadAllLines(EmailListPath);
                                              
             ReportTitle			= GetProperty("ReportTitle", ReportTitle);
-            // ReportContent        = getProperty("ReportContent", ReportContent);
+            // ReportContent            = getProperty("ReportContent", ReportContent);
                                              
             SendMailAddress		= GetProperty("Email_SendMailAddress", SendMailAddress);
-            HostIP				= GetProperty("Email_HostIP", HostIP);
+            HostIP		        = GetProperty("Email_HostIP", HostIP);
                                              
-            DllPath				= GetProperty("Pub_DllPath", DllPath);
+            DllPath		        = GetProperty("Pub_DllPath", DllPath);
             BuildVersion		= System.Diagnostics.FileVersionInfo.GetVersionInfo(DllPath).FileVersion; 
             ZipFileName			= Ranorex.Core.Reporting.TestReport.ReportEnvironment.ReportViewFilePath;
                                  
@@ -86,11 +86,11 @@ namespace Publisher.Test.Automation
             ActualFilePath		= GetRealPath("ActualFilePath", ActualFilePath);
             ComparePDFPath		= GetRealPath("ComparePDFPath", ComparePDFPath);
             BackUpActFilePath	= GetRealPath("BackUpActFilePath", BackUpActFilePath);
-            RestartServicePath	= GetRealPath("RestartServicePath",RestartServicePath);
+            RestartServicePath  = GetRealPath("RestartServicePath",RestartServicePath);
             CloseAppPath		= GetRealPath("TaskKill_APP", CloseAppPath);
             CloseIEPath			= GetRealPath("TaskKill_IE", CloseIEPath);
 			
-			VariableFilePath	= GetRealPath("VariableFilePath", VariableFilePath);
+            VariableFilePath	= GetRealPath("VariableFilePath", VariableFilePath);
  
 			ReadCaseVariables();
         }
