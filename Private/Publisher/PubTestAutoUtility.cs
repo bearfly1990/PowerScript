@@ -24,7 +24,7 @@ namespace Publisher.Test.Automation
         /// <summary>
         /// Description of Configuration.
         /// </summary>
-        public class PubTestAutoUtility
+       public class PubTestAutoUtility
        {
         public static string    ConfigFilePath      = @"../../../WorkSpace/PubTestAutoUtility.ini";
         public static string    VariableFilePath    = "";
@@ -47,9 +47,9 @@ namespace Publisher.Test.Automation
         public static string    DllPath             = @"***\Reporting.Common.dll";
         public static string    BuildVersion        = "";
         public static string    ZipFileName         = "";
-		
+        
         public static string    RestartServicePath  = @"RestoreService_Testauto2.bat";
-		
+        
         public static string    CloseAppPath        = @"***\Tools\Taskkill_App.bat";
         public static string    CloseIEPath         = @"***\Tools\Taskkill_IE.bat";
         
@@ -66,56 +66,56 @@ namespace Publisher.Test.Automation
         {
             ReadConfig();
           
-            EmailListPath 		= GetProperty("Email_EmailListPath", EmailListPath);
-            EmailList			= System.IO.File.ReadAllLines(EmailListPath);
+            EmailListPath       = GetProperty("Email_EmailListPath", EmailListPath);
+            EmailList           = System.IO.File.ReadAllLines(EmailListPath);
                                              
-            ReportTitle			= GetProperty("ReportTitle", ReportTitle);
+            ReportTitle         = GetProperty("ReportTitle", ReportTitle);
             // ReportContent            = getProperty("ReportContent", ReportContent);
                                              
-            SendMailAddress		= GetProperty("Email_SendMailAddress", SendMailAddress);
-            HostIP		        = GetProperty("Email_HostIP", HostIP);
+            SendMailAddress     = GetProperty("Email_SendMailAddress", SendMailAddress);
+            HostIP              = GetProperty("Email_HostIP", HostIP);
                                              
-            DllPath		        = GetProperty("Pub_DllPath", DllPath);
-            BuildVersion		= System.Diagnostics.FileVersionInfo.GetVersionInfo(DllPath).FileVersion; 
-            ZipFileName			= Ranorex.Core.Reporting.TestReport.ReportEnvironment.ReportViewFilePath;
+            DllPath             = GetProperty("Pub_DllPath", DllPath);
+            BuildVersion        = System.Diagnostics.FileVersionInfo.GetVersionInfo(DllPath).FileVersion; 
+            ZipFileName         = Ranorex.Core.Reporting.TestReport.ReportEnvironment.ReportViewFilePath;
                                  
-            WorkSpacePath		= GetProperty("WorkSpacePath", WorkSpacePath);
+            WorkSpacePath       = GetProperty("WorkSpacePath", WorkSpacePath);
                                  
-            ExpectFilePath		= GetRealPath("ExpectFilePath", ExpectFilePath);
-            ExpectPDFPath		= GetRealPath("ExpectPDFPath", ExpectPDFPath);
-            ActualFilePath		= GetRealPath("ActualFilePath", ActualFilePath);
-            ComparePDFPath		= GetRealPath("ComparePDFPath", ComparePDFPath);
-            BackUpActFilePath	= GetRealPath("BackUpActFilePath", BackUpActFilePath);
+            ExpectFilePath      = GetRealPath("ExpectFilePath", ExpectFilePath);
+            ExpectPDFPath       = GetRealPath("ExpectPDFPath", ExpectPDFPath);
+            ActualFilePath      = GetRealPath("ActualFilePath", ActualFilePath);
+            ComparePDFPath      = GetRealPath("ComparePDFPath", ComparePDFPath);
+            BackUpActFilePath   = GetRealPath("BackUpActFilePath", BackUpActFilePath);
             RestartServicePath  = GetRealPath("RestartServicePath",RestartServicePath);
-            CloseAppPath		= GetRealPath("TaskKill_APP", CloseAppPath);
-            CloseIEPath			= GetRealPath("TaskKill_IE", CloseIEPath);
-			
-            VariableFilePath	= GetRealPath("VariableFilePath", VariableFilePath);
+            CloseAppPath        = GetRealPath("TaskKill_APP", CloseAppPath);
+            CloseIEPath         = GetRealPath("TaskKill_IE", CloseIEPath);
+            
+            VariableFilePath    = GetRealPath("VariableFilePath", VariableFilePath);
  
-			ReadCaseVariables();
+            ReadCaseVariables();
         }
-		
+        
         public static string GetProperty(string key)
         {
             return config.ContainsKey(key) ? config[key] : null; 
         }    
-		
+        
         public static string GetProperty(string key, string defaultValue)
         {
             return config.ContainsKey(key) ? config[key] : defaultValue; 
         }                      
         
-		public static string GetRealPath(string key, string defaultValue)
-		{
-			string result = GetProperty(key, defaultValue);
-			return (result == "") ? result : (WorkSpacePath + result);
-		}
+        public static string GetRealPath(string key, string defaultValue)
+        {
+            string result = GetProperty(key, defaultValue);
+            return (result == "") ? result : (WorkSpacePath + result);
+        }
         public PubTestAutoUtility(){
            
         }
         
         public static void BackupActualFile(){
-        	RunScript(BackUpActFilePath);
+            RunScript(BackUpActFilePath);
         }
         
         public static void CloseApplication()
@@ -123,21 +123,21 @@ namespace Publisher.Test.Automation
             RunScript(CloseAppPath);
         }
         
-		public static void RestartService()
-		{
-			RunScript(RestartServicePath);
-		}
-		
+        public static void RestartService()
+        {
+            RunScript(RestartServicePath);
+        }
+        
         public static void CloseIE()
         {
             RunScript(CloseIEPath);
         }
         
-		public static void RunScript(string scriptPath)
-		{
-			Process proc = Process.Start(scriptPath);
+        public static void RunScript(string scriptPath)
+        {
+            Process proc = Process.Start(scriptPath);
             proc.WaitForExit();
-		}
+        }
         public static void GetCaseStatus()
         {
             try
@@ -165,19 +165,19 @@ namespace Publisher.Test.Automation
             }
             finally
             {
-            	Report.Log(ReportLevel.Info, "Calculate Case passed or failed");
-            	if (PassedNum > 0 && PassedNum == TotalNum)
-            	{
-            		ReportContent	= ReportContent.Replace("<table>", "<table style='border-collapse: collapse;border-spacing: 0px;'>");
-            		ReportContent	= ReportContent.Replace("<th>", "<th style='border: 1px solid green;color:green'>");
-        			ReportContent	= ReportContent.Replace("<td>", "<td style='border: 1px solid green;color:green'>");
-            	}
-            	else
-            	{
-            		ReportContent	= ReportContent.Replace("<table>", "<table style='border-collapse: collapse;border-spacing: 0px;'>");
-            		ReportContent	= ReportContent.Replace("<th>", "<th style='border: 1px solid red;color:red'>");
-        			ReportContent	= ReportContent.Replace("<td>", "<td style='border: 1px solid red;color:red'>");
-            	}
+                Report.Log(ReportLevel.Info, "Calculate Case passed or failed");
+                if (PassedNum > 0 && PassedNum == TotalNum)
+                {
+                    ReportContent    = ReportContent.Replace("<table>", "<table style='border-collapse: collapse;border-spacing: 0px;'>");
+                    ReportContent    = ReportContent.Replace("<th>", "<th style='border: 1px solid green;color:green'>");
+                    ReportContent    = ReportContent.Replace("<td>", "<td style='border: 1px solid green;color:green'>");
+                }
+                else
+                {
+                    ReportContent    = ReportContent.Replace("<table>", "<table style='border-collapse: collapse;border-spacing: 0px;'>");
+                    ReportContent    = ReportContent.Replace("<th>", "<th style='border: 1px solid red;color:red'>");
+                    ReportContent    = ReportContent.Replace("<td>", "<td style='border: 1px solid red;color:red'>");
+                }
             }
         }
         
@@ -205,10 +205,10 @@ namespace Publisher.Test.Automation
                     mailMessage.Body        = body;
                     mailMessage.IsBodyHtml  = true;
                     foreach (String item in emailList){
-                    	if (!item.Trim().Equals(""))
-                    	{
+                        if (!item.Trim().Equals(""))
+                        {
                             mailMessage.To.Add(new MailAddress(item));
-                    	}
+                        }
                     }
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host       = HostIP;
