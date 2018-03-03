@@ -51,3 +51,7 @@ rm -rf /home/bearfly/temp
 
 #复制
 cp
+
+#linux中在终端打开文件夹命令
+gnome-open /etc
+ubuntu中  nautilus /etc
