@@ -39,7 +39,7 @@ $ git config user.email "bearfly1990@163.com"
 these `git config` command is writen into `~/.gitconfig`, it's the same to edit this file. e.g. in oreder to hight the output of git command, we could add text like:
 ```
 [color]
-	ui=auto
+    ui=auto
 ```
 ##### Create a new Git Repository:
 ```vim
@@ -190,9 +190,6 @@ $ git merge branchname
 git push origin [branch name]
 ```
 ##### 删除github远程分支, 分支名前的冒号代表删除。
-```vim
-git push origin :[branch name]
-```
 ```vim
 git branch -r -d origin/branch-name  
 git push origin :branch-name
