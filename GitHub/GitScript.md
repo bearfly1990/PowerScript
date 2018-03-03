@@ -185,6 +185,19 @@ $ git branch -d new_branch
 ```vim
 $ git merge branchname
 ```
+##### 将新分支推送到github
+```vim
+git push origin [branch name]
+```
+##### 删除github远程分支, 分支名前的冒号代表删除。
+```vim
+git push origin :[branch name]
+```
+```vim
+git branch -r -d origin/branch-name  
+git push origin :branch-name
+
+```
 #### 杂项：
 某些文件不需要让Git去track，可以在`.gitignore`中设置忽略这些文件。
 ##### 指定特定文件用--，如：
