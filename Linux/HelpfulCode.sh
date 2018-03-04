@@ -55,3 +55,8 @@ cp
 #linux中在终端打开文件夹命令
 gnome-open /etc
 ubuntu中  nautilus /etc
+
+#linux下安装录制视频软件Simple Screen Recorder
+sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+sudo apt-get update
+sudo apt-get install simplescreenrecorder
