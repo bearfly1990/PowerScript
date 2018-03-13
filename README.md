@@ -10,3 +10,4 @@ There are also some examples in Code folder.
 * [SoapUI(Groovy)](https://github.com/bearfly1990/PowerScript/wiki/SoapUI)
 * [SqlServer](https://github.com/bearfly1990/PowerScript/wiki/SQLServer)
 * [Python3](https://github.com/bearfly1990/PowerScript/wiki/Python3)
+* [Linux](https://github.com/bearfly1990/PowerScript/wiki/Linux)
