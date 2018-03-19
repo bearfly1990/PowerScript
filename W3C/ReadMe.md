@@ -4,4 +4,4 @@
 * [http://www.ruanyifeng.com/blog/2015/03/react.html](http://www.ruanyifeng.com/blog/2015/03/react.html)
 * [https://github.com/ruanyf/react-demos](https://github.com/ruanyf/react-demos)
 * [https://www.liaoxuefeng.com/](https://www.liaoxuefeng.com/)
-* [https://github.com/petehunt/react-howto/blob/master/README-zh.md]（https://github.com/petehunt/react-howto/blob/master/README-zh.md）
+* [https://github.com/petehunt/react-howto/blob/master/README-zh.md](https://github.com/petehunt/react-howto/blob/master/README-zh.md)
