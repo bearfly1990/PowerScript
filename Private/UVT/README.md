@@ -11,3 +11,5 @@
 用户（测试）首先要把xls文档中sheet1的csv格式取出来，构建一个同名的csv文件（UVFSI.csv）
 当数据准备好之后，就可以直接单击根目录下的UVFSI.exe，这样就能直接执行导入的操作。
 而导入完成后（不论失败或者成功），在xls同目录下，会生成一个UVFSI.op文档。记录导入的状态。
+### TO-DO List
+* [x] [部署测试环境(Python)](https://github.com/bearfly1990/PowerScript/blob/master/Python3/scripts/UVT/DeployUVTEnviroment.md)
