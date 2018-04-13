@@ -5,5 +5,6 @@ The memebers are senior and excellent.\
 All the work are around PAM, so should know more knowlege about the work and also the business.\
 **COME ON!**:fist:
 ## TO-DO List
-* [ ] Write script to analyse the importlog
-* [x] Build the workflow to generate the messages(json) 
+* [x] Write script to analyse the importlog [Java]
+* [x] Build the workflow to generate the messages(json) [Java]
+* [x] Build the process to run the message IMPORT automatically [Python]
