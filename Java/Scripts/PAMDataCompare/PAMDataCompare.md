@@ -53,7 +53,7 @@ main sql used as below：为了解耦，我将主要的长sql语句写在了独�
 </queries>
 ```
 ### 项目配置
-#### Maven配置
+#### Maven配置(有些冗余)
 ![pom.xml](pom.xml)
 #### Log4J
 >src/main/resources/log4j.properties
