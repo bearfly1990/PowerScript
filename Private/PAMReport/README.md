@@ -6,6 +6,7 @@ DataModel组负责重新设计数据结构，基于Hadoop,使用impla进行分�
 我在Publisher进入尾声时期，有空闲时间便做一些辅助性的测试工作，也做了一些小工具来帮忙测试。
 
 ### To-Do List
+* [x] [Check Report Generated](https://github.com/bearfly1990/PowerScript/blob/master/Private/PAMReport/MartCheckInPentaho.md)
 * [x] [对比不同数据库](https://github.com/bearfly1990/PowerScript/blob/master/Java/Scripts/PAMDataCompare/PAMDataCompare.md)
 * [x] [对比相同结构数据库](https://github.com/bearfly1990/PowerScript/blob/master/Java/Scripts/DBCompare/DBCompare.md)
 * [x] Compare report between PAM and Pentaho Server
