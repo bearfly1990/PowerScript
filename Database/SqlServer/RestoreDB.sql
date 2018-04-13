@@ -1,3 +1,0 @@
-USE [master]
-RESTORE DATABASE [DBName] FROM  DISK = N'*/DBName.bak' WITH  FILE = 1,  NOUNLOAD,  STATS = 5
-GO
