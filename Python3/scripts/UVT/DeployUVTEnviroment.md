@@ -1,3 +1,5 @@
+### Deploy UVT Enviroment
+每次有新的Build生成，方便的把测试环境给部署好。
 ```python
 import glob
 import os
