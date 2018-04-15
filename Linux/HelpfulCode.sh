@@ -72,7 +72,10 @@ cd /usr/bin
 ln -s /usr/local/node/bin/node node
 # 建立npm软连
 ln -s /usr/local/node/bin/npm npm
-node -v
+#建立npx软连
+ln -s /home/bearfly/DevPrograms/node-v8.9.3-linux-x64/bin/npx npx
+ln -s /home/bearfly/DevPrograms/node-v8.查看方法：
+
 #清空回收站##################################################
 rm /home/bearfly/.local/share/Trash/expunged/* -r
 rm /home/bearfly/.local/share/Trash/files/* -r
