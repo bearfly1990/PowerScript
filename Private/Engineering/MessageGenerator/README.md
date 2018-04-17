@@ -13,15 +13,15 @@ Import使用的模板Message是以JSON的格式存储，可以通过命令行的
 {"msgtype":"COLLATERALAPPRAISALS","msgbody":[{"Operation":"ADD","PropertyID":55000,"ReportEffectiveDate":20171231,"AppraisalDate":20171231,"AppraiserID":0,"PriceIndexID":0,"LandValue":456200,"IncomeValue":563200,"OpinionValue":12300,"ScheduleBValue":65800,"InsurableAmount":754000,"CostValue":700000,"IncomeCapRate":15,"MarketValue":870000,"ReplacementCost":256300,"Occupancy":65}]}
 ```
 所以，我将所有的模板存放在一个文件夹中，程序最开始便是从这边将数据读取进去，以供后续操作。
-### 数据依赖关系 Data Dependency
+### 数据依赖关系(Data Dependency(
 有些Message导入时是有依赖关系的，有固定的导入顺序，而后面的数据需要前面先生成，在业务逻辑上才成立。\
-不过，主体上以`PropertyID``SecurityID`等几个主要的字段为变化量，以自增的方式可以推导出来。
+不过，主体上以`PropertyID` `SecurityID`等几个主要的字段为变化量，以自增的方式可以推导出来。
 
-## Project Structure
+## 项目结构(Project Structure)
 之前有使用Java对Json数据处理的经验，所以直接选择使用Java来编写。\
 还是使用Maven来对Jar包进行管理，主要使用到JackSon，jsonschema2pojo-maven-plugin 等处理JSON。\
 日志方面还是使用`Log4j 2.x`。
-## Main Code
+## 主要的一些代码点(Main Code)
 
 ### Json <=> Object
 上面提到了JackSon和jsonschema2pojo-maven-plugin,对JSON的处理完全是靠他们来完成了。
@@ -132,7 +132,7 @@ public class MessageKeys {
 }
 ```
 #### MessageGenerator
-`Message Generator`是Generate数据的基类，也是一个虚类，因为有abstract的方法需要各个对应不同Message的子类去实现。
+`MessageGenerator`是其它对应MessageGenerator的基类，也是一个虚类，因为有abstract的方法需要各个对应不同Message的子类去实现。
 同时，一些公共的变量，数据都存储在这。
 ```java
 public abstract class MsgGenerator<E extends MessageBase> {
@@ -159,6 +159,7 @@ public abstract class MsgGenerator<E extends MessageBase> {
         range[0] = from;
         range[1] = to;
     }
+    /*略...*/
 ```
 下面这个就是我提到的需要实现的虚类，用来构造真正生成的message:
 ```java
