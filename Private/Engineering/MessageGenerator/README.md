@@ -55,12 +55,262 @@ String jsonInString = mapper.writeValueAsString(obj);
 ```
 在`pom.xml`中加入以上配置，那么执行 `mvn package`的时候，它会自动将resources下的json文件生成对应的POJO类。\
 可以在`build\java-gen`目录下找到生成的类。
-### MessageGenerator
+```java
+package org.bearfly.worktools.message.models.balances;
+/* import... */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "msgtype",
+    "msgbody"
+})
+public class MessageBalances extends MessageBase{
 
+    @JsonProperty("msgtype")
+    private String msgtype;
+    @JsonProperty("msgbody")
+    private Msgbody msgbody;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    /*
+    get/set...
+    */
+
+}
+
+```
+#### MessageBase
+在上面的JSON POJO，细心的话可以发现这些类是继承一个类`MessageBase`的。\
+这个额外的类其实是我在开发的过程过发现需要一个地方存储原始的json string,没有合适的地方。\
+第一个想到的就是创建一个基类来存放这个信息，也方便后续拓展。
+```Java
+package org.bearfly.worktools.message.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class MessageBase {
+    @JsonIgnore
+    private String orgJSON;
+    /*
+        get/set...
+    */
+}
+```
+#### MessageKeys
+此外还有一个比较重要的类便是`MessageKeys`。\
+就像上文中说到，每条Message都只有几个字段需要变化，其他的保持不变，所以就用这个类来存储。
+```Java
+package org.bearfly.worktools.message.models;
+
+public class MessageKeys {
+    private String secIDValue;
+    private Integer port;
+    private Integer collateralPropertyID;
+    private String collateralPropertyName;
+    public MessageKeys() {
+        
+    }
+    public MessageKeys(String secIDValue) {
+        super();
+        this.secIDValue = secIDValue;
+    }
+    public MessageKeys(String secIDValue, Integer port) {
+        super();
+        this.secIDValue = secIDValue;
+        this.port = port;
+    }
+
+    public MessageKeys(String secIDValue, Integer port, Integer collateralPropertyID) {
+        super();
+        this.secIDValue = secIDValue;
+        this.port = port;
+        this.collateralPropertyID = collateralPropertyID;
+    }
+    /*
+        get/set...
+    */
+}
+```
+#### MessageGenerator
+`Message Generator`是Generate数据的基类，也是一个虚类，因为有abstract的方法需要各个对应不同Message的子类去实现。
+同时，一些公共的变量，数据都存储在这。
+```java
+public abstract class MsgGenerator<E extends MessageBase> {
+    private static final Logger logger = LogManager.getLogger(MsgGenerator.class);
+    protected String sampleFilePath;
+    protected String outputFilePath;
+    protected String outputDir;
+    protected Integer[] ports = { 13244, 13247, 13261, 13248, 13249, 13250, 13251, 13252, 13253, 13254, 13255, 13256,
+            13257, 13258, 13259, 13260 };
+    protected Integer[] ports_s = { 13255, 13256, 13257, 13258, 13259, 13260 };
+
+    protected Integer[] collateralRange = MsgGTRConfig.getCollateralRangeArray();
+
+    protected Integer repeat = 3375;
+
+    protected String[] securityIDValues = MsgGTRConfig.getSecurityIDValuesArray();
+    protected String[] securityIDvaluesWithS = MsgGTRConfig.getSecurityIDValuesWithSArray();
+
+    protected final String SUFFIX_TXT = ".txt";
+    protected MsgAnalysis<E> msgAlys;
+    protected Integer[] range = { 0, 1 };
+
+    public void initRange(Integer from, Integer to) {
+        range[0] = from;
+        range[1] = to;
+    }
+```
+下面这个就是我提到的需要实现的虚类，用来构造真正生成的message:
+```java
+public abstract void createMsg(E msg, MessageKeys mks);
+```
+而核心的Generate代码便是如下（可以看到用到了`createMsg`）：
+```java
+protected void generateToFile(final Integer secFlag, final List<MessageKeys> msgKeysList, final Integer fileNums)
+        throws IOException {
+
+    Thread thread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                generateMsgsToFile(secFlag, msgKeysList, fileNums);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    });
+    thread.start();
+
+}
+ protected void generateMsgsToFile(Integer secFlag,  List<MessageKeys> msgKeysList,  Integer fileNums) throws IOException {
+        logger.debug("<---------START--------->");
+        logger.debug("Sample Message File:{}", sampleFilePath);
+        E msg = msgAlys.getSampleMessage();
+        Integer numsEachFile = 0;
+        //Integer numsLastFile = 0;
+        if(msgKeysList.size() % fileNums == 0) {
+            numsEachFile = msgKeysList.size() / fileNums;
+        }else {
+            numsEachFile = msgKeysList.size() / fileNums + 1;
+            //numsLastFile = msgKeysList.size() - numsEachFile * (fileNums - 1);
+        }
+        
+        logger.debug("Total File Nums:{}, Total Json Nums:{}", fileNums, msgKeysList.size());
+        for (Integer k = 1; k <= fileNums; k++) {
+            String tempOFP = outputFilePath.replaceAll("%siv", securityIDValues[secFlag]);
+            if (fileNums == 1) {
+                tempOFP = String.format("%s_%s%s", tempOFP, "ALL", SUFFIX_TXT);
+
+            } else {
+                tempOFP = String.format("%s_%s%s", tempOFP, k.toString(), SUFFIX_TXT);
+            }
+
+            FileUtils.createDirectory(FileUtils.getDirFromFullPath(tempOFP));
+
+            logger.debug("Create FileDir:{}", FileUtils.getDirFromFullPath(tempOFP));
+            logger.debug("Create FileName:{}", FileUtils.getFileNameFromFullPath(tempOFP));
+            
+            try (FileWriter fw = new FileWriter(tempOFP);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    PrintWriter out = new PrintWriter(bw)) {
+                for (Integer i = (k - 1) * numsEachFile; i < k * numsEachFile; i++) {
+                    if(i < msgKeysList.size()) {
+                        createMsg(msg, msgKeysList.get(i));
+                        out.println(JSONUtils.getJSONFromObj(msg));
+                    }
+                }
+
+            }
+            logger.info("Created FileName:{}", tempOFP);
+        }
+        logger.debug("<=========ENDED=========>");
+
+    }
+```
+#### msgKeysList
+可以看到，generate的时候不关注到底是什么类型的message，只需要你提供msgKeysList就可以了，而这个数据是怎么产生的呢，举个栗子:smile:
+像这个Message就比较特殊，他有自己的生成规则，所以他只需要构造好自己的`msgKeysList`，实现`createMsg`方法，之后调用父类的`generateToFile`方法就成了。
+```java
+    public void generate_5400_1(Integer secFlag, Integer fileNums) throws IOException {
+        repeat = 3375;
+        ports = new Integer[] { 13244, 13247 };
+        ArrayList<MessageKeys> msgKeysList = new ArrayList<MessageKeys>();
+        for (int i = 0; i < repeat; i++) {
+            for (int j = 0; j < ports.length; j++) {
+                if (ports[j] == 13247 && (j * repeat + i) > 5399) {
+                    continue;
+                }
+                Integer num = (j * repeat + i);
+                msgKeysList.add(new MessageKeys(securityIDValues[secFlag] + num.toString(), ports[j]));
+            }
+        }
+        generateToFile(secFlag, msgKeysList, fileNums);
+
+    }
+    @Override
+    public void createMsg(MessageBalances msg, MessageKeys mks) {
+        msg.getMsgbody().getMTGBALPORTALLOC().get(0).setPortfolio(mks.getPort());
+        msg.getMsgbody().getSECID().setSecurityIDValue(mks.getSecIDValue());
+    }
+```
+#### MessageAnalysis
+在每个Generator构建的时候，其实会利用MessageAnalysis对象去读取模板Message。不过话说回来，现在想想，这个类不是必须，完全可以整合到`MessageGenerator`类中
+```java
+package org.bearfly.worktools.message;
+/* import...*/
+public class MsgAnalysis<E extends MessageBase> {
+    private static final Logger logger = LogManager.getLogger(MsgAnalysis.class);
+    private Queue<E> msgQueue = new LinkedList<>();
+    private JsonProvider jsonProvider = Configuration.defaultConfiguration().jsonProvider();
+    public MsgAnalysis() {
+
+    }
+
+    public MsgAnalysis(String msgFilePath, Class<E> clazz) throws IOException {
+        readMessages(msgFilePath, clazz);
+    }
+
+    public void readMessages(String msgFilePath, Class<E> clazz) throws IOException {
+        List<String> lines = FileUtils.readTextFile(msgFilePath);
+        msgQueue = new LinkedList<>();
+        for (String line : lines) {
+            if(line.trim().equals(""))continue;
+            @SuppressWarnings("unchecked")
+            E msg =  (E) JSONUtils.getObjFromJSON(line, clazz);
+            msg.setOrgJSON(line);
+           
+            logger.debug(msg.getOrgJSON());
+            msgQueue.add(msg);
+        }
+        
+        for(int i = 0 ; i< 100; i++) {
+            @SuppressWarnings("unchecked")
+            E msg =  (E) JSONUtils.getObjFromJSON(msgQueue.peek().getOrgJSON(), clazz);
+            msgQueue.add(msg);
+        }
+    }
+  /*get/set...*/
+}
+
+```
+```java
+public AdvanceGenerator(String sampleFilePath, String outputFilePath) throws IOException {
+    super(sampleFilePath, outputFilePath);
+    msgAlys = new MsgAnalysis<MessageBalances>(sampleFilePath, MessageBalances.class);
+}
+
+```
 ### MessageFactory
+工厂类去创建对象和调用生成代码，创建顺序，生成文件的数目目前都hardcode在这边
 
-### MultiThread To Generate Files
-
-### 控制生成文件数量的逻辑(Control File Numbers)
-
-### Config File To Generate Expected Records
+### 配置文件(Config File To Generate Expected Records)
+将项目打包成jar包之后，可以通过配置文件有限的复用。\
+如下所示，最重要的是`generateFlags`，这个数组标志对应上面的不同变量，并可以指定生成哪些。
+```properties
+sampleJsonDir=xxx\\SampleMessages\\
+outputDir=xxx\\WorkFlow_CX
+collateralRange=2,60001,120001,180001,240001
+securityIDValues=WKLMF,XKLMF,YKLMF,ZKLMF,AKLMF
+securityIDvaluesWithS=WKLMFS,XKLMFS,YKLMFS,ZKLMFS,AKLMFS
+generateFlags=0,1,2,3
+```
