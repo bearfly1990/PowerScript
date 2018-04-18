@@ -368,11 +368,15 @@ def checkImportResultInDB(dir, rowsBefore, rowsAfter, expectedRows):
         logging.info("Successed Import %s!", dir)
         
 def writeResult(pathStr, rows, time, isDIR):
-    writeFlag = True
-    
-    if (isDIR and ".txt" in pathStr):
-        writeFlag = False
-   
+    writeFlag = False
+    TEST_RESULT_LEVEL == 1 # DIR = 1 FILE = 2
+    # if (isDIR and ".txt" in pathStr):
+        # writeFlag = False
+    if(TEST_RESULT_LEVEL == 1 and isDIR):
+        writeFlag = True
+    if(TEST_RESULT_LEVEL == 2):
+        writeFlag = True
+        
     if(writeFlag):
         timeStr = "{:.4f}".format(time)
         timAvgStr = "-1"
