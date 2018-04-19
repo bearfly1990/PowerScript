@@ -99,7 +99,6 @@ dbInfo = config['DBInfo']
 CONN = pymssql.connect(dbInfo['sqlnet'], dbInfo['userid'], dbInfo['password'], dbInfo['schema'])
 CMD_RUN_MANAGER = "start {}\\bin\\java.exe -Dlog4j.configurationFile=file:///{} -DKETTLE_HOME={} -XX:MaxPermSize=2048m -Xms18000m -Xmx28000m -jar {}"
 
-# l:\pam\wsys\report\IMPORT.exe B C:\1.txt HZHAN T 5 42 Y 20170401 -i:m:\pam\wsys\pam.ini
 CMD_RUN_IMPORT = 'xxx\\IMPORT.exe x "{}" xxx x x xx x xxx xxxx'
 
 if not os.path.exists(LOGDIR):
