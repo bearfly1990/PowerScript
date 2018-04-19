@@ -94,22 +94,13 @@ TEST_RESULT_LEVEL           = getTestResultLevel(config['TestResult']['Level'])
 EXPECTED_STT_ALGO_POOL_SIZE = config['KettleSetting']['STT_ALGO_POOL_SIZE']
 EXPECTED_STT_MAX_ACTIVE_CONNECTIONS = config['KettleSetting']['STT_MAX_ACTIVE_CONNECTIONS']
 
-# CONN = pymssql.connect("PFS-PFIDB-002\SQL2012", "sa", "Pampfs2005", "METPDI")
 dbInfo = config['DBInfo']
-# CONN = pymssql.connect(server='PFS-PFIDB-002\sql2012', 
-                   # user='METPDI', 
-                   # password='Pampfs2005', 
-                   # database='METPDI',
-                   # tds_version='8.0',
-                   # port = '1433') 
-CONN = pymssql.connect(dbInfo['sqlnet'], dbInfo['userid'], dbInfo['password'], dbInfo['schema'])
-# start java.exe -Dlog4j.configurationFile=file:///C:/pam/wsys/MsgPostServer/log4j2.xml -XX:MaxPermSize=2048m -Xms18000m -Xmx28000m -jar L:/pam/wsys/MsgPostServer/sttappmanager.jar
 
-# CMD_RUN_MANAGER = "start {}\\bin\\java.exe -Djdk.tls.client.protocols=TLSv1 -Dlog4j.configurationFile=file:///{} -DKETTLE_HOME={} -XX:MaxPermSize=2048m -Xms18000m -Xmx28000m -jar {}"
+CONN = pymssql.connect(dbInfo['sqlnet'], dbInfo['userid'], dbInfo['password'], dbInfo['schema'])
 CMD_RUN_MANAGER = "start {}\\bin\\java.exe -Dlog4j.configurationFile=file:///{} -DKETTLE_HOME={} -XX:MaxPermSize=2048m -Xms18000m -Xmx28000m -jar {}"
 
 # l:\pam\wsys\report\IMPORT.exe B C:\1.txt HZHAN T 5 42 Y 20170401 -i:m:\pam\wsys\pam.ini
-CMD_RUN_IMPORT = 'l:\\pam\\wsys\\report\\IMPORT.exe B "{}" HZHAN T 5 42 Y 20170401 -i:m:\\pam\\wsys\\pam.ini'
+CMD_RUN_IMPORT = 'xxx\\IMPORT.exe x "{}" xxx x x xx x xxx xxxx'
 
 if not os.path.exists(LOGDIR):
     os.makedirs(LOGDIR)
