@@ -47,29 +47,35 @@ def initAndSortByMessageMonth(csvRowsList, columnIndex = 5):
 def combineRowsByColumn(csvRowsList, columnIndex = 5):
     resultList = []
     for i, row in enumerate(csvRowsList):
+        # keep csv header and do nothing
         if(i == 0):
             resultList.append(row)
             continue
+            
         currentValue = row[columnIndex]
-        
+        # get the month of last row
         if(i - 1 >= 0):
             lastValue = csvRowsList[i-1][columnIndex]
         else:
             lastValue = None
+        # get the month of next row
         if(i + 1 < len(csvRowsList)):
             nextValue = csvRowsList[i+1][columnIndex]
         else:
             nextValue = None
-        
+        # if last month is the same with current month, combine them
         if(lastValue != None and lastValue == currentValue):
             for j in range(len(row)):
+                #ignore the mmonth column
                 if(j == columnIndex):
                     pass
                 else:
+                    # if is value, calculate them, if not ,just append them with '~'
                     if(isFloat(row[j])):
                         row[j] = "{:.2f}".format(float(row[j]) + float(csvRowsList[i-1][j]))
                     else:
                         row[j] = csvRowsList[i-1][j] + "~" + row[j]
+        # if next value is different, just add current row to the new list
         if(currentValue != nextValue):
                 resultList.append(row)  
     return resultList            
