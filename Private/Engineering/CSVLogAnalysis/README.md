@@ -46,7 +46,7 @@ def combineRowsByColumn(csvRowsList, columnIndex = 5):
         # if last month is the same with current month, combine them
         if(lastValue != None and lastValue == currentValue):
             for j in range(len(row)):
-                #ignore the mmonth column
+                #ignore the month column
                 if(j == columnIndex):
                     pass
                 else:
