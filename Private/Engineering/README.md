@@ -8,3 +8,4 @@ All the work are around PAM, so should know more knowlege about the work and als
 * [x] Write script to analyse the importlog [Java]
 * [x] Build the workflow to generate the messages(json) [Java]
 * [x] Build the process to run the message IMPORT automatically [Python]
+* [x] Analysis csv log
