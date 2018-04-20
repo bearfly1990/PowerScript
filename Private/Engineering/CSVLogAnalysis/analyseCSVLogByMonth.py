@@ -83,6 +83,6 @@ def __main__():
     resultList = readCSVRowsList("TestResult.csv")
     resultList = initAndSortByMessageMonth(resultList, 5)
     resultList = combineRowsByColumn(resultList, 5)
-    writeToCSVFile("out.csv", resultList)
+    writeToCSVFile("TestResultCombined.csv", resultList)
     
 __main__()
