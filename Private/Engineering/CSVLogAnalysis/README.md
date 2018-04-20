@@ -19,7 +19,7 @@ writeToCSVFile("out.csv", resultList)
 2. 将`MessageDate`截取成yyyyMM的格式，并加入`#`，然后返回据此排序好的二维数组(List)。
    同时在代码里可以看到我还做了特殊处理，这个是具体的需求。通用的处理可以直接删除掉。
 3. 将相同月份的数据Combine到一起再返回新的数组回来
-4. 将最后的数据写入到输出文件[TestResultCombined.csv](estResultCombined.csv)
+4. 将最后的数据写入到输出文件[TestResultCombined.csv](TestResultCombined.csv)
 
 ### 数据Combine算法
 代码中我已经做了注释，不再过多解释，就是逐行处理，结果放到新的list里。
