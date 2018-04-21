@@ -1,3 +1,15 @@
+#/usr/bin/python3
+"""
+author: xiche
+create at: 04/09/2018
+description:
+    The progress to test the benchmark of import json messages
+Change log:
+Date        Author      Version    Description
+04/09/2018  xiche       1.0        Set up this script
+04/17/2018  xiche       1.0.1      Add the test result 'True/False' in 'TestResult.csv'
+04/19/2018  xiche       1.0.2      Add function to get the date in the message and write to 'TestResult.csv'
+"""
 import os
 import glob
 import configparser
@@ -9,6 +21,7 @@ import csv
 import shutil
 import win32wnet
 import subprocess
+import re
 # import winreg
 # import ctypes
 # from ConfigParser import SafeConfigParser
@@ -32,6 +45,7 @@ def getTestResultLevel(x):
         'DIR':1,
         'FILE':2   
     }.get(x, 3)
+
 '''
 class Registry(object):
     def __init__(self, key_location, key_path):
@@ -94,12 +108,15 @@ TEST_RESULT_LEVEL           = getTestResultLevel(config['TestResult']['Level'])
 EXPECTED_STT_ALGO_POOL_SIZE = config['KettleSetting']['STT_ALGO_POOL_SIZE']
 EXPECTED_STT_MAX_ACTIVE_CONNECTIONS = config['KettleSetting']['STT_MAX_ACTIVE_CONNECTIONS']
 
+
 dbInfo = config['DBInfo']
 
 CONN = pymssql.connect(dbInfo['sqlnet'], dbInfo['userid'], dbInfo['password'], dbInfo['schema'])
+
 CMD_RUN_MANAGER = "start {}\\bin\\java.exe -Dlog4j.configurationFile=file:///{} -DKETTLE_HOME={} -XX:MaxPermSize=2048m -Xms18000m -Xmx28000m -jar {}"
 
-CMD_RUN_IMPORT = 'xxx\\IMPORT.exe x "{}" xxx x x xx x xxx xxxx'
+
+CMD_RUN_IMPORT = 'xxx\\IMPORT.exe x "{}" xxx x x xx x xxxxxxxx -i:m:\\xxx\\xxxx\\xxx.ini'
 
 if not os.path.exists(LOGDIR):
     os.makedirs(LOGDIR)
@@ -115,7 +132,13 @@ logging.basicConfig(
 
 def timeout(second):
     os.system('timeout '+str(second))
-    
+def getDateInMessage(filePath): 
+    dateStr = ""
+    with open(filePath, "rt") as f:
+        for line in f:
+            dateStr = re.search("([0-9]{4}[0-9]{2}[0-9]{2})", line).group(0)
+            break
+    return dateStr
 def getLastNameFromFullPath(fullPath):
     lastIndex = fullPath.rfind('\\')
     if(lastIndex == -1):
@@ -181,11 +204,11 @@ def checkImportResultLog(importFilePath):
                 failedToLoad = line.split(":")[1].strip()
             if("Failed to Process:" in line):
                 failedToProcess = line.split(":")[1].strip()
-        logging.info("Records Read:%s",recordsRead)  
-        logging.info("Loaded:%s",loaded)
-        logging.info("Processed:%s",processed)
-        logging.info("Failed to Load:%s",failedToLoad)
-        logging.info("Failed to Process:%s",failedToProcess)
+        logging.debug("Records Read:%s",recordsRead)  
+        logging.debug("Loaded:%s",loaded)
+        logging.debug("Processed:%s",processed)
+        logging.debug("Failed to Load:%s",failedToLoad)
+        logging.debug("Failed to Process:%s",failedToProcess)
         if not os.path.exists(IMPORT_RESULT_LOG_BK):
             os.makedirs(IMPORT_RESULT_LOG_BK)
         moveToPath = IMPORT_RESULT_LOG_BK + getLastNameFromFullPath(importFilePath)+".ImportResult.log"
@@ -265,6 +288,7 @@ def checkMsgTypeFlowMapping():
             # logging.info("PLEASE CHANGE THE SETTINGS FIRST!")
             # exit()   
     try:
+        shutil.copy(MSG_TYPE_FLOW_MAPPING, MSG_TYPE_FLOW_MAPPING_TO)
         with open(MSG_TYPE_FLOW_MAPPING_TO, "rt") as f:
             for line in f:
                 l = line.strip()
@@ -273,7 +297,8 @@ def checkMsgTypeFlowMapping():
                         logging.info(l)
                         goon = input("ARE THE SETTINGS OK?(Y/N): ")
                         if(goon.upper() == "Y"):
-                            shutil.copy(MSG_TYPE_FLOW_MAPPING, MSG_TYPE_FLOW_MAPPING_TO)
+                            pass
+                            # shutil.copy(MSG_TYPE_FLOW_MAPPING, MSG_TYPE_FLOW_MAPPING_TO)
                         else:
                             logging.info("PLEASE CHANGE THE SETTINGS FIRST!")
                             exit()
@@ -349,15 +374,18 @@ def getCurrentRowsInDB(dir):
     
 def checkImportResultInDB(dir, rowsBefore, rowsAfter, expectedRows):
     resultRows = rowsAfter - rowsBefore
+    rowsAreMatched = (resultRows == expectedRows)
     logging.info("Rows DB Added:%s = %s - %s", resultRows, rowsAfter, rowsBefore)
     logging.info("Rows Expected:%s", expectedRows)
-    if(resultRows != expectedRows or expectedRows == 0):
+    
+    if(not rowsAreMatched or expectedRows == 0):
         logging.error("Rows not matched!")
         logging.error("Failed Import %s!", dir)
     else:
         logging.info("Successed Import %s!", dir)
+    return rowsAreMatched
         
-def writeResult(pathStr, rows, time, isDIR):
+def writeResult(pathStr, rows, time, messageStr, isDIR, rowsAreMatched):
     writeFlag = False
     TEST_RESULT_LEVEL == 1 # DIR = 1 FILE = 2
     # if (isDIR and ".txt" in pathStr):
@@ -368,7 +396,8 @@ def writeResult(pathStr, rows, time, isDIR):
         writeFlag = True
         
     if(writeFlag):
-        timeStr = "{:.4f}".format(time)
+        timeStr = "{:.2f}".format(time)
+        timeStrMinutes = "{:.2f}".format(time/60)
         timAvgStr = "-1"
         if(rows > 0):
             timAvgStr = "{:.4f}".format(time/rows)
@@ -376,14 +405,14 @@ def writeResult(pathStr, rows, time, isDIR):
             with open(TEST_RESULT, 'a') as writer:
                 writer.write("%s :\n\ttotal:%s avg:%s rows:%s\n" % (pathStr,timeStr, timAvgStr, rows))
         '''
-        myData = [pathStr,rows, timeStr, timAvgStr]
+        myData = [pathStr,rows, timeStr, timeStrMinutes,timAvgStr, messageStr, rowsAreMatched]
         myFile = open(TEST_RESULT, 'a', newline='')  
         with myFile:  
             writer = csv.writer(myFile)
             writer.writerow(myData)    
         
 def initTestResult():
-    myData = ['path', 'rows', 'timeused','avgtime']
+    myData = ['path', 'rows', 'timeused(s)','timeused(m)','avgtime', 'messageDate', 'rowsAreMatched']
     # csv.register_dialect('myDialect', delimiter=',', quoting=csv.QUOTE_NONE)
     # myFile = open(TEST_RESULT, 'w')  
     # with myFile:  
@@ -407,6 +436,8 @@ def runImport():
         rowsInDBBefore_Dir = getCurrentRowsInDB(dir)
         timeStartDir  =  time.time()
         dirTimeBack = 0
+        messageDateStr = getDateInMessage(list_of_files[0])
+        rowsAreMatched = False
         for importfile in list_of_files:
             rowsInFile = countInvalidRowsInFile(importfile)
             rowsInDBBefore_File = getCurrentRowsInDB(dir)
@@ -422,31 +453,32 @@ def runImport():
             timeEndFile  =  time.time()
             
             periodFile  = timeEndFile - timeStartFile
-            periodFileStr = "{:.4f}".format(periodFile)
+            periodFileStr = "{:.2f}".format(periodFile)
             logging.info("Finished:"+importfile)
             logging.info("Import Time(s):%s", periodFileStr)
             rowsInDBAfter_File = getCurrentRowsInDB(dir)
-            checkImportResultInDB(importfile, rowsInDBBefore_File, rowsInDBAfter_File, rowsInFile)
-            writeResult(importfile, rowsInFile, periodFile, False)
-            timeout(10)
-            # time.sleep(10)
+            rowsAreMatched = checkImportResultInDB(importfile, rowsInDBBefore_File, rowsInDBAfter_File, rowsInFile)
+            writeResult(importfile, rowsInFile, periodFile, messageDateStr, False, rowsAreMatched)
+            if(DEVMODE == '0' or DEVMODE == '1'):
+                timeout(5)
+                dirTimeBack = dirTimeBack - 5
+            # time.sleep(5)
             '''Change the time back because sleep'''
-            dirTimeBack = dirTimeBack - 10
             checkImportResultLog(importfile)
         timeEndDir  =  time.time()
         #{:10.4f}
         
         periodDir = timeEndDir - timeStartDir + dirTimeBack
-        periodDirStr = "{:.4f}".format(periodDir)
+        periodDirStr = "{:.2f}".format(periodDir)
         logging.info("Finished:"+dir)
         logging.info("Import Time(s):%s", periodDirStr)
         
         rowsInDBAfter_Dir = getCurrentRowsInDB(dir)
         
-        checkImportResultInDB(dir, rowsInDBBefore_Dir, rowsInDBAfter_Dir, countRowsDir)
+        rowsAreMatched = checkImportResultInDB(dir, rowsInDBBefore_Dir, rowsInDBAfter_Dir, countRowsDir)
         
         logging.info("-----END IMPORT-----")
-        writeResult(dir, countRowsDir, periodDir, True)
+        writeResult(dir, countRowsDir, periodDir, messageDateStr, True, rowsAreMatched)
 def checkEnvAndSettings():
     checkUser()
     checkPAMCore()
