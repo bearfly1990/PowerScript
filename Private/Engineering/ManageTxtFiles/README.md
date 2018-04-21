@@ -26,7 +26,7 @@ AGGREGATED_OUTPUT_FILE_NAME     = "AggregatedFiles.txt"
 
 # The original file which want to seperate to several files
 SEPERATED_INPUT_FILE_NAME   = "AggregatedFiles.txt"
-# Output files which are like Seperated_1.txt/Seperated_2.txt/Seperated_3.txt
+# Output files which like Seperated_1.txt/Seperated_2.txt/Seperated_3.txt/...
 SEPERATED_OUTPUT_FILE_NAME  = "Seperated.txt"
 SEPERATED_OUTPUT_FILE_NUMS  = 6
 
