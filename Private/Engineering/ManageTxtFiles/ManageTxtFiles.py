@@ -1,7 +1,14 @@
+#/usr/bin/python3
 """
+author: xiche
+create at: 04/21/2018
+description:
 There are two operations in this script
     1. Aggregate several txt files to one file by the file name order which contains the same part name 
     2. Seperate one large txt file to several small files, you could control how many files you want to generate
+Change log:
+Date        Author      Version    Description
+04/21/2018  xiche       1.0        Set up this script
 """
 import os
 import glob
