@@ -30,6 +30,7 @@ class SystemInfo(ABC):
         while(True):
             self.refresh()
             time.sleep(1)
+
     def __init__(self, units=Units.MB):
         self.__file_system = psutil.disk_partitions()
         self.refresh()
