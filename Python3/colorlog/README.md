@@ -1,6 +1,6 @@
 ## colorlog
 
-This is the demo to use the color log.
+This is the demo to use the color log module.
 
 ### Log Format
 实际上, 只有Console是支持颜色的，之前我提到过终端中颜色的原理[Text Color Of Console](https://bearfly1990.github.io/2018/04/21/ColorfulConsole/)。
