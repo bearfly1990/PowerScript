@@ -37,6 +37,12 @@ if matchObj:
    print ("matchObj.group(3) : ", matchObj.group(3))
 else:
    print ("No match!!")
+'''output
+matchObj.group() :  Suffix[1-100]
+matchObj.group(1) :  Suffix
+matchObj.group(2) :  1
+matchObj.group(3) :  100
+'''
 ```
 通过`match`方法，利用`group()`就能很方便的把固定格式的数据提取出来。
 
