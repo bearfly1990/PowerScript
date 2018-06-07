@@ -81,4 +81,7 @@ rm /home/bearfly/.local/share/Trash/expunged/* -r
 rm /home/bearfly/.local/share/Trash/files/* -r
 rm /home/bearfly/.local/share/Trash/info/* -r
 
+#使用USB
+sudo mount -t vfat /dev/sdb1 /mnt/usb
+umount /dev/sdb1
 
