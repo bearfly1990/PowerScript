@@ -27,12 +27,11 @@ Level=DIR
 ### DBInfo
 ```ini
 [DBInfo]
-sqlnet=xxx
-userid=xxx
-password=xxx
-schema=xxx
+Path=M:\pam\wsys\pam.ini
+oracle_tnsname = PFIDB12C.WORLD
 ```
 数据库配置信息。最终数据都是导入到数据库中，而有对应的sql去查询该message是否是真正全部成功导入到数据库中了。
+06/07/2018 updated: 数据库信息从pam.ini里读取，并支持oracle，不过需要在这配置好对应的Service.
 ### Files
 ```ini
 [Files]
@@ -40,8 +39,11 @@ IMPORT_LIST = ImportList.txt
 IMPORT_RESULT_LOG = xxx\ImportResult.log
 IMPORT_RESULT_LOG_BK =./logs/{:%Y%m%d_%H%M%S}/ImportResultLogBK
 TEST_RESULT = ./logs/{:%Y%m%d_%H%M%S}/TestResult.csv
+TEST_MONITOR = ./logs/{:%Y%m%d_%H%M%S}/Monitor.csv
 ```
 `IMPORT_LIST`配置了导入配置文件，在该文件中，逐行为需要导入message所在的文件夹，遍历其下的`txt`文件，按文件名排序依次执行导入操作
+
+`TEST_MONITOR` 增加了对内存和CPU的监控，结果写入固定的文件
 ### Other Configs...
 略...
 ## 主要流程及重要代码
