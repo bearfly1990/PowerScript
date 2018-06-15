@@ -1,7 +1,7 @@
 ## Mart Check In Pentaho
 为了检验数据库里的字段是否都能正常使用，在Web UI上将所有的字段都加入到报表中。然后设计自动化case，使用SoupUI发起Request, 让这些报表定时循环生成。Request使用的是Pentaho BAServer提供的[API](https://help.pentaho.com/Documentation/8.0/Developer_Center/REST_API)。但资料有限，当时我直接用浏览器的debug工具去截取http请求来的到request的样例。
 ***
-There are 19 Marts in impala database, we should check them each time when they are updated.
+There are n Marts in impala database, we should check them each time when they are updated.
 And we plan to create automated test cases for regression test.
 * All columns should be include in the report
   * There are too many columns in some marts, so we seperate them into several reports in one folder
