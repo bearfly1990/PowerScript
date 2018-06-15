@@ -37,7 +37,7 @@ from lib.cmutils_monitor import CPUInfo, MemoryInfo
 # from subprocess import call
 # config = configparser.ConfigParser()
 # config = configParser.SafeConfigParser()
-CONFIG_SPACE    = r"\\nj.pfs.net\departments\Development\Team Engineering\xiche\tools\runimport\configs"
+CONFIG_SPACE    = r"xxx\configs"
 COMPUTER_NAME   = os.environ['COMPUTERNAME']
 
 config      = configparser.RawConfigParser(strict=False)
@@ -141,12 +141,9 @@ for (each_key, each_val) in config.items('KettleSetting'):
 MESSAGE_TYPE_FLOW_MAPPINGS  = []
 for (each_key, each_val) in config.items('MessageTypeFlowMapping'):
     MESSAGE_TYPE_FLOW_MAPPINGS.append(each_val)
-# start java.exe -Dlog4j.configurationFile=file:///C:/pam/wsys/MsgPostServer/log4j2.xml -XX:MaxPermSize=2048m -Xms18000m -Xmx28000m -jar L:/pam/wsys/MsgPostServer/sttappmanager.jar
 
-# CMD_RUN_MANAGER = "start {}\\bin\\java.exe -Djdk.tls.client.protocols=TLSv1 -Dlog4j.configurationFile=file:///{} -DKETTLE_HOME={} -XX:MaxPermSize=2048m -Xms18000m -Xmx28000m -jar {}"
 CMD_RUN_MANAGER = config['CMD']['StartServer']
 
-# l:\pam\wsys\report\IMPORT.exe B C:\1.txt HZHAN T 5 42 Y 20170401 -i:m:\pam\wsys\pam.ini
 CMD_RUN_IMPORT = config['CMD']['RunImport']
 
 if not os.path.exists(LOGDIR):
@@ -185,12 +182,6 @@ checkDriverMapping()
 config_db.read(config['DBInfo']['Path'])
 
 dbInfo = config_db['DB']
-# CONN = pymssql.connect(server='PFS-PFIDB-002\sql2012', 
-               # user='METPDI', 
-               # password='Pampfs2005', 
-               # database='METPDI',
-               # tds_version='8.0',
-               # port = '1433')
 CONN = None
 DB_TYPE = "Sqlserver"
 
@@ -249,9 +240,8 @@ def load_properties(filepath, sep='=', comment_char='#'):
 def checkUser():
     existFlag = False
     cursor = CONN.cursor()
-    # cursor.execute("SELECT dummy FROM sys.dual")
-    # print(cursor.fetchone()[0])
-    cursor.execute("select count(*) from pmuser where lower(keycode) = '{}'".format(os.getlogin()))
+
+    cursor.execute("select xxx from pmuser where xxx = '{}'".format(os.getlogin()))
     # print("-----")
     # for row in cursor:
         # existFlag = True
@@ -265,9 +255,9 @@ def checkUser():
             logging.info("DB:Server=%s,userid=%s,password=%s,database=%s",str(dbInfo['sqlnet']), str(dbInfo['userid']), str(dbInfo['password']), str(dbInfo['source']))
         except:
             logging.info("DB:Server=%s,userid=%s,password=%s,database=%s",str(dbInfo['sqlnet']), str(dbInfo['userid']), str(dbInfo['password']), str(dbInfo['schema']))
-        logging.info("OK! - User {} is in the PAM DB".format(os.getlogin()))
+        logging.info("OK! - User {} is in the DB".format(os.getlogin()))
     else:
-        logging.error("Please confirm your login name is in the PAM DB!")
+        logging.error("Please confirm your login name is in the DB!")
         exit()
 
 def checkImportResultLog(importFilePath):
@@ -342,13 +332,6 @@ def checkKettleSetting():
         exit()
     for key in KETTLE_SETTINGS:
         logging.info ('%s=' % key + props[key])
-    # if(props['STT_MAX_ACTIVE_CONNECTIONS'] != EXPECTED_STT_MAX_ACTIVE_CONNECTIONS):
-        # logging.error('STT_MAX_ACTIVE_CONNECTIONS should be '+ EXPECTED_STT_MAX_ACTIVE_CONNECTIONS)
-        # exit()
-    # logging.info ('STT_ALGO_POOL_SIZE=' + props['STT_ALGO_POOL_SIZE'])
-    # if(props['STT_ALGO_POOL_SIZE'] != EXPECTED_STT_ALGO_POOL_SIZE):
-        # logging.error('STT_ALGO_POOL_SIZE should be '+ EXPECTED_STT_ALGO_POOL_SIZE)
-        # exit()
 
 def checkPAMCore():
     _pam_core = PAM_CORE
@@ -373,37 +356,7 @@ def checkMsgTypeFlowMapping():
                 for msg in MESSAGE_TYPE_FLOW_MAPPINGS:
                     if( msg in line):
                         logging.info(line)
-    # config_mpamini      = configparser.RawConfigParser(strict=False, allow_no_value=True)
-    # config_mpamini.read(MPAMINI)
-    # config_mpamini.set('Securities', 'PFS_ROOT', PFS_ROOT)
-    # with open(MPAMINI, 'w') as configfile:
-        # config_mpamini.write(configfile)
-    # try:
-        # shutil.copy(MSG_TYPE_FLOW_MAPPING, MSG_TYPE_FLOW_MAPPING_TO)
-    # except PermissionError:
-        # logging.info("%s IS IN USED!", MSG_TYPE_FLOW_MAPPING_TO)
-        # goon = input("CONTINUE?(Y/N): ")
-        # if(goon.upper() == "Y"):
-            # pass
-        # else:
-            # logging.info("PLEASE CHANGE THE SETTINGS FIRST!")
-            # exit()   
-    # try:
-        # pass
-        # shutil.copy(MSG_TYPE_FLOW_MAPPING, MSG_TYPE_FLOW_MAPPING_TO)
-        
-        # with open(MSG_TYPE_FLOW_MAPPING_TO, "rt") as f:
-            # for line in f:
-                # l = line.strip()
-                # if l and not l.startswith('#'):
-                    # if("TABLOCKREGULARLOANPAYMENT;" in l):
-                        # logging.info(l)
-    # except Exception as e:
-        # logging.error(traceback.format_exc())
-    # except PermissionError:
-        # logging.error("No Permission to replace the %s", MSG_TYPE_FLOW_MAPPING_TO)
-        # exit()
-   
+
 
 def readConfigFile(filePath='ImportConfig.txt'):
     with open(filePath) as f:
