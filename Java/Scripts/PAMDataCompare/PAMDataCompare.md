@@ -23,19 +23,8 @@ main sql used as below：为了解耦，我将主要的长sql语句写在了独�
 	<query id="1" name="getElementByMartID">
         <![CDATA[
 			select 
-			M.id martID, 
-			M.physical_name martName,
-			MV.id martVersionId,
-			ME.id martElementID,
-			ME.physical_name martElementName,
-			ME.type martElementType,
-			ME.business_view_id businessID,
-			BV.display_name businessName,
-			BV.isCore isCore
-			from tblMartVersion MV, tblMart M, tblMartElement ME, tblBusinessView BV 
-			where m.id = MV.mart_id and MV.mart_id = ME.mart_version_id 
-			and ME.business_view_id = BV.id
-			and M.id = %s
+			XXX, XXX, XXX
+			from XXX where XXX=XXX
         ]]>
 	</query>
 </queries>
@@ -84,25 +73,26 @@ log4j.appender.File.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:s} %-5p [%c] %m
 #### 数据库信息配置
 DBInfo.properties存储的是数据库的信息，由FileConfig.java读取这部分信息，并在代码中使用
 ```ini
-impala.datasource1.url=jdbc:impala://ServerName:21050/metldw595d;SSL=1;CAIssuedCertNamesMismatch=1;SSLTrustStore=C:/ProgramDev/jdk1.7.0_51_64bit/jre/lib/security/cacerts;SSLTrustStorePwd=changeit;AuthMech=1;KrbServiceName=impala;KrbAuthType=1;KrbRealm=CURNX.COM;KrbHostFQDN=ServerName;
+impala.datasource1.url=xxx
+KrbHostFQDN=ServerName;
 
 impala.datasource1.username=
 impala.datasource1.password=
 impala.datasource1.driverClassName=com.cloudera.impala.jdbc41.Driver
 
 
-sqlserver.datasource1.url=jdbc:sqlserver://Server:1433;DatabaseName=DB1
+sqlserver.datasource1.url=jdbc:sqlserver://Server:1433;DatabaseName=xxx
 sqlserver.datasource1.username=username
 sqlserver.datasource1.password=password
 sqlserver.datasource1.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 
-sqlserver.datasource2.url=jdbc:sqlserver://Server:1433;DatabaseName=DB2
+sqlserver.datasource2.url=jdbc:sqlserver://Server:1433;DatabaseName=xxx
 sqlserver.datasource2.username=username
 sqlserver.datasource2.password=password
 sqlserver.datasource2.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 
-java.security.auth.login.config=C:/ProgramDev/jdk1.7.0_51_64bit/jre/lib/security/jaas.conf
-java.security.krb5.conf=C:/ProgramDev/jdk1.7.0_51_64bit/jre/lib/security/krb5.conf
+java.security.auth.login.config=xxx
+java.security.krb5.conf=xxx
 ```
 
 ### 主要对比过程
