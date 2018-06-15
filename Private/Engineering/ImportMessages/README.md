@@ -27,11 +27,11 @@ Level=DIR
 ### DBInfo
 ```ini
 [DBInfo]
-Path=M:\pam\wsys\pam.ini
-oracle_tnsname = PFIDB12C.WORLD
+Path=xxx.ini
+oracle_tnsname = xxxxx
 ```
 数据库配置信息。最终数据都是导入到数据库中，而有对应的sql去查询该message是否是真正全部成功导入到数据库中了。
-06/07/2018 updated: 数据库信息从pam.ini里读取，并支持oracle，不过需要在这配置好对应的Service.
+06/07/2018 updated: 数据库信息从xxx.ini里读取，并支持oracle，不过需要在这配置好对应的Service.
 ### Files
 ```ini
 [Files]
