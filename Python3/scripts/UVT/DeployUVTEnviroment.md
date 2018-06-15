@@ -7,14 +7,14 @@ import shutil
 import subprocess
 import zipfile
 import logging
-g_UVTWorkSpace = r"C:\Users\xiche\Desktop\UVT_WorkSpace"
-g_ConfigFilePath = g_UVTWorkSpace + r"\ConfigFile\Pfs.Shared.GUI.App.Config.xml"
-g_UVTDir = g_UVTWorkSpace + r"\UVTBuild19.4_Base\\"
-g_UVTEXE = g_UVTDir + "\Pfs.Shared.GUI.App.exe"
-g_ZipFileName = "UVTBuild19.4_Base"
+g_UVTWorkSpace = r"xxx\UVT_WorkSpace"
+g_ConfigFilePath = g_UVTWorkSpace + r"\ConfigFile\xxx.xml"
+g_UVTDir = g_UVTWorkSpace + r"\xxx\\"
+g_UVTEXE = g_UVTDir + "\xxx.exe"
+g_ZipFileName = "xxx"
 g_ZipFileFullName = g_ZipFileName + ".zip"
 g_ZipExtactDir = g_ZipFileName
-g_BuildedZipFilePath = r"\\PFS-UVTSUPPORT\UVT Systems\Builds\\"+ g_ZipFileFullName
+g_BuildedZipFilePath = r"\\xxx\Builds\\"+ g_ZipFileFullName
 def __main__():
     logging.basicConfig(filename='_DeployUVT.log', level=logging.INFO, format='%(asctime)s %(message)s')
     try:
