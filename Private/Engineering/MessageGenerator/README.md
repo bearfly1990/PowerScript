@@ -10,7 +10,7 @@ Import使用的模板Message是以JSON的格式存储，可以通过命令行的
 在这过程中，需要本机的资源进行计算、关联，然后再执行数据库插入的操作。\
 这次需要生成的一共有`31`种不同的Message，有些比较类似，但数据结构还是不一样得。\
 ```json
-{"msgtype":"COLLATERALAPPRAISALS","msgbody":[{"Operation":"ADD","PropertyID":55000,"ReportEffectiveDate":20171231,"AppraisalDate":20171231,"AppraiserID":0,"PriceIndexID":0,"LandValue":456200,"IncomeValue":563200,"OpinionValue":12300,"ScheduleBValue":65800,"InsurableAmount":754000,"CostValue":700000,"IncomeCapRate":15,"MarketValue":870000,"ReplacementCost":256300,"Occupancy":65}]}
+xxxxxx
 ```
 所以，我将所有的模板存放在一个文件夹中，程序最开始便是从这边将数据读取进去，以供后续操作。
 ### 数据依赖关系(Data Dependency(
@@ -64,7 +64,6 @@ package org.bearfly.worktools.message.models.balances;
     "msgbody"
 })
 public class MessageBalances extends MessageBase{
-
     @JsonProperty("msgtype")
     private String msgtype;
     @JsonProperty("msgbody")
@@ -140,9 +139,8 @@ public abstract class MsgGenerator<E extends MessageBase> {
     protected String sampleFilePath;
     protected String outputFilePath;
     protected String outputDir;
-    protected Integer[] ports = { 13244, 13247, 13261, 13248, 13249, 13250, 13251, 13252, 13253, 13254, 13255, 13256,
-            13257, 13258, 13259, 13260 };
-    protected Integer[] ports_s = { 13255, 13256, 13257, 13258, 13259, 13260 };
+    protected Integer[] ports = { xxx, xxx, xxx};
+    protected Integer[] ports_s = { xxx, xxx, xxx, xxx};
 
     protected Integer[] collateralRange = MsgGTRConfig.getCollateralRangeArray();
 
