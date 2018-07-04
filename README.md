@@ -8,5 +8,6 @@ There are also some examples in Code folder.
 * [Java](https://github.com/bearfly1990/PowerScript/wiki/Java)
 * [Dos](https://github.com/bearfly1990/PowerScript/wiki/Dos)
 * [SoapUI(Groovy)](https://github.com/bearfly1990/PowerScript/wiki/SoapUI)
-* [SqlServer](https://github.com/bearfly1990/PowerScript/wiki/SQLServer)
+* [SqlServer](https://github.com/bearfly1990/PowerScript/wiki/SQL-Server)
 * [Python3](https://github.com/bearfly1990/PowerScript/wiki/Python3)
+* [Linux](https://github.com/bearfly1990/PowerScript/wiki/Linux)

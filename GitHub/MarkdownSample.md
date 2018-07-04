@@ -90,6 +90,8 @@ nothing serious
 ```
 `sssss`
 
+**FootNote Test** <sup id="a1">[1](#f1)</sup>
+
 （关于 svn 的使用，一起来回顾一下 [How To Use Svn in Daily Work](using-svn.md)）
 
 - [Why is Git better than Subversion?](http://stackoverflow.com/questions/871/why-is-git-better-than-subversion)  stackoverflow 上关于svn和git的区别的讨论，说的很详细。
@@ -360,7 +362,6 @@ Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
 
 ## Images
 
-![Minion](https://octodex.github.com/images/minion.png)
 ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
 
 Like links, Images also have a footnote style syntax
@@ -463,3 +464,6 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 [https://www.webpagefx.com/tools/emoji-cheat-sheet/](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
 
 \*\* Cancel Markdown Key Word
+
+
+<sup id="f1">1</sup> Footnote content here. [↩](#a1)
