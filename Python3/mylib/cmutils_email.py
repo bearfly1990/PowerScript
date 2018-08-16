@@ -19,7 +19,7 @@ class EmailUtils:
     __recipients = ["xiongchen1990@163.com", "xchen1230@163.com"]
     __subject = 'python email 尝试'
     __content = '<p>This is the test by <b>python</b>, please have a try.</p>' #<p>截图如下：</p><p><img src="cid:image1"></p>
-    __mail_permission = 'cx123456'
+    __mail_permission = 'xxxxxx'#授权码，非邮箱密码
     __mail_host = 'smtp.163.com'
     __mail_port = 25 #SSL 465
     __attachments_path = [r'C:\Users\mayn\Desktop\test.txt']
@@ -40,10 +40,10 @@ class EmailUtils:
         msg.attach(content)
 
         for content_image in self.__content_images_path:
-            msgImage = MIMEImage(open(content_image['path'], 'rb').read())    
-            msgImage.add_header('Content-ID', '<{}>'.format(content_image['cid']))    
-            msg.attach(msgImage) 
-            
+            msgImage = MIMEImage(open(content_image['path'], 'rb').read())
+            msgImage.add_header('Content-ID', '<{}>'.format(content_image['cid']))
+            msg.attach(msgImage)
+
         for attachments_path in self.__attachments_path:
             attachment = MIMEText(open(attachments_path, 'rb').read(), 'base64', 'utf-8')
             attachment["Content-Type"] = 'application/octet-stream'
