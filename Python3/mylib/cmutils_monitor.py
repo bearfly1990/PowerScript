@@ -9,15 +9,19 @@ Date        Author      Version     Description
 04/22/2018  xiche       1.0         init
 06/06/2018  xiche       1.0.1       fix cpu pecent
 06/16/2018  xiche       1.0.2       add class Monitor
+08/16/2018  xiche       1.0.3       add MQ monitor
 """
+import sys
+sys.path.insert(0, r"xxx\pythonlib")
 import psutil
 import math
 import time
 import datetime
 import csv
+import os
 from abc import abstractmethod, ABC
 from threading import Thread
-from lib.cmutils_value import Units, convertByteTo
+from cmutils.cmutils_value import Units, convertByteTo
 # from lib.cmutils_io import CSVUtils
 class SystemInfo(ABC):
     __free      = 0
@@ -104,6 +108,55 @@ class MemoryInfo(SystemInfo):
     def __str__(self):
         # return '\033[1;35;40m Memory(%s): total:%s used:%s free:%s usedpct:%s\033[0 m' % (self.units, self.total, self.used, self.free, self.pctused)
         return 'Memory(%s): total:%s used:%s free:%s usedpct:%s' % (self.units, self.total, self.used, self.free, self.pctused)
+
+class ProcessInfo(SystemInfo):
+    __process_name  = "java.exe"
+    __user_name     = os.getlogin()
+    __pct_memory    = 0
+    __error         = False
+    def __init__(self, process_name, user_name, error):
+        super().__init__()
+        self.__process_name = process_name.lower()
+        self.__user_name    = user_name.lower()
+        self.__error        = error
+    def processinfo(self):
+        ps_list = []
+        ps_list_error = []
+        #print("---->"+self.__process_name.lower())
+        for ps in psutil.process_iter():
+            try:
+                ps_name = ps.name().lower()
+                if self.__process_name in ps_name:
+                    ps_username = ps.username().lower()
+                    if self.__user_name.lower() in ps_username:
+                        ps_list.append(ps)
+            except (psutil.AccessDenied, psutil.ZombieProcess):
+                if self.__process_name in ps_name:
+                    ps_list_error.append(ps)
+            except psutil.NoSuchProcess:
+                continue
+        if self.__error:
+            ps_list = ps_list + ps_list_error
+        return ps_list
+
+    def refresh(self):
+        # print("refresh of process")
+        self.__pct_memory = 0
+        ps_list = self.processinfo()
+        for ps in ps_list:
+            self.__pct_memory = self.__pct_memory + ps.memory_percent()
+        
+    @property
+    def pct_memory(self):
+        self.refresh()
+        return "%.2f" % self.__pct_memory
+
+    @property
+    def processname(self):
+        self.refresh()
+        return self.__process_name
+
+            
 class CPUInfo(SystemInfo):
     user    = ""
     # nice    = ""
@@ -158,35 +211,53 @@ class Monitor():
     __queue_status  = None
     __info_cpu      = None
     __info_memory   = None
-    
-    def __init__(self, file_monitor, queue_status):
+    __info_post_server  = None
+    __info_mq_service   = None
+    __console_out   = False
+    __process_name  = None
+    def __init__(self, file_monitor, queue_status, cansole_out=False):
         self.__file_monitor = file_monitor
         self.__queue_status = queue_status
         self.__info_cpu     = CPUInfo()
         self.__info_memory  = MemoryInfo()
-
+        self.__info_post_server = ProcessInfo("java.exe", os.getlogin(), False)
+        self.__info_mq_service  = ProcessInfo("java.exe", "system", True)
+        self.__console_out  = cansole_out
+        
     def writeMonitor(self):
+        monitor_header = ['Time', 'CPU(%)', 'Memory(%)', 'Java.exe {}(%)'.format(os.getlogin()), 'Java.exe MQ(%)']
+        # if(self.__info_process.pct_memory > -1):
+        #     monitor_header.append(self.__info_process.processname)
+
+        monitor_result = open(self.__file_monitor, 'w', newline='')  
+        with monitor_result:  
+            writer = csv.writer(monitor_result)
+            writer.writerow(monitor_header)
+
         monitor_result = open(self.__file_monitor, 'a', newline='')  
         with monitor_result as f:  
             writer = csv.writer(monitor_result)
             isEnded = False
             while(not isEnded):
                 try:
-                    temp = self.__queue_status.get(False)
+                    self.__queue_status.get(False)
                     isEnded = True
                 except:
                     isEnded = False
-                monitor_data = ['{:%Y/%m/%d %H:%M:%S}'.format(datetime.datetime.now()), self.__info_cpu.pctused, self.__info_memory.pctused]
+                monitor_data = ['{:%Y/%m/%d %H:%M:%S}'.format(datetime.datetime.now()), self.__info_cpu.pctused, self.__info_memory.pctused, self.__info_post_server.pct_memory, self.__info_mq_service.pct_memory]
+               
+                # if(self.__info_process.pct_memory > -1):
+                #     monitor_data.append()
+               
                 writer.writerow(monitor_data)
                 f.flush()
+                if(self.__console_out):
+                    print(monitor_data)
                 time.sleep(1)
+               
                 
     def startMonitor(self):
-        monitor_header = ['Time', 'CPU(%)', 'Memory(%)']
-        monitor_result = open(self.__file_monitor, 'w', newline='')  
-        with monitor_result:  
-            writer = csv.writer(monitor_result)
-            writer.writerow(monitor_header)
+
         # CSVUtils.writeToCSVFile(self.__file_monitor, monitor_header)
         t = Thread(target=self.writeMonitor, args=())
         t.start()
