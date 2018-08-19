@@ -6,10 +6,11 @@ description:
     Utils for io operation
 Change log:
 Date         Author      Version    Description
-06/16/2018    xiche      1.0.1      Add replace variables features for TxtUtils
+06/16/2018    xiche      1.0.1      add replace variables features for TxtUtils
 06/17/2018    xiche      1.0.2      add TxtUtils.read_first_line
 07/30/2018    xiche      1.0.3      add cls for class method
-
+08/10/2018    xiche      1.0.4      add class PathUtils
+08/18/2018    xiche      1.0.5      add TxtUtils.read_string_from_txt
 """
 import csv
 import os
@@ -28,15 +29,40 @@ def checkDir(filePath):
     if not os.path.exists(fileDir):
         os.makedirs(fileDir)
 
+class PathUtils:
+    @staticmethod
+    def getDirNameFromFullPath(filePath):
+        fileDir = filePath
+        index1 = filePath.rfind("\\")
+        index2 = filePath.rfind("/")
+        index = index1 if index1 > index2 else index2
+        if(index > -1):
+            fileDir = filePath[0:index]
+        return fileDir
+        
+    @staticmethod
+    def getFileNameFromFullPath(fullPath):
+        file_name = os.path.basename(fullPath)
+        # lastIndex = fullPath.rfind('\\')
+        # if(lastIndex == -1):
+            # lastIndex = fullPath.rfind('/')
+            
+        # if(lastIndex == -1):
+            # lastIndex = 0
+            
+        # return fullPath[lastIndex:]
+        return file_name
 class CSVUtils:
-    @classmethod
-    def writeToCSVFile(cls,filePath, rowsList, delimiterX=',',quotecharX=' ', quotingX=csv.QUOTE_MINIMAL):
+
+    @staticmethod
+    def writeToCSVFile(filePath, rowsList, delimiterX=',',quotecharX=' ', quotingX=csv.QUOTE_MINIMAL):
         with open(filePath, 'w', newline='') as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=delimiterX, quotechar=quotecharX, quoting=quotingX)
             for rows in rowsList:
                 spamwriter.writerow(rows)
-    @classmethod
-    def readCSVRowsList(cls,filePath):
+                
+    @staticmethod
+    def readCSVRowsList(filePath):
         csvRowsList = []
         with open(filePath, newline='') as csvfile:
             csvReader = csv.reader(csvfile, delimiter=',', quotechar='|')
@@ -73,7 +99,12 @@ class TxtUtils:
             rowList = (x for x in rowList if x.strip())
             rowList = list(rowList)
         return rowList[0] if len(rowList) > 0 else ""
-        
+    
+    @classmethod
+    def read_string_from_txt(cls, filePath):
+        with open(filePath, newline='') as f:
+            return f.read()
+              
     @classmethod
     def readTxtRowsList(cls, filePath):
         rowList = []
