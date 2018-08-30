@@ -11,27 +11,20 @@ Date         Author      Version    Description
 07/30/2018    xiche      1.0.3      add cls for class method
 08/10/2018    xiche      1.0.4      add class PathUtils
 08/18/2018    xiche      1.0.5      add TxtUtils.read_string_from_txt
+08/30/2018    xiche      1.1.0      change the method names style
 """
 import csv
 import os
 
-def getDirFromFullPath(filePath):
-    fileDir = filePath
-    index1 = filePath.rfind("\\")
-    index2 = filePath.rfind("/")
-    index = index1 if index1 > index2 else index2
-    if(index > -1):
-        fileDir = filePath[0:index]
-    return fileDir
-
-def checkDir(filePath):
-    fileDir = getDirFromFullPath(filePath)
-    if not os.path.exists(fileDir):
-        os.makedirs(fileDir)
-
 class PathUtils:
+
     @staticmethod
-    def getDirNameFromFullPath(filePath):
+    def check_make_dir_exist(filePath):
+        fileDir = getDirFromFullPath(filePath)
+        if not os.path.exists(fileDir):
+            os.makedirs(fileDir)
+    @staticmethod
+    def get_dir_name_from_full_path(filePath):
         fileDir = filePath
         index1 = filePath.rfind("\\")
         index2 = filePath.rfind("/")
@@ -41,7 +34,7 @@ class PathUtils:
         return fileDir
         
     @staticmethod
-    def getFileNameFromFullPath(fullPath):
+    def get_filename_from_full_path(fullPath):
         file_name = os.path.basename(fullPath)
         # lastIndex = fullPath.rfind('\\')
         # if(lastIndex == -1):
@@ -52,17 +45,18 @@ class PathUtils:
             
         # return fullPath[lastIndex:]
         return file_name
+        
 class CSVUtils:
 
     @staticmethod
-    def writeToCSVFile(filePath, rowsList, delimiterX=',',quotecharX=' ', quotingX=csv.QUOTE_MINIMAL):
+    def write_to_csv_file(filePath, rowsList, delimiterX=',',quotecharX=' ', quotingX=csv.QUOTE_MINIMAL):
         with open(filePath, 'w', newline='') as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=delimiterX, quotechar=quotecharX, quoting=quotingX)
             for rows in rowsList:
                 spamwriter.writerow(rows)
                 
     @staticmethod
-    def readCSVRowsList(filePath):
+    def read_csv_row_list(filePath):
         csvRowsList = []
         with open(filePath, newline='') as csvfile:
             csvReader = csv.reader(csvfile, delimiter=',', quotechar='|')
@@ -73,23 +67,23 @@ class CSVUtils:
 class TxtUtils:
     @classmethod
     def write_list_to_file_with_newline(cls, filePath, rowsList, mode='w'):
-        checkDir(filePath)
+        PathUtils.check_make_dir_exist(filePath)
         with open(filePath, mode) as f:
             for row in rowsList:
                 f.write("%s\n" % row)
                 
     @classmethod            
-    def writeListToTxtFile(cls, filePath, rowsList, mode='w'):
-        checkDir(filePath)
+    def write_list_to_txt_file(cls, filePath, rowsList, mode='w'):
+        PathUtils.check_make_dir_exist(filePath)
         with open(filePath, mode, newline='') as f:
             for row in rowsList:
                 f.write("%s" % row)
                 
     @classmethod
     def remove_first_line(cls, filePath):
-        rowList = cls.readTxtRowsListWithNewLine(filePath)
+        rowList = cls.read_txt_rows_list_with_newline(filePath)
         rowList = list(rowList)
-        cls.writeListToTxtFile(filePath, rowList[1:])
+        cls.write_list_to_txt_file(filePath, rowList[1:])
     
     @classmethod
     def read_first_line(cls, filePath):
@@ -106,29 +100,29 @@ class TxtUtils:
             return f.read()
               
     @classmethod
-    def readTxtRowsList(cls, filePath):
+    def read_txt_rows_list(cls, filePath):
         rowList = []
         with open(filePath, newline='') as f:
             rowList = f.read().splitlines()
             rowList = (x for x in rowList if x.strip())
-        return rowList
+        return list(rowList)
         
     @classmethod
-    def readTxtRowsListWithNewLine(cls, filePath):
+    def read_txt_rows_list_with_newline(cls, filePath):
         rowList = []
         with open(filePath, newline='') as f:
             rowList = f.readlines()
             rowList = (x for x in rowList if x.strip())
-        return rowList
+        return list(rowList)
         
     @classmethod
-    def replaceVariables(cls, file_template, file_destination, dict):
+    def replace_variables(cls, file_template, file_destination, dict):
         new_lines = []
-        for line in cls.readTxtRowsListWithNewLine(file_template):
+        for line in cls.read_txt_rows_list_with_newline(file_template):
             for key,val in dict.items():
                 line = line.replace(key, val)
             new_lines.append(line)
-        cls.writeListToTxtFile(file_destination, new_lines)
+        cls.write_list_to_txt_file(file_destination, new_lines)
         
 class ConfigUtils:
     @staticmethod
