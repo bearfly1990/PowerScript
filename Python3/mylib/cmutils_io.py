@@ -12,17 +12,21 @@ Date         Author      Version    Description
 08/10/2018    xiche      1.0.4      add class PathUtils
 08/18/2018    xiche      1.0.5      add TxtUtils.read_string_from_txt
 08/30/2018    xiche      1.1.0      change the method names style
+09/03/2018    xiche      1.1.1      add read_txt_rows
+09/07/2018    xiche      1.2.0      add XmlUtils
 """
 import csv
 import os
+import xml.etree.ElementTree as ET
 
 class PathUtils:
 
     @staticmethod
     def check_make_dir_exist(filePath):
-        fileDir = getDirFromFullPath(filePath)
+        fileDir = PathUtils.get_dir_name_from_full_path(filePath)
         if not os.path.exists(fileDir):
             os.makedirs(fileDir)
+            
     @staticmethod
     def get_dir_name_from_full_path(filePath):
         fileDir = filePath
@@ -56,7 +60,7 @@ class CSVUtils:
                 spamwriter.writerow(rows)
                 
     @staticmethod
-    def read_csv_row_list(filePath):
+    def read_csv_rows_list(filePath):
         csvRowsList = []
         with open(filePath, newline='') as csvfile:
             csvReader = csv.reader(csvfile, delimiter=',', quotechar='|')
@@ -124,6 +128,10 @@ class TxtUtils:
             new_lines.append(line)
         cls.write_list_to_txt_file(file_destination, new_lines)
         
+    @classmethod
+    def read_txt_rows(cls,file_path):
+        return len(cls.read_txt_rows_list(file_path))
+        
 class ConfigUtils:
     @staticmethod
     def set(filePath, section, key, value):
@@ -154,3 +162,43 @@ class ConfigUtils:
                
         with open(filePath, 'w', newline='') as f:
             f.writelines(new_lines)
+
+class XmlUtils:
+    @classmethod
+    def update_attrib_value(cls, xml_file_path, xpath_str, attrib_str, attrib_new_value):
+        xml_et  = ET.parse(xml_file_path)
+        root    = xml_et.getroot()
+
+        el_start_base_time = root.find(xpath_str)
+
+        el_start_base_time.attrib[attrib_str] = attrib_new_value
+        xml_et.write(xml_file_path)
+
+    # data_service_et     = ET.parse(DATA_SERVICE_CONFIG)
+    # pooling_agent_et    = ET.parse(POOLING_AGENT_CONFIG)
+
+    # root_maps           = data_service_et.getroot()
+    # root_configurations = pooling_agent_et.getroot()
+
+    # el_map = root_maps.find(".//Map")
+    # for i in range(client_num - 1):
+    #     temp_el_map         = copy.deepcopy(el_map)
+    #     temp_el_clientID    = temp_el_map.find(".//ClientID")
+    #     temp_el_clientID.text =  temp_el_clientID.text + str(i+1)
+    #     root_maps.append(temp_el_map)
+
+
+    # el_client_specific_configuration = root_configurations.find(".//ClientSpecificConfiguration")
+    # el_client = root_configurations.find(".//ClientSpecificConfiguration/Client")
+
+    # for i in range( client_num - 1 ):
+    #     temp_el_client  = copy.deepcopy(el_client)
+    #     temp_clientID   = temp_el_client.get("ClientID")
+    #     temp_el_client.set("ClientID", temp_clientID + str(i+1))
+    #     el_client_specific_configuration.append(temp_el_client)
+    #     data_service_et.write(DATA_SERVICE_CONFIG_L_PATH)
+    #     pooling_agent_et.write(POOLING_AGENT_CONFIG_L_PATH)
+
+
+if __name__ == '__main__':
+    XmlUtils.update_attrib_value('PAMJobScheduler.exe.config',".//appSettings/add[@key='startBasetime']",'value','2222' )
