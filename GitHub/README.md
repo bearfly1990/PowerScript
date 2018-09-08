@@ -1,9 +1,12 @@
 # GitHub
+
 Here is some information/knowledge about github
 
 ## Make visit github faster
+
 update the `host` file at `c:\windows\system32\drivers\etc`
-```
+
+```bash
 151.101.73.194 github.global.ssl.fastly.NET
 151.101.72.133 assets-cdn.github.com
 192.30.255.113 github.com
