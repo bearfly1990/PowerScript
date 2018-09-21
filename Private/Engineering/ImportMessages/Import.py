@@ -26,9 +26,21 @@ Date        Author      Version     Description
                                     Add Comment_Email settings in TestCases.ini
                                     Add cmutils_excel to style merged border
                                     Add running computer cpu cores and memroy size to test result.
+08/24/2018  xiche       1.1.2       Add wait_for_server_init to monitor the inital log(%temp%/stt/log/MsgPostServer.log) to start java server         
+08/28/2018  xiche       1.1.3       Support import messages files with both '.txt' and 'json'               
+08/30/2018  xiche       1.1.4       Remove %temp%/sst/logmsgPostServer.log before java post server started, and copy the log to test result folder when finished.                 
+                                    Remove restart MQ Service from clean_environment
+08/30/2018  xiche       1.1.5       Update utils method name
+                                    Fix MPORT_RESULT_LOG_BK not exsit when no file to import.
+                                    Fix issues when run several test cases
+09/02/2018  xiche       1.1.6       Change test result xlsx name to comment string.
+09/11/2018  xiche       1.1.7       Remove import result log before first import run.
+09/12/2018  xiche       1.1.8       Add process bar for import progress
+09/17/2018  xiche       1.1.8       Add check import message type to decide PAM message or JSON message     
+                                    Add Failed to load together with failed to process in test result
 """
 import sys
-sys.path.insert(0, r"xxx\pythonlib")
+sys.path.insert(0, r"\\xxx\pythonlib")
 import os
 import glob
 import configparser
@@ -61,8 +73,8 @@ from openpyxl.chart import (
 
 
 from cmutils.cmutils_value import isFloat
-from cmutils.cmutils_log import Logger
-from cmutils.cmutils_io import ConfigUtils, TxtUtils, PathUtils, CSVUtils, getDirFromFullPath
+from cmutils.cmutils_log import Logger, ShowProcess
+from cmutils.cmutils_io import ConfigUtils, TxtUtils, PathUtils, CSVUtils
 from cmutils.cmutils_monitor import Monitor
 from cmutils.cmutils_db import DBUtils
 from cmutils.cmutils_email import EmailUtils
@@ -75,7 +87,7 @@ from cmutils.cmutils_excel import style_range
 # from subprocess import call
 # config = configparser.ConfigParser()
 # config = configParser.SafeConfigParser()
-IMPORT_INI      = r"xxx\Import.ini"
+IMPORT_INI      = r"\\xxx\{}\Import.ini"
 COMPUTER_NAME   = os.environ['COMPUTERNAME']
 COMPUTER_CPU_NUM = psutil.cpu_count()
 COMPUTER_MEMORY_TOTAL = round(psutil.virtual_memory().total/1024/1024/1024)
@@ -87,6 +99,7 @@ config_db       = configparser.RawConfigParser(strict=False)
 config_mq       = configparser.RawConfigParser(strict=False)
 # RawConfigParser
 DATE_TIME_FORMAT = "%Y/%m/%d %H:%M:%S" #"2018-06-13 23:51:17"
+DATE_TIME_FORMAT_12 = "%m/%d/%Y %I:%M:%S %p " #09/07/2018 08:30:00 PM
 # config.read('%s\\%s\\Import.ini' % (CONFIG_SPACE,COMPUTER_NAME))
 config.read(IMPORT_INI)
 
@@ -139,30 +152,26 @@ SEND_EMAIL  = config['DevSetting']['SEND_EMAIL']
 RUN_PAM_MESSAGE = config['DevSetting']['RUN_PAM_MESSAGE']
 CMD_RUN_MANAGER = config['CMD']['StartServer']
 
-# l:\pam\wsys\report\IMPORT.exe B C:\1.txt HZHAN T 5 42 Y 20170401 -i:m:\pam\wsys\pam.ini
 CMD_RUN_IMPORT = config['CMD']['RunImport']
 CMD_RUN_IMPORT_PAM = config['CMD']['RunImport_PAM']
 
 if(RUN_PAM_MESSAGE == '1'):
     DEVMODE     = '1' 
-    MULTI_VMS   = '0'
-    RESTORE_DB  = '0' 
-    CLEAN_ENV   = '0'
+    # MULTI_VMS   = '0'
+    # RESTORE_DB  = '0' 
+    # CLEAN_ENV   = '0'
     CMD_RUN_IMPORT = CMD_RUN_IMPORT_PAM
 
 DRIVER_L    = config['DriverMapping']['L']
 DRIVER_M    = config['DriverMapping']['M']
 
-# log
-LOG_LEVEL   = config['LogConfig']['Level']
-LOG_FORMAT  = config['LogConfig']['Format_Console']
-LOG_FORMAT_FILE = config['LogConfig']['Format_File']
-LOG_FILE    = config['LogConfig']['LogFile'].format(TIME_IMPORT_START)
-LOG_DIR     = config['LogConfig']['LogDir']#.format(COMPUTER_NAME, TIME_IMPORT_START)
 
 # Environment
 KETTLE_HOME     = "KETTLE_HOME"
 JAVA_HOME       = "JAVA_HOME"
+
+FOLDER_TEMP     = os.environ["temp"]
+LOG_PATH_MSG_POST_SERVER = os.path.join(FOLDER_TEMP, r"stt\log\MsgPostServer.log")
 
 EMAIL_RECIPIENTS    = config['EnvVar']['EMAIL_RECIPIENTS']
 
@@ -205,19 +214,19 @@ mq_config_content = '[dummy_section]\n' + TxtUtils.read_string_from_txt(MQ_CONFI
 config_mq.read_string(mq_config_content)
 MQ_MAX_JAVA_MEMORY          = config_mq['dummy_section']['wrapper.java.maxmemory']
 
-MSG_TYPE_FLOW_MAPPING_TO    = "{}\MsgTypeFlowMapping.txt".format(r'L:\PAM\Wsys\PDI_Transforms' if 'none' in PFS_ROOT.lower() else PFS_ROOT)#config['EnvVar']['MSG_TYPE_FLOW_MAPPING_TO']
+MSG_TYPE_FLOW_MAPPING_TO    = "{}\xxx.txt".format(r'L:\PAM\Wsys\PDI_Transforms' if 'none' in PFS_ROOT.lower() else PFS_ROOT)#config['EnvVar']['MSG_TYPE_FLOW_MAPPING_TO']
 
 DATA_SERVICE_CONFIG         = config['Files']['DATA_SERVICE_CONFIG'].format(COMPUTER_NAME)
-POOLING_AGENT_CONFIG       = config['Files']['POOLING_AGENT_CONFIG'].format(COMPUTER_NAME)
-DATA_SERVICE_CONFIG_L_PATH  = r"xxx\xxx.xml"
-POOLING_AGENT_CONFIG_L_PATH = r"xxx\xxx.xml"
+POOLING_AGENT_CONFIG        = config['Files']['POOLING_AGENT_CONFIG'].format(COMPUTER_NAME)
+DATA_SERVICE_CONFIG_L_PATH  = r"xxx\DataServiceConfig.xml"
+POOLING_AGENT_CONFIG_L_PATH = r"xxx\PoolingAgentConfig.xml"
 IMPORT_LIST                 = config['Files']['IMPORT_LIST'].format(COMPUTER_NAME)
-TEST_RESULT                 = config['Files']['TEST_RESULT']#LOG_DIR + config['Files']['TEST_RESULT']
+TEST_RESULT                 = config['Files']['TEST_RESULT']
 FILE_TEST_RESULT_TPL        = config['Files']['TEST_RESULT_TPL'].format(COMPUTER_NAME)
 FILE_TEST_RESULT_XLSX       = TEST_RESULT + ".xlsx"
-FILE_TEST_MONITOR           = config['Files']['TEST_MONITOR']#LOG_DIR + config['Files']['TEST_MONITOR']
+FILE_TEST_MONITOR           = config['Files']['TEST_MONITOR']
 IMPORT_RESULT_LOG           = config['Files']['IMPORT_RESULT_LOG']
-IMPORT_RESULT_LOG_BK        = config['Files']['IMPORT_RESULT_LOG_BK']#LOG_DIR + config['Files']['IMPORT_RESULT_LOG_BK']
+IMPORT_RESULT_LOG_BK        = config['Files']['IMPORT_RESULT_LOG_BK']
 TEST_RESULT_LEVEL           = getTestResultLevel(config['TestResult']['Level'])
 CHECK_SQL                   = getCheckSql(config['TestResult']['CheckSql'])
 MONITOR_PROLONG             = config['TestResult']['Monitor_Prolong']
@@ -230,6 +239,8 @@ for (each_key, each_val) in config.items('KettleSetting'):
 MESSAGE_TYPE_FLOW_MAPPINGS  = []
 for (each_key, each_val) in config.items('MessageTypeFlowMapping'):
     MESSAGE_TYPE_FLOW_MAPPINGS.append(each_val)
+# start java.exe -Dlog4j.configurationFile=file:///C:/pam/wsys/MsgPostServer/log4j2.xml -XX:MaxPermSize=2048m -Xms18000m -Xmx28000m -jar L:/pam/wsys/MsgPostServer/sttappmanager.jar
+
 
 '''Config logging'''
 # logging.basicConfig(
@@ -240,10 +251,16 @@ for (each_key, each_val) in config.items('MessageTypeFlowMapping'):
         # logging.FileHandler("{0}/{1}".format(LOG_DIR,LOG_FILE)),
         # logging.StreamHandler()
 # ])
-format_file_str = "%(asctime)s [%(levelname)-5.5s] %(message)s"
-format_console_str = "%(log_color)s%(asctime)s [%(levelname)-5.5s] %(message)s"
-logfile_path_str = "{0}/{1}".format(LOG_DIR,LOG_FILE)
-logging = None#Logger(level=LOG_LEVEL,format_file=format_file_str, format_console=format_console_str, logfile_path = logfile_path_str).logger
+# log
+LOG_DIR             = config['LogConfig']['LogDir']#.format(COMPUTER_NAME, TIME_IMPORT_START)
+LOG_FILE            = config['LogConfig']['LogFile']
+LOG_LEVEL           = config['LogConfig']['Level']
+LOG_FORMAT_CONSOLE  = config['LogConfig']['Format_Console'] #"%(log_color)s%(asctime)s [%(levelname)-5.5s] %(message)s"
+LOG_FORMAT_FILE     = config['LogConfig']['Format_File'] #"%(asctime)s [%(levelname)-5.5s] %(message)s"
+LOGFILE_PATH_STR    = "{0}/{1}".format(LOG_DIR,LOG_FILE)
+# LOGGER              = Logger(level=LOG_LEVEL,format_file=format_file_str, format_console=format_console_str, logfile_path = logfile_path_str)
+LOGGER  = None
+logging = None #LOGGER.logger#Logger(level=LOG_LEVEL,format_file=format_file_str, format_console=format_console_str, logfile_path = logfile_path_str).logger
 
 def checkDriverMapping():
     if(DEVMODE == '0'):
@@ -268,25 +285,12 @@ FILE_RESTOE_DB_SQL  = config['DBInfo']['SQL_Restore_DB'].format(COMPUTER_NAME)
 
 config_db.read(config['DBInfo']['Path'])
 DB_INFO_CONFIG = config_db['DB']
-# CONN = pymssql.connect(server='PFS-PFIDB-002\sql2012', 
-               # user='METPDI', 
-               # password='Pampfs2005', 
-               # database='METPDI',
-               # tds_version='8.0',
-               # port = '1433')
-DB_TYPE = "Sqlserver"
 
+DB_TYPE = "Sqlserver"
 def getConnection():
     conn = None
     while(True):
-        # try:             
-            # CONN = cx_Oracle.connect('{}/{}@{}'.format(DB_INFO_CONFIG['userid'], DB_INFO_CONFIG['password'], config['DBInfo']['oracle_tnsname']))
-            # DB_TYPE = "Oracle"
-            # print("Oracle connected{}/{}@{}".format(DB_INFO_CONFIG['userid'], DB_INFO_CONFIG['password'], config['DBInfo']['oracle_tnsname']))
-            # break
-        # except Exception as e1:
         try:
-        
             conn = pymssql.connect(DB_INFO_CONFIG['sqlnet'], DB_INFO_CONFIG['userid'], DB_INFO_CONFIG['password'], DB_INFO_CONFIG['source'])
             return conn
             break
@@ -413,7 +417,8 @@ def checkImportResultLog(importFilePath):
 
     except FileNotFoundError:
         logging.error("%s IS NOT EXISTED, PLEASE HAVE A CHECK", IMPORT_RESULT_LOG)
-    return failedToProcess
+        
+    return {'failedToLoad':failedToLoad,'failedToProcess':failedToProcess}
     
 def checkEnvVar(VarKey):
     try:
@@ -465,44 +470,13 @@ def checkMsgTypeFlowMapping():
                 for msg in MESSAGE_TYPE_FLOW_MAPPINGS:
                     if( msg in line):
                         logging.info(line)
-    # config_mpamini      = configparser.RawConfigParser(strict=False, allow_no_value=True)
-    # config_mpamini.read(MPAMINI)
-    # config_mpamini.set('Securities', 'PFS_ROOT', PFS_ROOT)
-    # with open(MPAMINI, 'w') as configfile:
-        # config_mpamini.write(configfile)
-    # try:
-        # shutil.copy(MSG_TYPE_FLOW_MAPPING, MSG_TYPE_FLOW_MAPPING_TO)
-    # except PermissionError:
-        # logging.info("%s IS IN USED!", MSG_TYPE_FLOW_MAPPING_TO)
-        # goon = input("CONTINUE?(Y/N): ")
-        # if(goon.upper() == "Y"):
-            # pass
-        # else:
-            # logging.info("PLEASE CHANGE THE SETTINGS FIRST!")
-            # exit()   
-    # try:
-        # pass
-        # shutil.copy(MSG_TYPE_FLOW_MAPPING, MSG_TYPE_FLOW_MAPPING_TO)
-        
-        # with open(MSG_TYPE_FLOW_MAPPING_TO, "rt") as f:
-            # for line in f:
-                # l = line.strip()
-                # if l and not l.startswith('#'):
-                    # if("TABLOCKREGULARLOANPAYMENT;" in l):
-                        # logging.info(l)
-    # except Exception as e:
-        # logging.error(traceback.format_exc())
-    # except PermissionError:
-        # logging.error("No Permission to replace the %s", MSG_TYPE_FLOW_MAPPING_TO)
-        # exit()
-   
 
-def readConfigFile(filePath='ImportConfig.txt'):
+def read_import_list(filePath='ImportConfig.txt'):
     with open(filePath) as f:
         content = f.read().splitlines();
     return [x.strip() for x in content if (not "#" in x and x.strip())]
     
-def countInvalidRowsInFile(filePath):
+def count_invalid_rows_in_files(filePath):
     count = 0
     try:
         with open(filePath) as f:
@@ -513,17 +487,52 @@ def countInvalidRowsInFile(filePath):
     except FileNotFoundError:
         logging.error("FILE %s NOT FOUND!", filePath)
     return count
-    
-def initJavaServer():
-    logging.info("start init Java Server...")
-    timeout(5)
+
+def wait_for_server_init():
+    logging.info("Wait for Server init...")
+    init_finished = False
+    time.sleep(60)
+    while(1):
+        log_list = []
+        try:
+            log_list = TxtUtils.read_txt_rows_list(LOG_PATH_MSG_POST_SERVER)
+        except FileNotFoundError:
+            logging.error("{} not exist".format(LOG_PATH_MSG_POST_SERVER))
+			
+        log_list_reversed       = log_list[::-1]
+        msg_route_camel_ready   = False
+
+        for line in log_list_reversed:
+            if "MessagingRoutes Camel is now started!".lower() in line.lower():
+                msg_route_camel_ready = True
+            if "Main-Class : org.springframework.boot.loader.JarLauncher".lower() in line.lower():
+                if msg_route_camel_ready:
+                    init_finished = True
+                else:
+                    pass #print("wait for inital!")
+                break
+
+        if init_finished:
+            logging.info("Java Server Init Finished!")
+            return
+        time.sleep(30)
+
+def init_java_msg_post_server():
     _cmd_run_manager = ""
     if(DEVMODE == '0'):
+        logging.info("start init Java Server...")
+        timeout(5)
+        
+        logging.info("remove "+LOG_PATH_MSG_POST_SERVER)
+        if os.path.exists(LOG_PATH_MSG_POST_SERVER):
+            os.remove(LOG_PATH_MSG_POST_SERVER)
+        
         _cmd_run_manager = CMD_RUN_MANAGER.format(JAVA_HOME, LOG4J_PATH, KETTLE_HOME, STTAPPMANAGER)
         logging.info("CMD_RUN_MANAGER="+_cmd_run_manager)
         os.system(_cmd_run_manager)
-        timeout(480)
-    
+        wait_for_server_init()
+        timeout(60)
+        
 def getSqlStr(dir):
     checkSqlFile1 = dir+"\\checkResult.sql"
     checkSqlFile2 = getLastDirPath(checkSqlFile1)+"\\checkResult.sql"
@@ -630,58 +639,110 @@ def zip_import_logs():
         # zipdir(IMPORT_RESULT_LOG_BK, zipf)
         # zipf.close()
         shutil.rmtree(IMPORT_RESULT_LOG_BK)
+        
+def import_progress_bar(total):
+    process_bar = ShowProcess(100, 'OK')
+    process_bar.total = total
+    # process_bar.startMonitor()
+    current = last = -1
+    while(True):
+        if os.path.exists(IMPORT_RESULT_LOG):
+            props = os.stat(IMPORT_RESULT_LOG)
+            current = props.st_mtime
+            if current > last:
+                last = current
+                count_records = TxtUtils.count_rows_contains_str(IMPORT_RESULT_LOG, 'Data Record:')
+                if(STATUS_IMPORT == 'ENDED'):
+                    count_records = total
+                process_bar.count_now = count_records
+                if total == 0:
+                    process_bar.pct_now = 100
+                else:
+                    process_bar.pct_now = count_records / total * 100
+                process_bar.show_process()
+                if count_records >= total:
+                    break
+        time.sleep(2)
+        
+def init_process_bar(rowsInFile):
+    t = Thread(target=import_progress_bar, args=(rowsInFile,))
+    t.start()
     
-def runImport():
+def is_pam_message(file_path):
+    result = True
+    with open(file_path, "rt") as f:
+        for line in f:
+            if('{' in line.strip()):
+                result = False
+            break
+    return result
+    
+def run_import():
+    global STATUS_IMPORT
+    logging.info("remove "+IMPORT_RESULT_LOG)
+    if os.path.exists(IMPORT_RESULT_LOG):
+        os.remove(IMPORT_RESULT_LOG)
+        
     initTestResult()
     _cmd_run_import = ""
-    dirs = readConfigFile(IMPORT_LIST)
+    dirs = read_import_list(IMPORT_LIST)
     list_of_files = []
     for dir in dirs:
         logging.info("-----START IMPORT-----")
         countRowsDir = 0
-        list_of_files = glob.glob(dir+'/*.txt') 
+        list_of_files = glob.glob(dir+'/*.txt') + glob.glob(dir+'/*.json')
         list_of_files.sort()
         rowsInDBBefore_Dir = getCurrentRowsInDB(dir)
-        timeStartDir  =  time.time()
-        dirTimeBack = 0
+        # timeStartDir =  time.time()
+        # dirTimeBack = 0
+        periodDir = 0
         messageDateStr = ''
+        failedToLoadDir = 0
         failedToProcessDir = 0
+        
         if(len(list_of_files) > 0):
             messageDateStr = getDateInMessage(list_of_files[0])
         rowsAreMatched = False
         for importfile in list_of_files:
-            rowsInFile = countInvalidRowsInFile(importfile)
+            rowsInFile = count_invalid_rows_in_files(importfile)
             rowsInDBBefore_File = getCurrentRowsInDB(dir)
             countRowsDir += rowsInFile
             countRowsFile = rowsInFile
             timeStartFile  =  time.time()
             
             _cmd_run_import = CMD_RUN_IMPORT.format(importfile)
-            logging.info(_cmd_run_import)
+            if is_pam_message(importfile):
+                _cmd_run_import = CMD_RUN_IMPORT_PAM.format(importfile)
             #Real to call the import
+            init_process_bar(rowsInFile)
+                
             if(DEVMODE == '0' or DEVMODE == '1'):
+                STATUS_IMPORT = 'START'
+                logging.info(_cmd_run_import)
                 os.system(_cmd_run_import)
+                STATUS_IMPORT = 'ENDED'
             timeEndFile  =  time.time()
             
             periodFile  = timeEndFile - timeStartFile
+            periodDir   = periodDir + periodFile
             periodFileStr = "{:.2f}".format(periodFile)
             logging.info("Finished:"+importfile)
             logging.info("Import Time(s):%s", periodFileStr)
             
-            timeout(10)
-            dirTimeBack = dirTimeBack + 10
+            time.sleep(5)
+            # dirTimeBack = dirTimeBack + 10
             
             rowsInDBAfter_File = getCurrentRowsInDB(dir)
             rowsAreMatched = checkImportResultInDB(importfile, rowsInDBBefore_File, rowsInDBAfter_File, rowsInFile)
             # time.sleep(5)
             '''Change the time back because sleep'''
-            failedToProcessFile = int(checkImportResultLog(importfile))
+            failed_info_dict    = checkImportResultLog(importfile)
+            failedToLoadFile    = int(failed_info_dict['failedToLoad'])
+            failedToLoadDir     = failedToLoadDir + failedToLoadFile
+            failedToProcessFile = int(failed_info_dict['failedToProcess'])
             failedToProcessDir  = failedToProcessDir + failedToProcessFile
-            writeResult(importfile, rowsInFile, periodFile, messageDateStr, False, rowsAreMatched,failedToProcessFile == 0, failedToProcessFile)
+            writeResult(importfile, rowsInFile, periodFile, messageDateStr, False, rowsAreMatched,failedToProcessFile + failedToLoadFile == 0, '{}/{}'.format(failedToLoadFile, failedToProcessFile))
             
-        timeEndDir  =  time.time()
-        #{:10.4f}
-        periodDir = timeEndDir - timeStartDir - dirTimeBack
         periodDirStr = "{:.2f}".format(periodDir)
         logging.info("Finished:"+dir)
         logging.info("Import Time(s):%s", periodDirStr)
@@ -691,25 +752,27 @@ def runImport():
         rowsAreMatched = checkImportResultInDB(dir, rowsInDBBefore_Dir, rowsInDBAfter_Dir, countRowsDir)
         
         logging.info("-----END IMPORT-----")
-        writeResult(dir, countRowsDir, periodDir, messageDateStr, True, rowsAreMatched, failedToProcessDir == 0, failedToProcessDir)
+        writeResult(dir, countRowsDir, periodDir, messageDateStr, True, rowsAreMatched, failedToProcessDir + failedToLoadDir == 0, '{}/{}'.format(failedToLoadDir, failedToProcessDir))
         
         if(DEVMODE == '0' or DEVMODE == '1'):
             timeout(5)
-            dirTimeBack = dirTimeBack - 5
+            # dirTimeBack = dirTimeBack - 5
+             
+    logging.info("copy {} to {}".format(LOG_PATH_MSG_POST_SERVER, LOG_DIR))
+    shutil.copy(LOG_PATH_MSG_POST_SERVER, IMPORT_RESULT_LOG_BK)
+    
+    logging.info("zip log files...")
     zip_import_logs()
             
 def startMonitor():
     Monitor(FILE_TEST_MONITOR, QUEUE_TEST_STATUS).startMonitor()
     
-def readTestCasesConfig():
+def read_testcases_config():
     global TEST_CASE_LIST
     testcase_config = configparser.RawConfigParser(strict=False)
 
     testcase_config.read(TEST_CASES_CONFIG_FILE)
     TEST_CASE_LIST = []
-    
-    
-    
     
     for section in testcase_config.sections():
         testcase = type('',(object,),{\
@@ -728,9 +791,9 @@ def readTestCasesConfig():
          # testcase_config[section]["PARAM3"],\
         TEST_CASE_LIST.append(testcase)
         
-def generateConfigFiles(test_case):
-    TxtUtils.replaceVariables(MSG_TYPE_FLOW_MAPPING_TPL, MSG_TYPE_FLOW_MAPPING, {"%POOL_SIZE%": test_case.pool_size, "%POOL_SIZE2%": test_case.pool_size2})
-    TxtUtils.replaceVariables(KETTLE_PROPERTY_TPL, KETTLE_PROPERTY, {"%PC_NAME%": COMPUTER_NAME, "%STT_ALGO_POOL_SIZE%":test_case.algo_pool_size})
+def generate_config_files(test_case):
+    TxtUtils.replace_variables(MSG_TYPE_FLOW_MAPPING_TPL, MSG_TYPE_FLOW_MAPPING, {"%POOL_SIZE%": test_case.pool_size, "%POOL_SIZE2%": test_case.pool_size2})
+    TxtUtils.replace_variables(KETTLE_PROPERTY_TPL, KETTLE_PROPERTY, {"%PC_NAME%": COMPUTER_NAME, "%STT_ALGO_POOL_SIZE%":test_case.algo_pool_size})
     update_client_instance(int(test_case.client_num))
     shutil.copy(MSG_TYPE_FLOW_MAPPING, os.path.join(LOG_DIR, "MsgTypeFlowMapping.txt"))
     shutil.copy(KETTLE_PROPERTY, os.path.join(LOG_DIR, "kettle.properties"))
@@ -772,13 +835,14 @@ def update_configs(test_case):
     global CMD_RUN_MANAGER
     global TIME_IMPORT_START
     global LOG_DIR
+    global LOGGER
     # global IMPORT_LIST
     global TEST_RESULT
     global FILE_TEST_RESULT_XLSX
     global FILE_TEST_MONITOR
     global IMPORT_RESULT_LOG_BK
     global logging
-    global logfile_path_str
+    global LOGFILE_PATH_STR
     
     CMD_RUN_MANAGER         = CMD_RUN_MANAGER.replace("%JAVA_MEMORY%", test_case.java_memory)
     CMD_RUN_MANAGER         = CMD_RUN_MANAGER.replace("%PARAM1%", test_case.PARAM1)
@@ -787,28 +851,33 @@ def update_configs(test_case):
     TIME_IMPORT_START       = datetime.datetime.now()
     LOG_DIR                 = config['LogConfig']['LogDir'].format(COMPUTER_NAME, TIME_IMPORT_START) + "_{}_{}_{}".format(test_case.pool_size, test_case.algo_pool_size, test_case.java_memory)
     # IMPORT_LIST             = os.path.join(LOG_DIR, config['Files']['IMPORT_LIST'].format(COMPUTER_NAME))
-    TEST_RESULT             = os.path.join(LOG_DIR, TEST_RESULT)
-    FILE_TEST_RESULT_XLSX   = os.path.join(LOG_DIR, FILE_TEST_RESULT_XLSX)
-    FILE_TEST_MONITOR       = os.path.join(LOG_DIR, FILE_TEST_MONITOR)
-    IMPORT_RESULT_LOG_BK    = os.path.join(LOG_DIR, IMPORT_RESULT_LOG_BK)
-    logfile_path_str        = os.path.join(LOG_DIR, LOG_FILE)
+    TEST_RESULT             = os.path.join(LOG_DIR, PathUtils.get_filename_from_full_path(TEST_RESULT))
+    FILE_TEST_RESULT_XLSX   = os.path.join(LOG_DIR, "{}.xlsx".format(test_case.email_comment))
+    #os.path.join(LOG_DIR, PathUtils.get_filename_from_full_path(FILE_TEST_RESULT_XLSX))
+    FILE_TEST_MONITOR       = os.path.join(LOG_DIR, PathUtils.get_filename_from_full_path(FILE_TEST_MONITOR))
+    IMPORT_RESULT_LOG_BK    = os.path.join(LOG_DIR, PathUtils.get_filename_from_full_path(IMPORT_RESULT_LOG_BK))
+    LOGFILE_PATH_STR        = os.path.join(LOG_DIR, PathUtils.get_filename_from_full_path(LOG_FILE))
     
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
-        
-    logging = Logger(level=LOG_LEVEL,format_file=format_file_str, format_console=format_console_str, logfile_path = logfile_path_str).logger
+    if not os.path.exists(IMPORT_RESULT_LOG_BK):
+        os.makedirs(IMPORT_RESULT_LOG_BK)
+    if LOGGER:
+        LOGGER.change_logging_file(LOGFILE_PATH_STR)
+    else:
+        LOGGER = Logger(level=LOG_LEVEL,format_file=LOG_FORMAT_FILE, format_console=LOG_FORMAT_CONSOLE, logfile_path = LOGFILE_PATH_STR)
+    logging = LOGGER.logger
+    # logging = Logger(level=LOG_LEVEL,format_file=format_file_str, format_console=format_console_str, logfile_path = logfile_path_str).logger
 
-    generateConfigFiles(test_case)
+    generate_config_files(test_case)
     
 def restore_db():
     if(DEVMODE != '0' or RESTORE_DB == '0'):
         return 0
-    logging.info("start to restore db...")
-    timeout(5)
-    db_utils = DBUtils(DB_INFO_CONFIG['sqlnet'], DB_INFO_CONFIG['userid'], DB_INFO_CONFIG['password'], DB_INFO_CONFIG['source'])
     logging.info("Start to restore DB {}/{}".format(DB_INFO_CONFIG['sqlnet'], DB_INFO_CONFIG['source']))
-    # os.system("schtasks.exe /Run /S sstcp18264-7.nj.pfs.net /TN restoreDB")
-    # os.system("start python test.py")
+    timeout(10)
+    db_utils = DBUtils(DB_INFO_CONFIG['sqlnet'], DB_INFO_CONFIG['userid'], DB_INFO_CONFIG['password'], DB_INFO_CONFIG['source'])
+    
     sql_restore_db = TxtUtils.read_string_from_txt(FILE_RESTOE_DB_SQL)
     try:
         db_utils.restore_db(sql_restore_db)
@@ -816,29 +885,14 @@ def restore_db():
         logging.warn("DB Exception! wait 10 minutes")
         timeout(600)
 
-def cleanEnvironment():
+def clean_environment():
     if(DEVMODE != '0' or CLEAN_ENV == '0'):
         return 0
     os.system("tskill AlgoQueueService /a")
-    os.system("tskill java /a")
+    # os.system("tskill java /a")
+    os.system('taskkill /F /T /IM java.exe /FI "USERNAME eq {}"'.format(os.getlogin()))
     os.system("tskill import /a")
-    service = None
-    try:
-        service = psutil.win_service_get("ActiveMQ")
-        service = service.as_dict()
-        logging.info("Restart Service ActiveMQ...")
-    except:
-        try:
-            service = psutil.win_service_get("ActiveMQService")
-            service = service.as_dict()
-            logging.info("Restart Service ActiveMQService...")
-        except:
-            logging.warn("Service ActiveMQ or ActiveMQService not exist")
-            return 0
-    os.system("net stop {}".format(service['name']))
-    os.system("net start {}".format(service['name']))
-    # win32serviceutil.RestartService(serviceName)
-    
+
 def vm_trigger(status):
     if(MULTI_VMS == "0"):
         return 0
@@ -855,7 +909,7 @@ def vm_trigger(status):
     else:
         TxtUtils.write_list_to_file_with_newline(TRIGGER_LIST_FINISHED, ["{} {}".format(TIME_IMPORT_START,COMPUTER_NAME)], mode='a')
         TxtUtils.remove_first_line(TRIGGER_LIST_WAIT)
-def sendTestResult(test_case):
+def send_test_report(test_case):
     if(SEND_EMAIL == "0"):
         return 0
     logging.info("send test result...")
@@ -865,20 +919,14 @@ def sendTestResult(test_case):
     emailUtil.set_body("<p>{}</p><p><a href='{}'>{}</a></p>".format(test_case.email_comment, LOG_DIR,LOG_DIR))
     emailUtil.send_email()
     
-def checkEnvAndSettings():
+def check_env_and_settings():
     checkUser()
     checkPAMCore()
     checkJAVAHOME()
     checkKettleSetting()
     checkLog4j()
     checkMsgTypeFlowMapping()
-    # goon = input("ARE THE SETTINGS OK?(Y/N): ")
-    # if(goon.upper() == "Y"):
-        # pass
-    # else:
-        # logging.warn("PLEASE CHANGE THE SETTINGS FIRST!")
-        # QUEUE_TEST_STATUS.put(True)
-        # exit()
+
 def generate_test_result(test_case):
     global FILE_TEST_RESULT_XLSX
     file_monitor            = FILE_TEST_MONITOR #os.path.join(LOG_DIR, "Monitor.csv")
@@ -891,7 +939,7 @@ def generate_test_result(test_case):
     wb_tpl  = openpyxl.load_workbook(FILE_TEST_RESULT_TPL)
     ws      = wb_tpl['Data'] 
     """ [ [2018/06/17 23:47:11,17.0,16.71], [2018/06/17 23:47:13,1.5,17.01], [2018/06/17 23:47:15,2.9,17.04], ... ] """
-    data_list = CSVUtils.readCSVRowsList(file_monitor)
+    data_list = CSVUtils.read_csv_rows_list(file_monitor)
     _max_row = len(data_list)
     _max_col = 5
     for row_index, rows in enumerate(data_list):
@@ -909,11 +957,6 @@ def generate_test_result(test_case):
                         os_memory_last  = float(value)
                     if(col_index == 3):
                         java_memory_last = float(value)
-            
-    # ws['E1'] = "CPU(AVG):"
-    # ws['E2'] = "Memory(AVG):"
-    # ws['F1'] = "=AVERAGE(B:B)"
-    # ws['F2'] = "=AVERAGE(C:C)"
     chart1 = LineChart()
     chart1.title = "CPU/Memory Monitor"
     chart1.style = 2 # default style when new a line chart
@@ -963,7 +1006,7 @@ def generate_test_result(test_case):
     ws_test_result['F5'].border = border
     ws_test_result['E6'].border = border
     ws_test_result['F6'].border = border
-    data_list = CSVUtils.readCSVRowsList(file_test_result)
+    data_list = CSVUtils.read_csv_rows_list(file_test_result)
 
     row_start = 8
     col_start = 1
@@ -987,7 +1030,7 @@ def generate_test_result(test_case):
             if(isFloat(value)):
                 ws_test_result.cell(row=row_count + row_start, column=col_count + col_start).value = float(value)
             elif(col_index == 0):
-                ws_test_result.cell(row=row_count + row_start, column=col_count + col_start).value = PathUtils.getFileNameFromFullPath(value)
+                ws_test_result.cell(row=row_count + row_start, column=col_count + col_start).value = PathUtils.get_filename_from_full_path(value)
             else:
                 ws_test_result.cell(row=row_count + row_start, column=col_count + col_start).value = value
             ws_test_result.cell(row=row_count + row_start, column=col_count + col_start).border = border   
@@ -1006,11 +1049,11 @@ def generate_test_result(test_case):
     
     wb_tpl.save(filename = FILE_TEST_RESULT_XLSX)
     
-def __main__():
+def start_message_import_test():
     # checkDriverMapping() have move ahead at line 184
     vm_trigger("start")
     print("Read test cases config...")
-    readTestCasesConfig()
+    read_testcases_config()
     for test_case in TEST_CASE_LIST:
         print("Update configs...")
         update_configs(test_case)
@@ -1018,14 +1061,15 @@ def __main__():
         startMonitor()
         logging.info("-----START TO RUN IMPORT PROCESS!-----")
         logging.info("-----CHECK SETTINGS-----")
-        checkEnvAndSettings()
-        initJavaServer()
-        runImport()
+        check_env_and_settings()
+        init_java_msg_post_server()
+        run_import()
         print("Import Finished!")
         timeout(int(MONITOR_PROLONG))
         QUEUE_TEST_STATUS.put(True)
         generate_test_result(test_case)
-        sendTestResult(test_case)
-        cleanEnvironment()
+        send_test_report(test_case)
+        clean_environment()
     vm_trigger("ended")
-__main__()
+if __name__ == "__main__":
+    start_message_import_test()
