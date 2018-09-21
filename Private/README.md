@@ -2,9 +2,9 @@
 Here are some personal information and summary of my work.
 
 The most important things in my life:
-* :sunny
-* :family
-* :money_with_wings
+* :sunny:
+* :family:
+* :money_with_wings:
 
 ## To-Do List
 * [ ] Spring Boot
