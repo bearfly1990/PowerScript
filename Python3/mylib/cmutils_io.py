@@ -14,22 +14,39 @@ Date         Author      Version    Description
 08/30/2018    xiche      1.1.0      change the method names style
 09/03/2018    xiche      1.1.1      add read_txt_rows
 09/07/2018    xiche      1.2.0      add XmlUtils
+09/27/2018    xiche      1.2.1      add OSUtils.copydir to overwrite existed files
+                                    add TxtUtils.write_str_append_to_file_first_line 
 """
 import csv
 import os
 import xml.etree.ElementTree as ET
+import shutil
 
+class OSUtils:
+    def copydir(source, dest):
+        """Copy a directory structure overwriting existing files"""
+        for root, dirs, files in os.walk(source):
+            if not os.path.isdir(root):
+                os.makedirs(root)
+            for file in files:
+                rel_path = root.replace(source, '').lstrip(os.sep)
+                dest_path = os.path.join(dest, rel_path)
+                if not os.path.isdir(dest_path):
+                    os.makedirs(dest_path)
+                shutil.copyfile(os.path.join(root, file), os.path.join(dest_path, file))
+            
 class PathUtils:
 
     @staticmethod
     def check_make_dir_exist(filePath):
         fileDir = PathUtils.get_dir_name_from_full_path(filePath)
-        if not os.path.exists(fileDir):
-            os.makedirs(fileDir)
+        if(fileDir):
+            if not os.path.exists(fileDir):
+                os.makedirs(fileDir)
             
     @staticmethod
     def get_dir_name_from_full_path(filePath):
-        fileDir = filePath
+        fileDir = None
         index1 = filePath.rfind("\\")
         index2 = filePath.rfind("/")
         index = index1 if index1 > index2 else index2
@@ -49,11 +66,16 @@ class PathUtils:
             
         # return fullPath[lastIndex:]
         return file_name
-        
+    @staticmethod
+    def add_flag_to_file_name(file_name, flag):
+        index = file_name.rfind(".")
+        if(index > -1):
+            file_name = file_name[0:index] + '.' + flag + file_name[index:]
+        return file_name
 class CSVUtils:
 
     @staticmethod
-    def write_to_csv_file(filePath, rowsList, delimiterX=',',quotecharX=' ', quotingX=csv.QUOTE_MINIMAL):
+    def write_list_to_csv_file(filePath, rowsList, delimiterX=',',quotecharX='|', quotingX=csv.QUOTE_MINIMAL):
         with open(filePath, 'w', newline='') as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=delimiterX, quotechar=quotecharX, quoting=quotingX)
             for rows in rowsList:
@@ -67,6 +89,15 @@ class CSVUtils:
             for row in csvReader:
                 csvRowsList.append(row)
         return csvRowsList
+        
+    @staticmethod
+    def read_csv_dict_list(file_path):
+        csv_dict_list = []
+        with open(file_path, newline='') as csvfile:
+            csv_reader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
+            for row in csv_reader:
+                csv_dict_list.append(row)
+        return csv_dict_list
 
 class TxtUtils:
     @classmethod
@@ -83,6 +114,20 @@ class TxtUtils:
             for row in rowsList:
                 f.write("%s" % row)
                 
+    @classmethod
+    def write_str_to_file(cls, file_path, str, mode='w'):
+        cls.write_list_to_txt_file(file_path, [str], mode)
+        
+    @classmethod
+    def write_str_append_to_file_first_line(cls, file_path, str, mode='w'):
+        lines = []
+        try:
+            lines = cls.read_txt_rows_list(file_path)
+        except (FileNotFoundError, PermissionError):
+            print('{} Not Exist or No Permission'.format(file_path))
+        lines.insert(0, str)
+        cls.write_list_to_file_with_newline(file_path, lines, mode)
+             
     @classmethod
     def remove_first_line(cls, filePath):
         rowList = cls.read_txt_rows_list_with_newline(filePath)
@@ -129,8 +174,19 @@ class TxtUtils:
         cls.write_list_to_txt_file(file_destination, new_lines)
         
     @classmethod
-    def read_txt_rows(cls,file_path):
+    def read_txt_rows(cls, file_path):
         return len(cls.read_txt_rows_list(file_path))
+        
+    @classmethod
+    def count_rows_contains_str(cls, file_path, str_contains):
+        count = 0
+        with open(file_path, newline='') as f:
+            line = f.readline()
+            while(line):
+                if str_contains.lower() in line.lower() :
+                    count += 1
+                line = f.readline()
+        return count
         
 class ConfigUtils:
     @staticmethod
@@ -165,15 +221,38 @@ class ConfigUtils:
 
 class XmlUtils:
     @classmethod
-    def update_attrib_value(cls, xml_file_path, xpath_str, attrib_str, attrib_new_value):
+    def update_attrib_value_by_xpath(cls, xml_file_path, xpath_str, attrib_str, attrib_new_value):
         xml_et  = ET.parse(xml_file_path)
         root    = xml_et.getroot()
 
-        el_start_base_time = root.find(xpath_str)
+        element = root.find(xpath_str)
 
-        el_start_base_time.attrib[attrib_str] = attrib_new_value
+        element.attrib[attrib_str] = attrib_new_value
         xml_et.write(xml_file_path)
+    
+    @classmethod
+    def get_texts_by_xpath(cls, xml_file_path, xpath_str, tag):
+        xml_et  = ET.parse(xml_file_path)
+        root    = xml_et.getroot()
 
+        els   = root.findall(xpath_str)
+        texts = []
+        for el in els:
+            text = el.find(tag).text
+            texts.append(text)
+        return texts
+       
+    @classmethod
+    def get_attribs_values_by_xpath(cls, xml_file_path, xpath_str, attrib):
+        xml_et  = ET.parse(xml_file_path)
+        root    = xml_et.getroot()
+
+        els   = root.findall(xpath_str)
+        attrib_values = []
+        for el in els:
+            attrib_value = el.attrib[attrib]
+            attrib_values.append(attrib_value)
+        return attrib_values
     # data_service_et     = ET.parse(DATA_SERVICE_CONFIG)
     # pooling_agent_et    = ET.parse(POOLING_AGENT_CONFIG)
 
