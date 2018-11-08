@@ -8,7 +8,7 @@
     <!-- <link type="text/css" rel="stylesheet" href="js/pickr.min.css"/> -->
 
     
-    <link type="text/css" rel="stylesheet" href="js/jsmind.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/jsmind.css" />
     
     <style type="text/css">
         li{margin-top:2px; margin-bottom:2px;}
@@ -92,9 +92,9 @@
 
 </div>
 <div class="color-picker"></div>
-<script type="text/javascript" src="js/jsmind.js"></script>
-<script type="text/javascript" src="js/jsmind.draggable.js"></script>
-<script type="text/javascript" src="js/jsmind.screenshot.js"></script>
+<script type="text/javascript" src="static/js/jsmind.js"></script>
+<script type="text/javascript" src="static/js/jsmind.draggable.js"></script>
+<script type="text/javascript" src="static/js/jsmind.screenshot.js"></script>
 <!-- <script type="text/javascript" src="js/pickr.min.js"></script> -->
 <script type="text/javascript">
     /*const pickr = Pickr.create({
@@ -147,7 +147,7 @@
                     {"id":"easy2","topic":"Easy to edit"},
                     {"id":"easy3","topic":"Easy to store"},
                     {"id":"easy4","topic":"Easy to embed"},
-                    {"id":"other3","background-image":"ant.png", "width": "100", "height": "100"}
+                    {"id":"other3","background-image":"static/resources/ant.png", "width": "100", "height": "100"}
                 ]},
                 {"id":"open","topic":"Open Source","direction":"right","children":[
                     {"id":"open1","topic":"on GitHub", "background-color":"#eee", "foreground-color":"blue"},
@@ -168,7 +168,7 @@
     }
 
     function open_ajax(){
-        var mind_url = 'data_example.json';
+        var mind_url = 'static/resources/data_example.json';
         jsMind.util.ajax.get(mind_url,function(mind){
             _jm.show(mind);
         });
@@ -342,7 +342,7 @@
         var selected_id = get_selected_nodeid();
         if(!selected_id){prompt_info('please select a node first.');return;}
 
-        _jm.set_node_background_image(selected_id, 'ant.png', 100, 100);
+        _jm.set_node_background_image(selected_id, 'static/resources/ant.png', 100, 100);
     }
 
     function set_theme(theme_name){
@@ -486,7 +486,7 @@
                     var mind = {
                         "meta":{
                             "name":mind_name,
-                            "author":"hizzgdev@163.com",
+                            "author":"bear1990@163.com",
                             "version":"1.0.1"
                         },
                         "format":"freemind",
