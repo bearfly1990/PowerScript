@@ -1,0 +1,8 @@
+syntax = "proto3";
+package demo;
+service AddNumber {
+  rpc do_add(data) returns (data){}
+}
+message data {
+  string text = 2;
+}
