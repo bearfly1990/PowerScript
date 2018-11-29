@@ -1,4 +1,10 @@
+# Eclipse Related Info
+## Content Assist
 
+Window > Preferences > Java > Editor > Content Assist
+
+"Auto Activation triggers for java"这个选项就是指触发代码提示的的选项，把“.”修改成".abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+     
 ### Run Eclipse with a JDK
 
 Maven requires Eclipse using a JDK, i.e. Java Development Kit, instead of a Java Runtime Environment (JRE). The main difference is that a JDK also contains a Java Compiler and other tools to develop Java Code, while the JRE is only able to run compiled Java applications.
