@@ -50,5 +50,40 @@ public class AlgorithmsImpl implements IAlgorithms {
 		}
 		return true;
 	}
+	
+	public boolean matchPattern2(String input, String pattern) {
+		// ["hello", "world", "java"]
+		String[] wordArray = input.split(" ");
+		// ["A","B","C"]
+		String[] patternArray = StringUtils.arrayCharToStr(pattern.toCharArray());
 
+		// if pattern and string num is not matched, no compare any more.
+		// e.g. hello world java ！= AB
+		if (wordArray.length != patternArray.length) {
+			return false;
+		}
+
+		for (int i = 0; i < patternArray.length; i++) {
+			String patternEntry = patternArray[i];
+			String wordEntry = wordArray[i];
+			if(wordEntry.startsWith("**")) {
+				if(!wordEntry.equals(patternEntry)) {
+					return false;
+				}
+			}else {
+				if(patternEntry.startsWith("**")) {
+					return false;
+				}
+				for(int j = i; j < patternArray.length; j++) {
+					if(wordArray[j].equals(wordEntry)) {
+						wordArray[j] = "**" + patternEntry;
+					}
+					if(patternArray[j].equals(patternEntry)) {
+						patternArray[j] = "**" + patternEntry;
+					}
+				}
+			}
+		}
+		return true;
+	}
 }
