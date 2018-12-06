@@ -7,8 +7,10 @@ package org.bearfly.fun.javalearn.algorithms;
 
 import static org.junit.Assert.assertEquals;
 
-import org.bearfly.fun.javalearn.algorithms.impl.AlgorithmsImpl;
 import org.junit.Test;
+
+import fun.bearfly.javalearn.algorithms.IAlgorithms;
+import fun.bearfly.javalearn.algorithms.impl.AlgorithmsImpl;
 
 public class AlgorithmsTest {
     @Test
