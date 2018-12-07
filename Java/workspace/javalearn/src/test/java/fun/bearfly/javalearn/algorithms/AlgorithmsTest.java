@@ -3,7 +3,7 @@
 * @author bearfly1990
 * @date Nov 30, 2018 9:42:29 PM
 */
-package org.bearfly.fun.javalearn.algorithms;
+package fun.bearfly.javalearn.algorithms;
 
 import static org.junit.Assert.assertEquals;
 

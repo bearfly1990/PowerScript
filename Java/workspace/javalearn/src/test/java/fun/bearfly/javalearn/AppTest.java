@@ -1,4 +1,4 @@
-package org.bearfly.fun.javalearn;
+package fun.bearfly.javalearn;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
