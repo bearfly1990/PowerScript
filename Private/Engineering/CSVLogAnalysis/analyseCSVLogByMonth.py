@@ -3,8 +3,8 @@ import os
 import csv
 import operator
 
-LIST_MESSAGE_FOLLOW = ['panda_step7_1', 'panda_step9_1']
-LIST_MESSAGE_INIT   = ['collateral', 'lmf','fnl', 'loancontribution']
+LIST_MESSAGE_FOLLOW = ['xxx', 'xxx']
+LIST_MESSAGE_INIT   = ['xxx', 'xxx','xxx', 'xxx']
 def isFloat(valueStr):
     try:
         float(valueStr)
