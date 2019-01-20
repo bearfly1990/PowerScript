@@ -57,7 +57,6 @@ def compare_excels(excel_file01, excel_file02):
 
 if __name__ == '__main__':
     compare_excels('test01.xlsx', 'test01.copy.xlsx')
-    compare_excels('test01.xlsx', 'test03.xlsx')
-    compare_excels('test01.xlsx', 'test03.xlsx')
     compare_excels('test01.xlsx', 'test02.xlsx')
+    compare_excels('test01.xlsx', 'test03.xlsx')
     compare_excels('test01.xlsx', 'test04.xlsx')
