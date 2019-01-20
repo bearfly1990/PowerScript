@@ -1,3 +1,12 @@
+"""
+author: xiche
+create at: 01/20/2019
+description:
+    simple script to compare excel
+Change log:
+Date        Author      Version    Description
+01/20/2019   xiche      1.0        Init
+"""
 import openpyxl
 
 def compare_cell(cell01, cell02):
