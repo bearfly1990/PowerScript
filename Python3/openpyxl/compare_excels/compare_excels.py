@@ -32,7 +32,7 @@ def compare_sheet(sheet01, sheet02):
         for index_col in range(max_column):
             compare_cell(sheet01.cell(column=index_col+1, row=index_row+1), sheet02.cell(column=index_col+1, row=index_row+1))
 
-def test_compare_same_excel(excel_file01, excel_file02):
+def compare_excels(excel_file01, excel_file02):
     print('------compare {} & {}------'.format(excel_file01, excel_file02))
     wb01 = openpyxl.load_workbook(excel_file01)
     wb02 = openpyxl.load_workbook(excel_file02)
@@ -56,8 +56,8 @@ def test_compare_same_excel(excel_file01, excel_file02):
 
 
 if __name__ == '__main__':
-    test_compare_same_excel('test01.xlsx', 'test01.copy.xlsx')
-    test_compare_same_excel('test01.xlsx', 'test03.xlsx')
-    test_compare_same_excel('test01.xlsx', 'test03.xlsx')
-    test_compare_same_excel('test01.xlsx', 'test02.xlsx')
-    test_compare_same_excel('test01.xlsx', 'test04.xlsx')
+    compare_excels('test01.xlsx', 'test01.copy.xlsx')
+    compare_excels('test01.xlsx', 'test03.xlsx')
+    compare_excels('test01.xlsx', 'test03.xlsx')
+    compare_excels('test01.xlsx', 'test02.xlsx')
+    compare_excels('test01.xlsx', 'test04.xlsx')
