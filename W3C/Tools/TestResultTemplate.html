@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Result</title>
+<link rel="Stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</link>
+<style>
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	padding: 8px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+td.elementType {
+	color: #00F;
+}
+
+td.columnType {
+	color: #F01B2D
+}
+
+tr:hover {
+	background-color: #f5f5f5;
+}
+</style>
+</head>
+<body class="container">
+	<h1>Test Result</h1>
+	<!-- <span>${ResultTxt}</span> -->
+	<div id="testResult">
+		<!-- Table markup-->
+		<table id="...">
+			<thead>
+				<tr>
+					<th scope="col" id="">Mart Name</th>
+					<th scope="col" id="">Mart Element</th>
+					<th scope="col" id="">Mart Element Type</th>
+					<th scope="col" id="">Impala Table </th>
+					<th scope="col" id="">Impala Column</th>
+					<th scope="col" id="">Impala Column Type</th>
+				</tr>
+			</thead>
+
+			<!-- Table body -->
+			<tbody>
+				 <tr>
+                        <td>MartNameF</td>
+                        <td>ASOF</td>
+                        <td>int</td>
+                         <td>TableName</td>
+                        <td>ASOF</td>
+                        <td>String</td>
+                    </tr>
+			</tbody>
+            <!-- Table Footer -->
+			<tfoot>
+				<tr>
+					<td>End...</td>
+					<td>End...</td>
+					<td>End...</td>
+					<td>End...</td>
+					<td>End...</td>
+					<td>End...</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+</html>

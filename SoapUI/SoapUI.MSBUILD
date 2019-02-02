@@ -1,0 +1,18 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> 
+<PropertyGroup>
+<SoapUIDir>D:\SoapUI/</SoapUIDir>
+<SoapTestTool>C:\Program Files\SmartBear\SoapUI-5.3.0\bin\testrunner.bat</SoapTestTool>
+</PropertyGroup>
+
+<Target Name="ConfigureSoapUITests">
+<MakeDir Directories="$(SoapUIDir)\Report"/>   
+<ItemGroup>
+<SoapUIProjectFiles Include="$(SoapUIDir)\*-soapui-project.xml"/>      
+</ItemGroup>
+</Target>
+  
+<Target Name="SoapUI_Tests" DependsOnTargets="ConfigureSoapUITests">
+ <!--Run all the soap ui functional tests-->
+   <Exec Command="&quot;$(SoapTestTool)&quot; &quot;%(SoapUIProjectFiles.Identity)&quot; -h &quot;$(HostHeader)&quot; -I -r -a -j -f &quot;$(SoapUIDir)\Report&quot;" />  
+</Target>
+</Project>
