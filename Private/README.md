@@ -12,3 +12,4 @@ The most important things in my life:
 * [x] dokuwiki 
 * [ ] Egret
 * [ ] https://github.com/michaelyou/michaelyou.github.io
+* [ ] https://legacy.gitbook.com/book/eastlakeside/interpy-zh/details
