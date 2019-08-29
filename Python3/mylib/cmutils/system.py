@@ -5,9 +5,9 @@ create at: 09/18/2018
 description:
     Common utils for python script
 Change log:
-Date        Author      Version    Description
-09/18/2018  xiche       1.0        Init
-
+Date          Author      Version    Description
+09/18/2018    xiche       1.0        Init
+08/25/2019    xiche       2.0.0      change folder   
 """
 import os
 import time

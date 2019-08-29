@@ -5,18 +5,20 @@ create at: 06/16/2018
 description:
     Utils for io operation
 Change log:
-Date         Author      Version    Description
-06/16/2018    xiche      1.0.1      add replace variables features for TxtUtils
-06/17/2018    xiche      1.0.2      add TxtUtils.read_first_line
-07/30/2018    xiche      1.0.3      add cls for class method
-08/10/2018    xiche      1.0.4      add class PathUtils
-08/18/2018    xiche      1.0.5      add TxtUtils.read_string_from_txt
-08/30/2018    xiche      1.1.0      change the method names style
-09/03/2018    xiche      1.1.1      add read_txt_rows
-09/07/2018    xiche      1.2.0      add XmlUtils
-09/27/2018    xiche      1.2.1      add OSUtils.copydir to overwrite existed files
-                                    add TxtUtils.write_str_append_to_file_first_line 
+Date          Author      Version    Description
+06/16/2018    xiche       1.0.1      add replace variables features for TxtUtils
+06/17/2018    xiche       1.0.2      add TxtUtils.read_first_line
+07/30/2018    xiche       1.0.3      add cls for class method
+08/10/2018    xiche       1.0.4      add class PathUtils
+08/18/2018    xiche       1.0.5      add TxtUtils.read_string_from_txt
+08/30/2018    xiche       1.1.0      change the method names style
+09/03/2018    xiche       1.1.1      add read_txt_rows
+09/07/2018    xiche       1.2.0      add XmlUtils
+09/27/2018    xiche       1.2.1      add OSUtils.copydir to overwrite existed files
+                                     add TxtUtils.write_str_append_to_file_first_line 
+08/25/2019    xiche       2.0.0      change folder                            
 """
+
 import csv
 import os
 import xml.etree.ElementTree as ET

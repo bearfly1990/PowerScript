@@ -5,9 +5,9 @@ create at: 08/19/2018
 description:
     Common Excel utils for python script
 Change log:
-Date        Author      Version    Description
-08/19/2018   xiche      1.0        Init, add style_range
-
+Date          Author      Version    Description
+08/19/2018    xiche       1.0        Init, add style_range
+08/25/2019    xiche       2.0.0      change folder   
 """
 from openpyxl.styles import Border, Side, PatternFill, Font, GradientFill, Alignment
 from openpyxl import Workbook

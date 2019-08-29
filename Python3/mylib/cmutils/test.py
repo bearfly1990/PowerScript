@@ -5,12 +5,12 @@ create at: 12/06/2018
 description:
     Common utils for performance test result
 Change log:
-Date        Author      Version    Description
-12/06/2018   xiche       1.0       Init
-
+Date          Author      Version    Description
+12/06/2018    xiche       1.0        Init
+08/25/2019    xiche       2.0.0      change folder  
 """
 import sys
-sys.path.insert(0, r"\\nj.pfs.net\departments\Development\Team Engineering\xiche\pythonlib")
+sys.path.insert(0, r"C:\Users\mayn\Desktop\GitSpace\PowerScript\Python3\mylib\cmutils")
 from sqlalchemy import Column, DateTime, Float, String, create_engine, Integer, ForeignKey, exists, exc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship

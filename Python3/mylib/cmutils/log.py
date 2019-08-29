@@ -5,19 +5,20 @@ create at: 06/16/2018
 description:
     Utils for log
 Change log:
-Date         Author      Version    Description
-08/31/2018    xiche      1.0.1      Add change_logging_file
-09/12/2018    xiche      1.1.0      ShowProcess
-09/27/2018    xiche      1.1.1      Add VMTalk
-10/10/2018    xiche      1.1.2      Add VMTalk.hear, VMTalk.wait
+Date          Author      Version    Description
+08/31/2018    xiche       1.0.1      Add change_logging_file
+09/12/2018    xiche       1.1.0      ShowProcess
+09/27/2018    xiche       1.1.1      Add VMTalk
+10/10/2018    xiche       1.1.2      Add VMTalk.hear, VMTalk.wait
+08/25/2019    xiche       2.0.0      change folder  
 '''
 import sys, time, logging
-sys.path.insert(0, r"\\nj.pfs.net\departments\Development\Team Engineering\xiche\pythonlib")
+sys.path.insert(0, r"C:\Users\mayn\Desktop\GitSpace\PowerScript\Python3\mylib\cmutils")
 
 from colorlog import ColoredFormatter
 from threading import Thread
 from datetime import datetime
-from cmutils.cmutils_io import TxtUtils
+from cmutils.io import TxtUtils
 class Logger:
     # __LOG_FORMATTER_FILE =  ''
     # __LOG_FILE_PATH = ''

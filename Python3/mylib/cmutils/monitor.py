@@ -5,14 +5,16 @@ create at: 04/22/2018
 description:
     System Monitor
 Change log:
-Date        Author      Version     Description
-04/22/2018  xiche       1.0         init
-06/06/2018  xiche       1.0.1       fix cpu pecent
-06/16/2018  xiche       1.0.2       add class Monitor
-08/16/2018  xiche       1.0.3       add MQ monitor
+Date          Author       Version     Description
+04/22/2018    xiche        1.0         init
+06/06/2018    xiche        1.0.1       ix cpu pecent
+06/16/2018    xiche        1.0.2       add class Monitor
+08/16/2018    xiche        1.0.3       add MQ monitor
+08/25/2019    xiche        2.0.0       change folder   
 """
 import sys
-sys.path.insert(0, r"xxx\pythonlib")
+sys.path.insert(0, r"C:\Users\mayn\Desktop\GitSpace\PowerScript\Python3\mylib\cmutils")
+
 import psutil
 import math
 import time
@@ -21,7 +23,7 @@ import csv
 import os
 from abc import abstractmethod, ABC
 from threading import Thread
-from cmutils.cmutils_value import Units, convertByteTo
+from cmutils.value import Units, convertByteTo
 # from lib.cmutils_io import CSVUtils
 class SystemInfo(ABC):
     __free      = 0
