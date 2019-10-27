@@ -1,0 +1,2 @@
+Country,mapping1.txt
+City,mapping2.txt

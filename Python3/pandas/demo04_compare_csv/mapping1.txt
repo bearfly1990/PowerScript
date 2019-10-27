@@ -1,0 +1,4 @@
+China,CN
+America,USA
+English,US
+Japan,JP
