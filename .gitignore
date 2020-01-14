@@ -11,6 +11,7 @@ Desktop.ini
 dist
 build
 __pycache__
+.venv/
 
 # My configurations:
 db.ini
