@@ -12,9 +12,8 @@ Date          Author      Version    Description
 10/10/2018    xiche       1.1.2      Add VMTalk.hear, VMTalk.wait
 08/25/2019    xiche       2.0.0      change folder  
 '''
-import sys, time, logging
-sys.path.insert(0, r"C:\Users\mayn\Desktop\GitSpace\PowerScript\Python3\mylib\cmutils")
-
+import os,sys, time, logging
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from colorlog import ColoredFormatter
 from threading import Thread
 from datetime import datetime
@@ -71,7 +70,7 @@ class Logger:
             'ERROR': logging.ERROR,
             'WARN': logging.WARN
         }.get(x, logging.INFO)
-        
+
     def init_colored_formatter(self, format_str):
         formatter = ColoredFormatter(
             format_str,

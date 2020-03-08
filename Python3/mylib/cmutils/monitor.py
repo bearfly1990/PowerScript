@@ -13,7 +13,7 @@ Date          Author       Version     Description
 08/25/2019    xiche        2.0.0       change folder   
 """
 import sys
-sys.path.insert(0, r"C:\Users\mayn\Desktop\GitSpace\PowerScript\Python3\mylib\cmutils")
+# sys.path.insert(0, r"C:\Users\mayn\Desktop\GitSpace\PowerScript\Python3\mylib\cmutils")
 
 import psutil
 import math
@@ -23,7 +23,7 @@ import csv
 import os
 from abc import abstractmethod, ABC
 from threading import Thread
-from cmutils.value import Units, convertByteTo
+from value import Units, convertByteTo
 # from lib.cmutils_io import CSVUtils
 class SystemInfo(ABC):
     __free      = 0

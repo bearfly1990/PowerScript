@@ -7,7 +7,7 @@ description:
 Change log:
 Date          Author      Version    Description
 08/15/2018    xiche       1.0.1      Setup
-08/25/2019    xiche       2.0.0      change folder   
+08/25/2019    xiche       2.0.0      change folder
 """
 import smtplib
 import os
