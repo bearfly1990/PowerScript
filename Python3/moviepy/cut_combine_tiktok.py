@@ -25,7 +25,17 @@ if __name__=="__main__":
             video = video.subclip(int(start_time), int(stop_time))#执行剪切操作
             video.to_videofile(target, fps=20, remove_temp=True)#输出文件
             # os.remove(source)
-            video = video.set_start(start_sec).set_pos("center").resize(video.size[0]/1300)
+            print(video.size[0],video.size[1])
+            print(video.size[0]/1300,video.size[1]/720)
+            rate_x = video.size[0]/1300
+            rate_y = video.size[1]/720
+            rate_max = max(rate_x, rate_y)
+            if rate_max > 1:
+                rate_max = 1/rate_max
+            else:
+                rate_max = 1
+            video = video.set_start(start_sec).set_pos("center").resize(rate_max)
+            print('-=====>', rate_max)
             start_sec = start_sec + video.duration
             video_list.append(video)#将加载完后的视频加入列表
         except Exception as e:
