@@ -26,7 +26,7 @@ def convert_video(file):
         start_time = 0
         stop_time = total_seconds - 3
         video = video.subclip(int(start_time), int(stop_time))# 执行剪切操作
-        # video.to_videofile(target, fps=20, remove_temp=True)# 输出文件
+        video.to_videofile(target, fps=20, remove_temp=True)# 输出文件
         # os.remove(source)
         VIDEO_LIST.append(video)# 将加载完后的视频加入列表
     except Exception as e:
@@ -61,7 +61,7 @@ if __name__=="__main__":
     wait(all_task, return_when=ALL_COMPLETED)
     combine_videos()
     ended_time = datetime.now()
-    print(f'time cost:{ended_time - start_time}s')
+    print(f'time cost: {ended_time - start_time}')
     # files = glob.glob('**/*.mp4', recursive=True)
     # video_list = []
     # start_sec = 0
